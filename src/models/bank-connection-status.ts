@@ -3,6 +3,7 @@ export enum BankConnectionStatus {
   BankActivationRequired = 2,
   CouldNotConnect = 4,
   Suspended = 8,
+  Validated = 16,
 }
 
 export const isConnectionActive = (t: BankConnectionStatus): boolean => {
@@ -31,4 +32,11 @@ export const isSuspended = (t: BankConnectionStatus): boolean => {
     return false;
   }
   return (t & BankConnectionStatus.Suspended) != 0 ? true : false;
+};
+
+export const isValidated = (t: BankConnectionStatus): boolean => {
+  if (!t) {
+    return false;
+  }
+  return (t & BankConnectionStatus.Validated) != 0 ? true : false;
 };

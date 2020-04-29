@@ -2,7 +2,7 @@ import { BankConnectionResponse, BankSyncRequest, BankSyncRequestType, BankSyncA
 import { Router } from 'express';
 import { BankConnectionError } from '@root/src/models/errors';
 import * as moment from 'moment';
-import { bankConnectionController } from '../controllers/connections-controller';
+import { bankConnectionController as databaseController } from '../controllers/connections-controller';
 import { GuidFull } from '../utils/generateGuid';
 import logger from '../logger';
 import { BankConnection } from '../models/bank-connection';
@@ -12,7 +12,9 @@ import {
   isBankActivationRequired,
   isCouldNotConnect,
   isSuspended,
+  isValidated,
 } from '../models/bank-connection-status';
+import pollController from '../controllers/bank-controller';
 
 const router = Router();
 
@@ -23,6 +25,7 @@ const toResponseBankConnection = (c: BankConnection): any => {
     isBankActivationRequired: isBankActivationRequired(c.status),
     isCouldNotConnect: isCouldNotConnect(c.status),
     isSuspended: isSuspended(c.status),
+    isValidated: isValidated(c.status),
   };
 };
 
@@ -74,13 +77,22 @@ async function processAddBankConnectionRequest(args: BankSyncArgs): Promise<Bank
   };
 
   try {
-    await bankConnectionController.create(newBankConnection);
+    const connectionStatus = await pollController.getConnectionStatus(newBankConnection);
+    if (connectionStatus.statusData && connectionStatus.statusData.severity !== 'ERROR') {
+      newBankConnection.status |= BankConnectionStatus.Validated;
+    } else {
+      newBankConnection.status |= BankConnectionStatus.CouldNotConnect;
+    }
 
-    // initiate test poll here and see if bank returns error
+    await databaseController.create(newBankConnection);
 
     response.payload = {
       ...response.payload,
       connectionId: newBankConnection.connectionId,
+      connections: [toResponseBankConnection(newBankConnection)],
+      bankSeverity: connectionStatus.statusData && connectionStatus.statusData.severity,
+      bankMessage: connectionStatus.statusData && connectionStatus.statusData.message,
+      bankCode: connectionStatus.statusData && connectionStatus.statusData.code,
     };
   } catch (error) {
     console.error(error.message || error);
@@ -98,7 +110,7 @@ async function processReadBankConnectionsRequest(args: BankSyncArgs): Promise<Ba
   };
 
   try {
-    let connections = await bankConnectionController.read({ userId: args.userId });
+    let connections = await databaseController.read({ userId: args.userId });
     connections = connections.map((c: BankConnection) => {
       return toResponseBankConnection(c);
     });
@@ -123,7 +135,7 @@ async function processRemoveBankConnectionRequest(args: BankSyncArgs): Promise<B
   };
 
   try {
-    const connections = await bankConnectionController.read({ connectionId: args.connectionId });
+    const connections = await databaseController.read({ connectionId: args.connectionId });
     if (!connections || !connections.length || connections.length !== 1) {
       const error = `Can not remove connection ${args.connectionId}, connection was not found, please check connectionId.`;
       logger.error(error);
@@ -133,7 +145,7 @@ async function processRemoveBankConnectionRequest(args: BankSyncArgs): Promise<B
     }
     const connection = connections[0];
 
-    await bankConnectionController.delete({ connectionId: args.connectionId });
+    await databaseController.delete({ connectionId: args.connectionId });
     response.payload = {
       ...response.payload,
       userId: connection.userId,
@@ -154,7 +166,7 @@ async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<B
   };
 
   try {
-    const connections = await bankConnectionController.read({ connectionId: args.connectionId });
+    const connections = await databaseController.read({ connectionId: args.connectionId });
     if (!connections || !connections.length || connections.length !== 1) {
       const error = `Can not update connection ${args.connectionId}, connection was not found, please check connectionId.`;
       logger.error(error);
@@ -180,7 +192,14 @@ async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<B
       connection.status &= ~BankConnectionStatus.Suspended;
     }
 
-    await bankConnectionController.update(connection);
+    const connectionStatus = await pollController.getConnectionStatus(connection);
+    if (connectionStatus.statusData && connectionStatus.statusData.severity !== 'ERROR') {
+      connection.status |= BankConnectionStatus.Validated;
+    } else {
+      connection.status |= BankConnectionStatus.CouldNotConnect;
+    }
+
+    await databaseController.update(connection);
 
     // test updated connection and see it it's valid
 
@@ -188,6 +207,9 @@ async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<B
       ...response.payload,
       userId: connection.userId,
       connections: [toResponseBankConnection(connection)],
+      bankSeverity: connectionStatus.statusData && connectionStatus.statusData.severity,
+      bankMessage: connectionStatus.statusData && connectionStatus.statusData.message,
+      bankCode: connectionStatus.statusData && connectionStatus.statusData.code,
     };
   } catch (error) {
     console.error(error.message || error);

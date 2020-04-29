@@ -15,6 +15,9 @@ export interface ResponseBase {
     connectionId?: string;
     userId?: string;
     connections?: BankConnection[];
+    bankSeverity?: string;
+    bankMessage?: string;
+    bankCode?: number;
   };
 }
 
