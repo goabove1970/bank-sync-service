@@ -1,0 +1,40 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./dist/bin/www",
+    "build": "npm run compile",
+    "build:ts": "tsc",
+    "compile": "npm run build:ts",
+    "prettier:check": "prettier --check \"./**/*.{js,ts,tsx,json,scss,md}\"",
+    "prettier:write": "prettier --write \"./**/*.{js,ts,tsx,json,scss,md}\""
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "guid-typescript": "^1.0.9",
+    "http-errors": "^1.7.3",
+    "module-alias": "^2.2.2",
+    "moment": "^2.24.0",
+    "node-cron": "^2.0.3",
+    "prettier": "^1.18.2",
+    "python-shell": "^1.0.8",
+    "ts-postgres": "^1.1.0",
+    "tsc": "^1.20150623.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.1",
+    "typescript": "^3.7.0-dev.20191021"
+  },
+  "_moduleAliases": {
+    "@root": "dist",
+    "@src": "dist/src",
+    "@models": "dist/src/models",
+    "@routes": "dist/src/routes",
+    "@utils": "dist/src/utils",
+    "@controllers": "dist/src/controllers"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "action": "update-bank-connection",
+  "args": {
+    "connectionId": "539d21bd-0a3e-132d-d900-04c16fd16418",
+    "login": "login7",
+    "password": "password8",
+    "suspend": false
+  }
+}

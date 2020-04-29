@@ -1,0 +1,6 @@
+{
+  "action": "remove-bank-connection",
+  "args": {
+    "connectionId": "1f2df952-464b-8ad1-1364-28d72b101e02"
+  }
+}

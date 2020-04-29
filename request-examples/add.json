@@ -1,0 +1,9 @@
+{
+  "action": "add-bank-connection",
+  "args": {
+    "userId": "098be70d-f5c1-0799-e0b2-9226eb0c4f1d",
+    "bankName": "chase",
+    "login": "login11",
+    "password": "password11"
+  }
+}

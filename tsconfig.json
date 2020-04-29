@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "alwaysStrict": true,
+        "baseUrl": ".",
+        "checkJs": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "sourceMap": true,
+        "outDir": "dist",
+        "removeComments": true,
+        "strict": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "target": "esnext",
+        "paths": {
+            "@root/*": ["./*"],
+            "@src/*": ["src/*"],
+            "@models/*": ["src/models/*"],
+            "@routes/*": ["src/routes/*"],
+            "@utils/*": ["src/utils/*"],
+            "@controllers/*": ["src/controllers/*"]
+        }
+    },
+    "include": ["src/**/*", "app.ts", "bin/www.ts"],
+    "exclude": ["node_modules"]
+}
