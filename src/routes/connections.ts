@@ -159,7 +159,7 @@ async function processRemoveBankConnectionRequest(args: BankSyncArgs): Promise<B
 
 async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<BankConnectionResponse> {
   const response: BankConnectionResponse = {
-    action: BankSyncRequestType.RemoveBankConnection,
+    action: BankSyncRequestType.UpdateBankConnection,
     payload: {
       connectionId: args.connectionId,
     },
