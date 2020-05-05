@@ -1,4 +1,5 @@
 import { AccountData } from './account-data';
+import { TransactionImprtResult } from '../controllers/transaction-processor-controller/TransactionProcessor';
 
 export interface BankAccountPollStatus {
   accountNumber?: string;
@@ -8,6 +9,7 @@ export interface BankAccountPollStatus {
   bankConnectionError?: string;
   bankConnectionErrorCode?: number;
   accountData?: AccountData;
+  syncData?: TransactionImprtResult;
 }
 
 export interface BankConnectionStats {

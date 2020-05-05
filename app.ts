@@ -6,6 +6,10 @@ var createError = require('http-errors');
 require('@src/controllers/bank-controller/scheduler');
 
 import * as bankConnectionsRouter from '@root/src/routes/connections';
+import * as transactionsRouter from '@routes/transactions';
+import * as accountRouter from '@routes/accounts';
+import * as categoryRouter from '@routes/categories';
+import * as businessRouter from '@routes/businesses';
 import logger from '@src/logger';
 
 export const app = express();
@@ -16,6 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/bank-connections', bankConnectionsRouter);
+app.use('/transactions', transactionsRouter);
+app.use('/accounts', accountRouter);
+app.use('/categories', categoryRouter);
+app.use('/business', businessRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

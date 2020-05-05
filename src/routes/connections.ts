@@ -15,6 +15,11 @@ import {
   isValidated,
 } from '../models/bank-connection-status';
 import pollController from '../controllers/bank-controller';
+import { AccountCreateArgs } from '../models/accounts/AccountCreateArgs';
+import { AccountType } from '../models/accounts/Account';
+import accountController from '../controllers/account-controller';
+import { isCreditAccountType } from '../utils/accountUtils';
+import scheduler from '../controllers/bank-controller/scheduler';
 
 const router = Router();
 
@@ -50,6 +55,9 @@ const process = async function(req, res, next) {
     case BankSyncRequestType.UpdateBankConnection:
       responseData = await processUpdateBankConnectionRequest(bankSyncRequest.args);
       break;
+    case BankSyncRequestType.Synchonize:
+      responseData = await processSyncBankConnectionsRequest(bankSyncRequest.args);
+      break;
   }
 
   res.send(responseData);
@@ -66,6 +74,13 @@ async function processAddBankConnectionRequest(args: BankSyncArgs): Promise<Bank
     },
   };
 
+  const connections = await databaseController.read({ userId: args.userId });
+  if (connections.some((c) => c.bankName === args.bankName && c.login === args.login)) {
+    response.error = `Bank connection ${args.bankName}:${args.login} already exists for user ${args.userId}`;
+    response.errorCode = 2026;
+    return response;
+  }
+
   const newBankConnection: BankConnection = {
     connectionId: GuidFull(),
     dateAdded: moment().toDate(),
@@ -76,10 +91,36 @@ async function processAddBankConnectionRequest(args: BankSyncArgs): Promise<Bank
     status: BankConnectionStatus.Active,
   };
 
+  const linkedAccounts = [];
+
   try {
     const connectionStatus = await pollController.getConnectionStatus(newBankConnection);
     if (connectionStatus.statusData && connectionStatus.statusData.severity !== 'ERROR') {
       newBankConnection.status |= BankConnectionStatus.Validated;
+      // add new bank account records to 'accounts' table
+
+      for (let it = 0; it < (connectionStatus.accounts || []).length; ++it) {
+        const acct = connectionStatus.accounts[it];
+        const type = acct.acctype === 'CHECKING' ? AccountType.Debit | AccountType.Checking : AccountType.Credit;
+        const acctCreateArgs: AccountCreateArgs = {
+          userId: args.userId,
+          bankRoutingNumber: acct.bankId || acct.accountId,
+          bankAccountNumber: acct.accountId,
+          bankName: args.bankName,
+          accountType: type,
+          serviceComment: acct.acctype,
+          alias: acct.description,
+        };
+        if (isCreditAccountType(type)) {
+          acctCreateArgs.cardNumber = acct.accountId;
+        }
+        const accountId = await accountController.create(acctCreateArgs);
+        await accountController.assignUser(args.userId, accountId);
+        linkedAccounts.push({
+          bankAccountNumber: acct.accountId,
+          accountId,
+        });
+      }
     } else {
       newBankConnection.status |= BankConnectionStatus.CouldNotConnect;
     }
@@ -93,6 +134,7 @@ async function processAddBankConnectionRequest(args: BankSyncArgs): Promise<Bank
       bankSeverity: connectionStatus.statusData && connectionStatus.statusData.severity,
       bankMessage: connectionStatus.statusData && connectionStatus.statusData.message,
       bankCode: connectionStatus.statusData && connectionStatus.statusData.code,
+      linkedAccounts,
     };
   } catch (error) {
     console.error(error.message || error);
@@ -210,6 +252,46 @@ async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<B
       bankSeverity: connectionStatus.statusData && connectionStatus.statusData.severity,
       bankMessage: connectionStatus.statusData && connectionStatus.statusData.message,
       bankCode: connectionStatus.statusData && connectionStatus.statusData.code,
+    };
+  } catch (error) {
+    console.error(error.message || error);
+    response.error = error.message || error;
+  }
+  return response;
+}
+
+async function processSyncBankConnectionsRequest(args: BankSyncArgs): Promise<BankConnectionResponse> {
+  const response: BankConnectionResponse = {
+    action: BankSyncRequestType.Synchonize,
+    payload: {
+      connectionId: args.connectionId,
+      userId: args.userId,
+    },
+  };
+
+  try {
+    const syncData = await scheduler.executeSync(args.userId, args.connectionId, true);
+
+    // delete senditive/service data
+    syncData.forEach((sd) => {
+      delete sd.password;
+      delete sd.userId;
+      delete sd.lastPollDate;
+      delete sd.dateAdded;
+      if (sd.lastPollStats) {
+        delete sd.lastPollStats.userId;
+        if (sd.lastPollStats.accounts) {
+          sd.lastPollStats.accounts.forEach((acc) => {
+            if (acc.accountData) {
+              delete acc.accountData.transactions;
+            }
+          });
+        }
+      }
+    });
+    response.payload = {
+      ...response.payload,
+      syncData,
     };
   } catch (error) {
     console.error(error.message || error);

@@ -16,8 +16,8 @@ export class BankSyncScheduler {
     });
   }
 
-  async executeSync(): Promise<BankConnection[]> {
-    return pollController.executeSync();
+  async executeSync(userId?: string, connectionId?: string, force?: boolean): Promise<BankConnection[]> {
+    return pollController.executeSync(userId, connectionId, force);
   }
 }
 

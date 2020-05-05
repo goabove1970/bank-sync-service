@@ -6,6 +6,7 @@ export enum BankSyncRequestType {
   RemoveBankConnection = 'remove-bank-connection',
   UpdateBankConnection = 'update-bank-connection',
   GetBankConnections = 'get-bank-connections',
+  Synchonize = 'sync',
 }
 
 export interface ResponseBase {
@@ -18,6 +19,8 @@ export interface ResponseBase {
     bankSeverity?: string;
     bankMessage?: string;
     bankCode?: number;
+    linkedAccounts?: any;
+    syncData?: any;
   };
 }
 

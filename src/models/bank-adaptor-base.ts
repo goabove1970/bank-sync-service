@@ -104,6 +104,7 @@ export class BankAdaptorBase implements BankAdaptor {
                 acctData.transactions.push(data);
               }
             });
+            acctData.transactionsCount = acctData.transactions.length;
           }
         } while (trnsMatch);
         resolve(acctData);
