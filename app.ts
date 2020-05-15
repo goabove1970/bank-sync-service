@@ -11,6 +11,7 @@ import * as accountRouter from '@routes/accounts';
 import * as categoryRouter from '@routes/categories';
 import * as businessRouter from '@routes/businesses';
 import logger from '@src/logger';
+import { BankAdaptorBase } from './src/models/bank-adaptor-base';
 
 export const app = express();
 
@@ -28,6 +29,8 @@ app.use('/business', businessRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+BankAdaptorBase.removeOldFiles();
 
 app.use(function(error, req, res, next) {
   if (error) {

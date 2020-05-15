@@ -30,6 +30,7 @@ export class BankPollController {
   constructor() {}
 
   async syncConnection(conn: BankConnection, sessionId: string): Promise<BankConnectionStats> {
+    await BankAdaptorBase.removeOldFiles();
     const syncStats: BankConnectionStats = {
       userId: conn.userId,
       syncSessionId: sessionId,

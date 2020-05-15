@@ -6,6 +6,8 @@ import moment = require('moment');
 import { ofxResponse } from './ofx-response';
 import { ofxStatusData } from './ofx-status-data';
 let { PythonShell } = require('python-shell');
+const fs = require('fs');
+var path = require('path');
 
 export class BankAdaptorBase implements BankAdaptor {
   login: string;
@@ -19,6 +21,50 @@ export class BankAdaptorBase implements BankAdaptor {
     this.login = login;
     this.password = password;
   }
+
+  static async removeOldFiles(): Promise<void> {
+    await this.clearOldFileUploads('./tmp/fileUploads', '.tmp');
+    await this.clearOldFileUploads('.', '.ofx');
+    return Promise.resolve();
+  }
+
+  static async clearOldFileUploads(tmpDir: string, ext: string): Promise<void> {
+    if (!fs.existsSync(tmpDir)) {
+      return;
+    }
+
+    const files = fs.readdirSync(tmpDir);
+    const filtered = [];
+    const promises = [];
+    for (let i = 0; i < files.length; ++i) {
+      promises.push(
+        new Promise((resolve, reject) => {
+          fs.stat(path.join(tmpDir, files[i]), (error, stats) => {
+            if (error) {
+              reject(error);
+            } else {
+              if (files[i].indexOf(ext) !== -1 && moment(stats.mtimeMs).isBefore(moment().subtract(1, 'hours'))) {
+                filtered.push(files[i]);
+              }
+              resolve();
+            }
+          });
+        })
+      );
+    }
+    await Promise.all(promises);
+
+    for (let i = 0; i < filtered.length; ++i) {
+      const filename = path.join(tmpDir, filtered[i]);
+      if (fs.existsSync(filename)) {
+        try {
+          fs.unlinkSync(filename);
+        } catch {}
+      }
+    }
+    return Promise.resolve();
+  }
+
   extractAccounts(): Promise<ofxResponse> {
     var pyArgs = [this.bankName, this.login, this.password];
     let options = {
