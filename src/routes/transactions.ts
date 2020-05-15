@@ -110,7 +110,10 @@ async function processReadTransactionsRequest(args: ReadTransactionArgs): Promis
     categorization: args.categorization,
   };
   try {
-    const transactionsReadResult = await transactionProcessor.read(readArgs);
+    const transactionsReadResult =
+      !readArgs.accountId && (!readArgs.accountIds || readArgs.accountIds.length === 0)
+        ? []
+        : await transactionProcessor.read(readArgs);
     if (args.countOnly) {
       const number = transactionsReadResult as number;
       response.payload = {
