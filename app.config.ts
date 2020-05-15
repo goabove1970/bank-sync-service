@@ -1,16 +1,16 @@
 import { PgConfig } from './src/controllers/data-controller/database/PgConfig';
 
 export interface ApplicationConfig {
-    PgConfig?: PgConfig;
+  PgConfig?: PgConfig;
 }
 
 export const CONFIG: ApplicationConfig = {
-    PgConfig: {
-        host: '127.0.0.1',
-        port: 5432,
-        login: 'postgres',
-        password: 'admin',
-        database: 'postgres',
-        schema: 'public',
-    },
+  PgConfig: {
+    host: 'dinero-db.cmi7wgy95mjp.us-east-2.rds.amazonaws.com',
+    port: 5432,
+    login: 'postgres',
+    password: 'G62LHttp9FF9',
+    database: 'postgres',
+    schema: 'public',
+  },
 };
