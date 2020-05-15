@@ -68,7 +68,7 @@ const process = async function(req, res, next) {
 
 router.post('/', process);
 router.get('/', process);
-router.put('/upload/*', processUploadRequest);
+router.post('/upload/*', processUploadRequest);
 
 async function processUpdateTransactionRequest(args: UpdateTransactionArgs): Promise<TransactionResponse> {
   const response: TransactionResponse = { action: TransactionRequestType.Update, payload: {} };
@@ -225,6 +225,8 @@ async function processUploadRequest(req, res, next) {
   tmpDir = './tmp/fileUploads';
   if (!fs.existsSync(tmpDir)) {
     fs.mkdirSync(tmpDir);
+  } else {
+    //Todo: delete old files
   }
   const fileName = path.join(tmpDir, `${GuidEight()}.tmp`);
 

@@ -100,7 +100,7 @@ export class TransactionProcessor {
   }
 
   async mergeWithExisting(pending: Transaction[], accountId: string): Promise<Transaction[]> {
-    const comparisonDepth = 30;
+    // const comparisonDepth = 30;
 
     const pendingPosted = pending.filter((tr) => tr.chaseTransaction.PostingDate !== undefined);
 
@@ -108,7 +108,7 @@ export class TransactionProcessor {
     const lastExistingPosted = ((await transController.read({
       accountId,
       order: SortOrder.descending,
-      readCount: comparisonDepth,
+      //readCount: comparisonDepth,
     })) as Transaction[]).filter((tr) => tr.chaseTransaction.PostingDate !== undefined);
 
     // if there are no transactions in database, return all pending transactions
@@ -117,25 +117,37 @@ export class TransactionProcessor {
     }
 
     // assuming it may take up to 5 days for transaction to post,
-    // we will start from a date of the last existing transaction in database, minues 5 days
+    // we will start from a date of the last existing transaction in database, minus 5 days
 
-    const lastTransactionDate = lastExistingPosted[0].chaseTransaction.PostingDate;
-    const beginningDate = new Date(lastTransactionDate);
-    beginningDate.setDate(beginningDate.getDate() - 5);
-    const today = new Date();
+    // sort pennding transactions by posting date
+    pending = pending
+      .filter((c) => c.chaseTransaction.PostingDate !== undefined)
+      .sort((p1, p2) =>
+        moment(p1.chaseTransaction.PostingDate).isBefore(moment(p2.chaseTransaction.PostingDate)) ? -1 : 1
+      );
+    if (!pending || pending.length === 0) {
+      return [];
+    }
+    const lastTransactionDate = moment(pending[0].chaseTransaction.PostingDate).isBefore(
+      moment(lastExistingPosted[0].chaseTransaction.PostingDate)
+    )
+      ? pending[0].chaseTransaction.PostingDate
+      : lastExistingPosted[0].chaseTransaction.PostingDate;
+    const beginningDate = moment(lastTransactionDate).subtract(5, 'days');
+    const today = moment();
 
     let toBeAdded: Transaction[] = [];
 
-    for (let date = new Date(beginningDate); date <= today; date.setDate(date.getDate() + 1)) {
+    for (let date = beginningDate; date.startOf('day').isSameOrBefore(today.startOf('day')); date.add(1, 'day')) {
       const dbRecords = lastExistingPosted.filter((t) =>
         moment(t.chaseTransaction.PostingDate)
           .startOf('day')
-          .isSame(moment(date).startOf('day'))
+          .isSame(date.startOf('day'))
       );
       const pendingRecords = pendingPosted.filter((t) => {
         const collDate = moment(t.chaseTransaction.PostingDate).startOf('day');
 
-        const iteratorDate = moment(date).startOf('day');
+        const iteratorDate = date.startOf('day');
         return collDate.isSame(iteratorDate);
       });
 
@@ -286,15 +298,15 @@ export function originalTransactionEquals(t1: ChaseTransaction, t2: ChaseTransac
 export function sameTransaction(db: ChaseTransaction, t2: ChaseTransaction) {
   return (
     db.Amount === t2.Amount &&
-    (db.CreditCardTransactionType || undefined) === (t2.CreditCardTransactionType || undefined) &&
+    //(db.CreditCardTransactionType || undefined) === (t2.CreditCardTransactionType || undefined) &&
     ((db.Description || undefined) === (t2.Description || undefined) ||
       ((db.Description && `"${db.Description}"`) || undefined) === (t2.Description || undefined)) &&
-    (db.Details || undefined) === (t2.Details || undefined) &&
+    //(db.Details || undefined) === (t2.Details || undefined) &&
     moment(db.PostingDate)
       .startOf('day')
       .isSame(moment(t2.PostingDate).startOf('day')) &&
-    (db.Type || undefined) === (t2.Type || undefined) &&
-    (db.CreditCardTransactionType || undefined) === (t2.CreditCardTransactionType || undefined)
+    (db.Type || undefined) === (t2.Type || undefined) //&&
+    //(db.CreditCardTransactionType || undefined) === (t2.CreditCardTransactionType || undefined)
   );
 }
 

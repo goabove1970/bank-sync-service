@@ -9,7 +9,7 @@ export enum BankSyncRequestType {
   Synchonize = 'sync',
 }
 
-export interface ResponseBase {
+export interface BankResponseBase {
   error?: string;
   errorCode?: number;
   payload?: {
@@ -29,7 +29,7 @@ export interface BankSyncRequest {
   args?: BankSyncArgs;
 }
 
-export interface BankConnectionResponse extends ResponseBase {
+export interface BankConnectionResponse extends BankResponseBase {
   action?: BankSyncRequestType;
 }
 
