@@ -1,8 +1,6 @@
 import { BankConnection } from '@root/src/models/bank-connection';
 import pollController from '.';
 
-var cron = require('node-cron');
-
 export class BankSyncScheduler {
   constructor() {
     this.restartScheduler();
@@ -10,10 +8,9 @@ export class BankSyncScheduler {
   }
 
   restartScheduler() {
-    const cronArgument = '0 * * * *'; // every hour
-    cron.schedule(cronArgument, async () => {
+    window.setInterval(async () => {
       await this.executeSync();
-    });
+    }, 1000 * 60 * 60);
   }
 
   async executeSync(userId?: string, connectionId?: string, force?: boolean): Promise<BankConnection[]> {

@@ -23,8 +23,6 @@
     "module-alias": "^2.2.2",
     "moment": "^2.24.0",
     "multiparty": "^4.2.1",
-    "node-cron": "^2.0.3",
-    "opencollective-postinstall": "^2.0.2",
     "password-hash": "^1.2.2",
     "prettier": "^1.18.2",
     "python-shell": "^1.0.8",
