@@ -9,7 +9,10 @@
     "compile": "npm run build:ts",
     "prettier:check": "prettier --check \"./**/*.{js,ts,tsx,json,scss,md}\"",
     "prettier:write": "prettier --write \"./**/*.{js,ts,tsx,json,scss,md}\"",
-    "pack": "node ./pack.js"
+    "pack": "node ./pack.js",
+    "patch": "./scripts/bump-patch.sh",
+    "minor": "./scripts/bump-minor.sh",
+    "major": "./scripts/bump-major.sh"
   },
   "dependencies": {
     "cors": "^2.8.4",
