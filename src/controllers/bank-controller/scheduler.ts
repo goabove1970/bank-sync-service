@@ -8,7 +8,7 @@ export class BankSyncScheduler {
   }
 
   restartScheduler() {
-    window.setInterval(async () => {
+    setInterval(async () => {
       await this.executeSync();
     }, 1000 * 60 * 60);
   }
