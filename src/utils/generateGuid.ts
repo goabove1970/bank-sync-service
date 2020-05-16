@@ -7,6 +7,12 @@ export const GuidEight = (): string => {
     .substr(0, 8);
 };
 
+export const GuidNoDash = (): string => {
+  return Guid.create()
+    .toString()
+    .replace('-', '');
+};
+
 export const GuidFull = (): string => {
   return Guid.create().toString();
 };

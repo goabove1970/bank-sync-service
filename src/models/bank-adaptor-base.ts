@@ -5,9 +5,10 @@ import { ofxTransaction } from './ofx-transaction';
 import moment = require('moment');
 import { ofxResponse } from './ofx-response';
 import { ofxStatusData } from './ofx-status-data';
-let { PythonShell } = require('python-shell');
+import { acctRqst, ccStatsRqst, bankStatsRqst } from './request-builder';
 const fs = require('fs');
 var path = require('path');
+import * as https from 'https';
 
 export class BankAdaptorBase implements BankAdaptor {
   login: string;
@@ -65,23 +66,49 @@ export class BankAdaptorBase implements BankAdaptor {
     return Promise.resolve();
   }
 
-  extractAccounts(): Promise<ofxResponse> {
-    var pyArgs = [this.bankName, this.login, this.password];
-    let options = {
-      args: pyArgs,
+  callBank(rqst: string): Promise<string> {
+    const httpOptions = {
+      method: 'POST',
+      hostname: 'ofx.chase.com',
+      headers: {
+        'Content-type': 'application/x-ofx',
+        'content-length': Buffer.byteLength(rqst),
+      },
     };
 
+    let res = new Promise<string>((resolve, reject) => {
+      const req = https.request(httpOptions, (res) => {
+        let buffer: Buffer;
+        res.on('data', (chunk: Buffer) => {
+          if (!buffer) {
+            buffer = chunk;
+          } else {
+            buffer = Buffer.concat([buffer, chunk]);
+          }
+        });
+
+        res.on('end', () => {
+          const results = buffer.toString();
+          resolve(results);
+        });
+      });
+
+      req.on('error', (err) => {
+        console.error(`Error: ${err.message || err}`);
+        reject(err);
+      });
+
+      req.write(rqst);
+      req.end();
+    });
+    return res;
+  }
+
+  extractAccounts(): Promise<ofxResponse> {
     let res: Promise<ofxResponse> = new Promise((resolve, reject) => {
       const ofxData: ofxResponse = {};
-      PythonShell.run(this.accountPythonScript, options, function(err, results) {
-        if (err) {
-          reject(err);
-        }
-        if (!results) {
-          reject('No response from bank OFX gateway');
-        }
-
-        // extracting account data
+      const rqst = acctRqst(this.login, this.password);
+      return this.callBank(rqst).then((results: string) => {
         const accts: ofxAccount[] = [];
         var re = /<ACCTINFO>.*?<\/ACCTINFO>/gm;
         var acctData;
@@ -112,49 +139,37 @@ export class BankAdaptorBase implements BankAdaptor {
   }
 
   async getAccountData(acct: ofxAccount): Promise<AccountData> {
-    const acctData: AccountData = {
-      transactions: [],
-      transactionsCount: 0,
-    };
-    var pyArgs = [this.bankName, this.login, this.password, acct.accountId];
-    if (acct.acctype) {
-      pyArgs.push(acct.acctype);
-    }
-    let options = {
-      args: pyArgs,
-    };
-
-    const extractScript = acct.acctype === 'CHECKING' ? this.debitPythonScript : this.creditPythonScript;
-
     return new Promise((resolve, reject) => {
-      PythonShell.run(extractScript, options, function(err, results) {
-        if (err) {
-          reject(err);
-        }
-        if (!results) {
-          reject('No response from bank OFX gateway');
-        }
-
-        // console.log(inspect(`Acct [${acct.accountId} (${acct.acctype})]: ${results}`));
-        var re = /<STMTTRN>.*?<\/STMTTRN>/gm;
-        var trnsMatch;
-        do {
-          trnsMatch = re.exec(results);
-          if (trnsMatch && trnsMatch.length) {
-            trnsMatch.forEach((acctString) => {
-              if (acct.acctype === 'CHECKING') {
-                const data = extractDebitTransData(acctString);
-                acctData.transactions.push(data);
-              } else {
-                const data = extractCreditTransData(acctString);
-                acctData.transactions.push(data);
-              }
-            });
-            acctData.transactionsCount = acctData.transactions.length;
-          }
-        } while (trnsMatch);
-        resolve(acctData);
-      });
+      const acctData: AccountData = {
+        transactions: [],
+        transactionsCount: 0,
+      };
+      const rqst =
+        acct.acctype === 'CHECKING'
+          ? bankStatsRqst(this.login, this.password, acct.accountId, 12)
+          : ccStatsRqst(this.login, this.password, acct.accountId, 12);
+      this.callBank(rqst)
+        .then((results: string) => {
+          var re = /<STMTTRN>.*?<\/STMTTRN>/gm;
+          var trnsMatch;
+          do {
+            trnsMatch = re.exec(results);
+            if (trnsMatch && trnsMatch.length) {
+              trnsMatch.forEach((acctString) => {
+                if (acct.acctype === 'CHECKING') {
+                  const data = extractDebitTransData(acctString);
+                  acctData.transactions.push(data);
+                } else {
+                  const data = extractCreditTransData(acctString);
+                  acctData.transactions.push(data);
+                }
+              });
+              acctData.transactionsCount = acctData.transactions.length;
+            }
+          } while (trnsMatch);
+          resolve(acctData);
+        })
+        .catch((err) => reject(err));
     });
   }
 

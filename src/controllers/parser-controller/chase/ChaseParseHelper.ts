@@ -5,15 +5,23 @@ import { ChaseTransactionType, CreditCardTransactionType } from '@models/transac
 export function parseChaseTransDetails(details: string): ChaseTransactionOriginType {
   switch (details) {
     case 'DEBIT':
-    case 'XFER':
-    case 'FEE':
       return ChaseTransactionOriginType.Debit;
+    case 'XFER':
+      return ChaseTransactionOriginType.Xfer;
+    case 'FEE':
+      return ChaseTransactionOriginType.Fee;
     case 'CREDIT':
       return ChaseTransactionOriginType.Credit;
+    case 'ATM':
+      return ChaseTransactionOriginType.Atm;
     case 'CHECK':
       return ChaseTransactionOriginType.Check;
     case 'DSLIP':
       return ChaseTransactionOriginType.Dslip;
+    case 'OTHER':
+      return ChaseTransactionOriginType.Other;
+    default:
+      return ChaseTransactionOriginType.Unknown;
   }
   throw {
     part: 'TransactionOriginType',
