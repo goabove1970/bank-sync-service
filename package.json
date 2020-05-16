@@ -1,6 +1,6 @@
 {
   "name": "dinero-bank-manager",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "start": "node ./dist/bin/www",
@@ -10,6 +10,7 @@
     "prettier:check": "prettier --check \"./**/*.{js,ts,tsx,json,scss,md}\"",
     "prettier:write": "prettier --write \"./**/*.{js,ts,tsx,json,scss,md}\"",
     "pack": "node ./pack.js",
+    "release": "node ./release.js",
     "patch": "./scripts/bump-patch.sh",
     "minor": "./scripts/bump-minor.sh",
     "major": "./scripts/bump-major.sh"
