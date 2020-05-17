@@ -11,177 +11,176 @@ import { AddRuleArgs } from '../models/business/AddRuleArgs';
 const router = Router();
 
 const process = async function(req, res, next) {
-    // console.log(`Received a request in category controller: ${JSON.stringify(req.body, null, 4)}`);
-    const request = req.body as BusinessRequest;
-    if (!request) {
-        return res.status(500).send(new BusinessError('Empty business request'));
-    }
+  // console.log(`Received a request in category controller: ${JSON.stringify(req.body, null, 4)}`);
+  const request = req.body as BusinessRequest;
+  if (!request) {
+    return res.status(500).send(new BusinessError('Empty business request'));
+  }
 
-    let responseData: BusinessResponse = {};
+  let responseData: BusinessResponse = {};
 
-    console.log(`Processing ${request.action} business request`);
-    switch (request.action) {
-        case BusinessRequestType.Create:
-            responseData = await processCreateBusinessRequest(request.args);
-            break;
-        case BusinessRequestType.Update:
-            responseData = await processUpdateBusinessRequest(request.args);
-            break;
-        case BusinessRequestType.Delete:
-            responseData = await processDeleteBusinessRequest(request.args);
-            break;
-        case BusinessRequestType.Read:
-            responseData = await processReadBusinessRequest(request.args);
-            break;
-        case BusinessRequestType.AddRule:
-            responseData = await processAddRuleRequest(request.args);
-            break;
-        default:
-            const enumKeys = [];
-            for (var enumMember in BusinessRequestType) {
-                enumKeys.push(BusinessRequestType[enumMember]);
-            }
+  console.log(`Processing ${request.action} business request`);
+  switch (request.action) {
+    case BusinessRequestType.Create:
+      responseData = await processCreateBusinessRequest(request.args);
+      break;
+    case BusinessRequestType.Update:
+      responseData = await processUpdateBusinessRequest(request.args);
+      break;
+    case BusinessRequestType.Delete:
+      responseData = await processDeleteBusinessRequest(request.args);
+      break;
+    case BusinessRequestType.Read:
+      responseData = await processReadBusinessRequest(request.args);
+      break;
+    case BusinessRequestType.AddRule:
+      responseData = await processAddRuleRequest(request.args);
+      break;
+    default:
+      const enumKeys = [];
+      for (var enumMember in BusinessRequestType) {
+        enumKeys.push(BusinessRequestType[enumMember]);
+      }
 
-            const availableRequestTypes = enumKeys.join(', ');
-            return res
-                .status(500)
-                .send(
-                    new BusinessError(
-                        `Unknown business request type: ${request.action}, try [${availableRequestTypes}]`
-                    )
-                );
-    }
+      const availableRequestTypes = enumKeys.join(', ');
+      return res
+        .status(500)
+        .send(new BusinessError(`Unknown business request type: ${request.action}, try [${availableRequestTypes}]`));
+  }
 
-    res.send(responseData);
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'content-type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.send(responseData);
 };
 
 router.get('/', process);
 router.post('/', process);
 
 async function processReadBusinessRequest(request: BusinessReadArgs): Promise<BusinessResponse> {
-    const response: BusinessResponse = {
-        action: BusinessRequestType.Read,
-        payload: {},
-    };
+  const response: BusinessResponse = {
+    action: BusinessRequestType.Read,
+    payload: {},
+  };
 
-    try {
-        return await controller
-            .read(request)
-            .then((collection) => {
-                response.payload = {
-                    count: collection.length,
-                    businesses: collection,
-                };
-                return response;
-            })
-            .catch((error) => {
-                throw error;
-            });
-    } catch (error) {
-        console.error(error.message);
-        response.error = error.message;
-    }
-    return response;
+  try {
+    return await controller
+      .read(request)
+      .then((collection) => {
+        response.payload = {
+          count: collection.length,
+          businesses: collection,
+        };
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  } catch (error) {
+    console.error(error.message);
+    response.error = error.message;
+  }
+  return response;
 }
 
 async function processCreateBusinessRequest(request: BusinessCreateArgs): Promise<BusinessResponse> {
-    const response: BusinessResponse = {
-        action: BusinessRequestType.Create,
-        payload: {},
-    };
+  const response: BusinessResponse = {
+    action: BusinessRequestType.Create,
+    payload: {},
+  };
 
-    try {
-        return await controller
-            .create(request)
-            .then((busiessId) => {
-                response.payload = {
-                    busiessId,
-                };
-                return response;
-            })
-            .catch((error) => {
-                throw error;
-            });
-    } catch (error) {
-        console.error(error.message);
-        response.error = error.message;
-    }
-    return response;
+  try {
+    return await controller
+      .create(request)
+      .then((busiessId) => {
+        response.payload = {
+          busiessId,
+        };
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  } catch (error) {
+    console.error(error.message);
+    response.error = error.message;
+  }
+  return response;
 }
 
 async function processDeleteBusinessRequest(request: BusinessDeleteArgs): Promise<BusinessResponse> {
-    const response: BusinessResponse = {
-        action: BusinessRequestType.Delete,
-        payload: {},
-    };
+  const response: BusinessResponse = {
+    action: BusinessRequestType.Delete,
+    payload: {},
+  };
 
-    try {
-        return await controller
-            .delete(request)
-            .then(() => {
-                response.payload = {
-                    busiessId: request.businessId,
-                };
-                return response;
-            })
-            .catch((error) => {
-                throw error;
-            });
-    } catch (error) {
-        console.error(error.message);
-        response.error = error.message;
-    }
-    return response;
+  try {
+    return await controller
+      .delete(request)
+      .then(() => {
+        response.payload = {
+          busiessId: request.businessId,
+        };
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  } catch (error) {
+    console.error(error.message);
+    response.error = error.message;
+  }
+  return response;
 }
 
 async function processUpdateBusinessRequest(request: BusinessReadArgs): Promise<BusinessResponse> {
-    const response: BusinessResponse = {
-        action: BusinessRequestType.Update,
-        payload: {},
-    };
+  const response: BusinessResponse = {
+    action: BusinessRequestType.Update,
+    payload: {},
+  };
 
-    try {
-        return await controller
-            .update(request)
-            .then(() => {
-                response.payload = {
-                    busiessId: request.businessId,
-                };
-                return response;
-            })
-            .catch((error) => {
-                throw error;
-            });
-    } catch (error) {
-        console.error(error.message);
-        response.error = error.message;
-    }
-    return response;
+  try {
+    return await controller
+      .update(request)
+      .then(() => {
+        response.payload = {
+          busiessId: request.businessId,
+        };
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  } catch (error) {
+    console.error(error.message);
+    response.error = error.message;
+  }
+  return response;
 }
 
 async function processAddRuleRequest(request: AddRuleArgs): Promise<BusinessResponse> {
-    const response: BusinessResponse = {
-        action: BusinessRequestType.AddRule,
-        payload: {},
-    };
+  const response: BusinessResponse = {
+    action: BusinessRequestType.AddRule,
+    payload: {},
+  };
 
-    try {
-        return await controller
-            .addRule(request)
-            .then(() => {
-                response.payload = {
-                    busiessId: request.businessId,
-                };
-                return response;
-            })
-            .catch((error) => {
-                throw error;
-            });
-    } catch (error) {
-        console.error(error.message);
-        response.error = error.message;
-    }
-    return response;
+  try {
+    return await controller
+      .addRule(request)
+      .then(() => {
+        response.payload = {
+          busiessId: request.businessId,
+        };
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  } catch (error) {
+    console.error(error.message);
+    response.error = error.message;
+  }
+  return response;
 }
 
 export = router;

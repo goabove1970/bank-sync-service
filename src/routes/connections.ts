@@ -60,6 +60,9 @@ const process = async function(req, res, next) {
       break;
   }
 
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'content-type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.send(responseData);
 };
 

@@ -43,7 +43,9 @@ const process = async function(req, res, next) {
         .status(500)
         .send(new CategoryError(`Unknown category request type: ${request.action}, try [${availableRequestTypes}]`));
   }
-
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'content-type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.send(responseData);
 };
 
