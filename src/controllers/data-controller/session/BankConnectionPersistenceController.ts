@@ -40,7 +40,7 @@ export class BankConnectionPersistenceController implements BankConnectionPersis
     }
 
     if (args.lastPollStats) {
-      updateFields.push(`last_polls_stats='${JSON.stringify(args.lastPollStats)}'`);
+      updateFields.push(`last_polls_stats='${escape(JSON.stringify(args.lastPollStats))}'`);
     }
 
     const updateStatement = updateFields.join(',\n');

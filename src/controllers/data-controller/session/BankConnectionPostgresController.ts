@@ -15,7 +15,7 @@ export class BankConnectionsPostgresController extends DatabaseController<BankCo
       let stats: BankConnectionStats | undefined = undefined;
       if (pollstats) {
         try {
-          stats = JSON.parse(pollstats);
+          stats = JSON.parse(unescape(pollstats));
         } catch {}
       }
 

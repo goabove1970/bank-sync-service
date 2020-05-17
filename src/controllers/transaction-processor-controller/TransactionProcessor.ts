@@ -104,10 +104,10 @@ export class TransactionProcessor {
 
     const pendingPosted = pending.filter((tr) => tr.chaseTransaction.PostingDate !== undefined);
 
-    // from DB: posted transactions sorted by date descending
+    // from DB: posted transactions sorted by date ascending
     const lastExistingPosted = ((await transController.read({
       accountId,
-      order: SortOrder.descending,
+      order: SortOrder.accending,
       //readCount: comparisonDepth,
     })) as Transaction[]).filter((tr) => tr.chaseTransaction.PostingDate !== undefined);
 
@@ -120,20 +120,19 @@ export class TransactionProcessor {
     // we will start from a date of the last existing transaction in database, minus 5 days
 
     // sort pennding transactions by posting date
-    pending = pending
-      .filter((c) => c.chaseTransaction.PostingDate !== undefined)
-      .sort((p1, p2) =>
-        moment(p1.chaseTransaction.PostingDate).isBefore(moment(p2.chaseTransaction.PostingDate)) ? -1 : 1
-      );
+    pending = pending.sort((p1, p2) =>
+      moment(p1.chaseTransaction.PostingDate).isBefore(moment(p2.chaseTransaction.PostingDate)) ? -1 : 1
+    );
     if (!pending || pending.length === 0) {
       return [];
     }
-    const lastTransactionDate = moment(pending[0].chaseTransaction.PostingDate).isBefore(
-      moment(lastExistingPosted[0].chaseTransaction.PostingDate)
-    )
-      ? pending[0].chaseTransaction.PostingDate
-      : lastExistingPosted[0].chaseTransaction.PostingDate;
-    const beginningDate = moment(lastTransactionDate).subtract(5, 'days');
+    const beginningDate = moment(
+      moment(pending[0].chaseTransaction.PostingDate).isBefore(
+        moment(lastExistingPosted[0].chaseTransaction.PostingDate)
+      )
+        ? pending[0].chaseTransaction.PostingDate
+        : lastExistingPosted[0].chaseTransaction.PostingDate
+    );
     const today = moment();
 
     let toBeAdded: Transaction[] = [];
@@ -151,10 +150,19 @@ export class TransactionProcessor {
         return collDate.isSame(iteratorDate);
       });
 
+      if (pendingRecords.length === 0) {
+        continue;
+      }
+
       const missingInDb = pendingRecords.filter((penging) => {
         const shouldBeAdded = !dbRecords.some((db) => {
           return sameTransaction(db.chaseTransaction, penging.chaseTransaction);
         });
+        if (shouldBeAdded) {
+          !dbRecords.some((db) => {
+            return sameTransaction(db.chaseTransaction, penging.chaseTransaction);
+          });
+        }
         return shouldBeAdded;
       });
 
@@ -295,18 +303,73 @@ export function originalTransactionEquals(t1: ChaseTransaction, t2: ChaseTransac
 // Details
 // PostingDate
 
+function strip(str: string): string {
+  const stripSymbol = `"`;
+  if (str.length >= 2) {
+    if (str[0] === stripSymbol && str[str.length - 1] === stripSymbol) {
+      return str.substr(1, str.length - 2);
+    } else {
+      return str;
+    }
+  } else return str;
+}
+
+function sameDescription(d1?: string, d1Check?: string, d2?: string, d2Check?: string) {
+  d1 = d1 || '';
+  d2 = d2 || '';
+  d1 = strip(d1)
+    .replace(',', ' ')
+    .replace(/\s+/g, ' ');
+  if (d1.startsWith(' ')) {
+    d1 = d1.substr(1);
+  }
+  if (d1.endsWith(' ')) {
+    d1 = d1.substr(0, d1.length - 1);
+  }
+
+  d2 = strip(d2)
+    .replace(',', ' ')
+    .replace(/\s+/g, ' ');
+  if (d2.startsWith(' ')) {
+    d2 = d2.substr(1);
+  }
+  if (d2.endsWith(' ')) {
+    d2 = d2.substr(0, d2.length - 1);
+  }
+
+  if (d1 === d2) {
+    return true;
+  }
+
+  if (d1Check) {
+    d1 = d1.replace(` ${d1Check.replace(/\s+/g, ' ')}`, d1Check.replace(/\s+/g, ' '));
+  }
+
+  if (d2Check) {
+    d2 = d2.replace(` ${d2Check.replace(/\s+/g, ' ')}`, d2Check.replace(/\s+/g, ' '));
+  }
+
+  if (d1.replace(/\s+/g, ' ') === d2.replace(/\s+/g, ' ')) {
+    return true;
+  }
+
+  if (
+    d1.replace(/\s+/g, '').startsWith(d2.replace(/\s+/g, '')) ||
+    d2.replace(/\s+/g, '').startsWith(d1.replace(/\s+/g, ''))
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 export function sameTransaction(db: ChaseTransaction, t2: ChaseTransaction) {
   return (
     db.Amount === t2.Amount &&
-    //(db.CreditCardTransactionType || undefined) === (t2.CreditCardTransactionType || undefined) &&
-    ((db.Description || undefined) === (t2.Description || undefined) ||
-      ((db.Description && `"${db.Description}"`) || undefined) === (t2.Description || undefined)) &&
-    //(db.Details || undefined) === (t2.Details || undefined) &&
+    sameDescription(db.Description, db.CheckOrSlip, t2.Description, t2.CheckOrSlip) &&
     moment(db.PostingDate)
       .startOf('day')
-      .isSame(moment(t2.PostingDate).startOf('day')) &&
-    (db.Type || undefined) === (t2.Type || undefined) //&&
-    //(db.CreditCardTransactionType || undefined) === (t2.CreditCardTransactionType || undefined)
+      .isSame(moment(t2.PostingDate).startOf('day')) //&&
   );
 }
 
