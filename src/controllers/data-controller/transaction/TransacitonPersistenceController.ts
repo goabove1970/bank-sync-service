@@ -118,14 +118,14 @@ export class TransacitonPersistenceController implements TransactionPersistanceC
                 '${args.accountId}',
                 '${moment().toISOString()}',
                 ${args.categoryId ? "'" + args.categoryId + "'" : 'NULL'},
-                ${args.userComment ? "'" + args.userComment + "'" : 'NULL'},
+                ${args.userComment ? "'" + escape(args.userComment) + "'" : 'NULL'},
                 ${args.overridePostingDate ? "'" + moment(args.overridePostingDate).toISOString() + "'" : 'NULL'},
-                ${args.overrideDescription ? "'" + args.overrideDescription + "'" : 'NULL'},
+                ${args.overrideDescription ? "'" + escape(args.overrideDescription) + "'" : 'NULL'},
                 ${args.serviceType ? args.serviceType : 'NULL'},
                 ${args.overrideCategory ? "'" + args.overrideCategory + "'" : 'NULL'},
                 ${args.transactionStatus ? args.transactionStatus : 'NULL'},
                 ${args.processingStatus ? args.processingStatus : 'NULL'},
-                ${args.chaseTransaction.Details ? "'" + args.chaseTransaction.Details + "'" : 'NULL'},
+                ${args.chaseTransaction.Details ? "'" + escape(args.chaseTransaction.Details) + "'" : 'NULL'},
                 ${
                   args.chaseTransaction.PostingDate
                     ? "'" + moment(args.chaseTransaction.PostingDate).toISOString() + "'"

@@ -15,7 +15,7 @@ export class TransactionPostgresController extends DatabaseController<Transactio
         accountId: valueRow[1],
         importedDate: valueRow[2],
         categoryId: valueRow[3],
-        userComment: valueRow[4],
+        userComment: unescape((valueRow[4] as string) || ''),
         overridePostingDate: valueRow[5],
         overrideDescription: unescape((valueRow[6] as string) || ''),
         serviceType: valueRow[7],
@@ -24,7 +24,7 @@ export class TransactionPostgresController extends DatabaseController<Transactio
         processingStatus: valueRow[10],
 
         chaseTransaction: {
-          Details: valueRow[11],
+          Details: unescape((valueRow[11] as string) || ''),
           PostingDate: valueRow[12],
           Description: unescape((valueRow[13] as string) || ''),
           Amount: valueRow[14],

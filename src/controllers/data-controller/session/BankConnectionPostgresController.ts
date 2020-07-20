@@ -2,6 +2,7 @@ import { DatabaseController } from '../DataController';
 import { Value } from 'ts-postgres';
 import { BankConnection } from '@root/src/models/bank-connection';
 import { BankConnectionStats } from '@root/src/models/bank-connection-stats';
+import logger from '@root/src/logger';
 
 export class BankConnectionsPostgresController extends DatabaseController<BankConnection> {
   constructor() {
@@ -16,7 +17,9 @@ export class BankConnectionsPostgresController extends DatabaseController<BankCo
       if (pollstats) {
         try {
           stats = JSON.parse(unescape(pollstats));
-        } catch {}
+        } catch (error) {
+          logger.error(error.message || error);
+        }
       }
 
       collections.push({

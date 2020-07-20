@@ -9,6 +9,7 @@ import { acctRqst, ccStatsRqst, bankStatsRqst } from './request-builder';
 const fs = require('fs');
 var path = require('path');
 import * as https from 'https';
+import logger from '../logger';
 
 export class BankAdaptorBase implements BankAdaptor {
   login: string;
@@ -60,7 +61,9 @@ export class BankAdaptorBase implements BankAdaptor {
       if (fs.existsSync(filename)) {
         try {
           fs.unlinkSync(filename);
-        } catch {}
+        } catch (error) {
+          logger.error(error.message || error);
+        }
       }
     }
     return Promise.resolve();
