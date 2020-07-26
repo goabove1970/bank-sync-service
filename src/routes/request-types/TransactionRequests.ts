@@ -25,6 +25,7 @@ export type CategorizationType = 'all' | 'uncategorized' | 'categorized';
 
 export interface ReadTransactionArgs {
   transactionId?: string;
+  filter?: string; // filter through transaction description
   userId?: string;
   accountId?: string;
   startDate?: Date;
