@@ -111,6 +111,7 @@ async function processReadTransactionsRequest(args: ReadTransactionArgs): Promis
     endDate: args && args.endDate && moment(args.endDate).toDate(),
     accountIds: accounts,
     categorization: args.categorization,
+    filter: args.filter,
   };
   try {
     const transactionsReadResult =
@@ -134,6 +135,9 @@ async function processReadTransactionsRequest(args: ReadTransactionArgs): Promis
           };
         }),
       };
+      if (args.filter) {
+        response.payload.filter = args.filter;
+      }
       if (args.categoryId) {
         const categories = await categoryController.read({ userId: args.userId });
         const categoriesSet = new Set<string>();
