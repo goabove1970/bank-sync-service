@@ -10,6 +10,9 @@ export abstract class DatabaseController<T> extends DataController<T> {
   constructor(table: string) {
     super();
     this.tableName = table;
+    console.log(
+      `Initializing DatabaseController for [${this.tableName}] (${CONFIG.PgConfig.login}@${CONFIG.PgConfig.host}:${CONFIG.PgConfig.port}/${CONFIG.PgConfig.database})`
+    );
   }
 
   abstract readSelectResponse(values: Value[][]): T[];
