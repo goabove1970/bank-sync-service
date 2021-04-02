@@ -48,7 +48,7 @@ export class BankAdaptorBase implements BankAdaptor {
               if (files[i].indexOf(ext) !== -1 && moment(stats.mtimeMs).isBefore(moment().subtract(1, 'hours'))) {
                 filtered.push(files[i]);
               }
-              resolve();
+              resolve(() => {});
             }
           });
         })

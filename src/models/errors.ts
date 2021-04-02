@@ -1,4 +1,4 @@
-export class ErrorBase {
+class ErrorBase {
   constructor(errorMesage?: string) {
     this.errorMessage = errorMesage;
   }

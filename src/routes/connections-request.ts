@@ -9,7 +9,7 @@ export enum BankSyncRequestType {
   Synchonize = 'sync',
 }
 
-export interface BankResponseBase {
+interface BankResponseBase {
   error?: string;
   errorCode?: number;
   payload?: {

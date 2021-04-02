@@ -2,7 +2,7 @@ import { BankConnectionResponse, BankSyncRequest, BankSyncRequestType, BankSyncA
 import { Router } from 'express';
 import { BankConnectionError } from '@root/src/models/errors';
 import * as moment from 'moment';
-import { bankConnectionController as databaseController } from '../controllers/connections-controller';
+import { bankConnectionController as bankController } from '../controllers/connections-controller';
 import { GuidFull } from '../utils/generateGuid';
 import logger from '../logger';
 import { BankConnection } from '../models/bank-connection';
@@ -77,7 +77,7 @@ async function processAddBankConnectionRequest(args: BankSyncArgs): Promise<Bank
     },
   };
 
-  const connections = await databaseController.read({ userId: args.userId });
+  const connections = await bankController.read({ userId: args.userId });
   if (connections.some((c) => c.bankName === args.bankName && c.login === args.login)) {
     response.error = `Bank connection ${args.bankName}:${args.login} already exists for user ${args.userId}`;
     response.errorCode = 2026;
@@ -128,7 +128,7 @@ async function processAddBankConnectionRequest(args: BankSyncArgs): Promise<Bank
       newBankConnection.status |= BankConnectionStatus.CouldNotConnect;
     }
 
-    await databaseController.create(newBankConnection);
+    await bankController.create(newBankConnection);
 
     response.payload = {
       ...response.payload,
@@ -155,7 +155,7 @@ async function processReadBankConnectionsRequest(args: BankSyncArgs): Promise<Ba
   };
 
   try {
-    let connections = await databaseController.read({ userId: args.userId });
+    let connections = await bankController.read({ userId: args.userId });
     connections = connections.map((c: BankConnection) => {
       return toResponseBankConnection(c);
     });
@@ -180,7 +180,7 @@ async function processRemoveBankConnectionRequest(args: BankSyncArgs): Promise<B
   };
 
   try {
-    const connections = await databaseController.read({ connectionId: args.connectionId });
+    const connections = await bankController.read({ connectionId: args.connectionId });
     if (!connections || !connections.length || connections.length !== 1) {
       const error = `Can not remove connection ${args.connectionId}, connection was not found, please check connectionId.`;
       logger.error(error);
@@ -190,7 +190,7 @@ async function processRemoveBankConnectionRequest(args: BankSyncArgs): Promise<B
     }
     const connection = connections[0];
 
-    await databaseController.delete({ connectionId: args.connectionId });
+    await bankController.delete({ connectionId: args.connectionId });
     response.payload = {
       ...response.payload,
       userId: connection.userId,
@@ -211,7 +211,7 @@ async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<B
   };
 
   try {
-    const connections = await databaseController.read({ connectionId: args.connectionId });
+    const connections = await bankController.read({ connectionId: args.connectionId });
     if (!connections || !connections.length || connections.length !== 1) {
       const error = `Can not update connection ${args.connectionId}, connection was not found, please check connectionId.`;
       logger.error(error);
@@ -244,7 +244,7 @@ async function processUpdateBankConnectionRequest(args: BankSyncArgs): Promise<B
       connection.status |= BankConnectionStatus.CouldNotConnect;
     }
 
-    await databaseController.update(connection);
+    await bankController.update(connection);
 
     // test updated connection and see it it's valid
 

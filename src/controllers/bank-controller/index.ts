@@ -14,7 +14,7 @@ import moment = require('moment');
 import { GuidFull } from '@root/src/utils/generateGuid';
 import { bankConnectionController } from '../connections-controller';
 import accountController from '../account-controller';
-import { AccountResponseModel } from '../data-controller/account/helper';
+import { AccountResponseModel } from '../data-controller/account/AccountResponseModel';
 import { Transaction, ProcessingStatus } from '@root/src/models/transaction/Transaction';
 // import { inspect } from 'util';
 import { ofxTransaction } from '@root/src/models/ofx-transaction';
@@ -139,6 +139,7 @@ export class BankPollController {
         force || !c.lastPollDate || (c.lastPollDate && moment(c.lastPollDate).isBefore(moment().subtract(1, 'hour')))
     );
     logger.info(`Scheduling ${toBePolled.length} connections for polling. Session [${sessionId}].`);
+    const userAccounts = await accountController.read({ userId });
 
     for (let connIter = 0; connIter < toBePolled.length; connIter++) {
       const conn = toBePolled[connIter];
@@ -154,7 +155,6 @@ export class BankPollController {
           // poll associated user's accounts and try to add transactions
 
           if (conn.userId) {
-            const userAccounts = await accountController.read({ userId: conn.userId });
             // try to find matching account for account data comming from bank connection
             const matchingAccts = userAccounts.filter(
               (uac) => uac.bankName === conn.bankName && uac.bankAccountNumber === bacct.accountNumber

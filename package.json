@@ -10,6 +10,10 @@
     "prettier:check": "prettier --check \"./**/*.{js,ts,tsx,json,scss,md}\"",
     "prettier:write": "prettier --write \"./**/*.{js,ts,tsx,json,scss,md}\"",
     "pack": "node ./pack.js",
+    "test": "jest --no-cache",
+    "test:jest": "npm run tests -- --coverage --no-cache",
+    "test:watch": "npm run tests -- --watch --no-cache",
+    "test:cover:watch": "npm run tests -- --coverage --watch --no-cache",
     "up": "node ./upload.js",
     "release": "node ./release.js",
     "patch": "./scripts/bump-patch.sh",
@@ -38,7 +42,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.11.1",
-    "typescript": "^3.7.0-dev.20191021"
+    "typescript": "^4.2.3"
   },
   "_moduleAliases": {
     "@root": "dist",
@@ -47,5 +51,51 @@
     "@routes": "dist/src/routes",
     "@utils": "dist/src/utils",
     "@controllers": "dist/src/controllers"
+  },
+  "jest": {
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "coverageDirectory": "<rootDir>/test_coverage_dir",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "roots": [
+      "<rootDir>",
+      "<rootDir>/src/"
+    ],
+    "moduleNameMapper": {
+      "@root/(.*)": "<rootDir>/$1",
+      "@utils/(.*)": "<rootDir>/src/utils/$1",
+      "@models/(.*)": "<rootDir>/src/models/$1",
+      "@controllers/(.*)": "<rootDir>/src/controllers/$1",
+      "@mock/(.*)": "<rootDir>/src/test/mock/$1"
+    },
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "moduleDirectories": [
+      ".",
+      "src",
+      "src/util",
+      "node_modules"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest-setup/index.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules",
+      "<rootDir>/dist"
+    ],
+    "testRegex": ".*\\.(spec|test)\\.(ts|js)$",
+    "transform": {
+      "^.+\\.(ts|tsx)?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules"
+    ]
   }
 }

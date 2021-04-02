@@ -1,16 +1,30 @@
 import { PgConfig } from './src/controllers/data-controller/database/PgConfig';
 
-export interface ApplicationConfig {
+interface ApplicationConfig {
   PgConfig?: PgConfig;
+  ApiServiceConfig: ServiceConfig;
+}
+
+export interface ServiceConfig {
+  url?: string;
+  port?: number;
 }
 
 export const CONFIG: ApplicationConfig = {
   PgConfig: {
-    host: 'dinero-db.cmi7wgy95mjp.us-east-2.rds.amazonaws.com',
+    host: '127.0.0.1',
     port: 5432,
     login: 'postgres',
-    password: 'G62LHttp9FF9',
+    password: 'admin',
     database: 'postgres',
     schema: 'public',
   },
+  // ApiServiceConfig: {
+  //   url: 'https://dinero-app.com/sessions',
+  //   port: undefined,
+  // },
+  ApiServiceConfig: {
+    url: '127.0.0.1',
+    port: 9000,
+  }
 };

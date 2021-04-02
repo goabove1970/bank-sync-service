@@ -1,6 +1,6 @@
 import { ChaseTransactionOriginType } from '@models/transaction/chase/ChaseTransactionOriginType';
-import { ParseError } from '@models/errors/parse-error';
 import { ChaseTransactionType, CreditCardTransactionType } from '@models/transaction/chase/ChaseTransactionType';
+import { ParseError } from '@root/src/models/errors/errors';
 
 export function parseChaseTransDetails(details: string): ChaseTransactionOriginType {
   switch (details) {

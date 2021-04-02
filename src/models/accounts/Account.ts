@@ -15,11 +15,6 @@ export interface UserAccount {
   alias?: string;
 }
 
-export interface UserAccountLink {
-  accountId?: string;
-  userId?: string;
-}
-
 export enum AccountType {
   Credit = 1,
   Debit = 2,

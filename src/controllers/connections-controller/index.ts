@@ -1,5 +1,5 @@
 import { BankSyncArgs } from '../../routes/connections-request';
-import { bankConnectionDatabaseController } from '../data-controller/session/BankConnectionPersistenceController';
+import { bankConnectionDatabaseController } from '../data-controller/bank-connection/BankConnectionPersistenceController';
 import { BankConnection } from '../../models/bank-connection';
 
 export class BankConnectionController {
