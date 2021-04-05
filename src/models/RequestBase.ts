@@ -1,3 +1,4 @@
+import { AccountResponseModel } from "../controllers/data-controller/account/AccountResponseModel";
 import { AccountCreateArgs } from "./accounts/AccountCreateArgs";
 import { AccountRequestType } from "./accounts/AccountRequestType";
 import { AccountUpdateArgs } from "./accounts/AccountUpdateArgs";
@@ -10,4 +11,10 @@ export class AccountRequestBase {
 
 export class AccountResponseBase {
     action?: AccountRequestType;
+    payload?: {
+        accounts?: AccountResponseModel[],
+        count: number
+
+    };
+    error: string;
 }

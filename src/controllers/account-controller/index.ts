@@ -9,8 +9,10 @@ import logger from '@root/src/logger';
 
 class AccountController {
   config: ServiceConfig;
+  routerName: string;
     constructor(config: ServiceConfig) {
         this.config = config;
+        this.routerName = '/accounts';
     }
 
   read(args: ReadAccountArgs): Promise<AccountResponseModel[]> {
@@ -18,9 +20,9 @@ class AccountController {
       args,
       action: 'read-accounts'
     }
-    const response = callService(this.config, serviceArgs).then((data: AccountResponseBase) => {
+    const response = callService(this.config, this.routerName, serviceArgs).then((data: AccountResponseBase) => {
       console.log(`Account response: ${JSON.stringify(data)}`);
-      const result: AccountResponseModel[] = [];
+      const result: AccountResponseModel[] = data.payload.accounts;
       return result;
     }).catch(e => {
       const errorMessage = e.message || e;
@@ -41,16 +43,17 @@ class AccountController {
   }
 }
 
-export const callService = (config: ServiceConfig, rqst: AccountRequestBase): Promise<AccountResponseBase> => {
+export const callService = (config: ServiceConfig,  routerName: string, rqst: AccountRequestBase): Promise<AccountResponseBase> => {
   const bodyString = JSON.stringify(rqst);
-  const httpOptions = {
-    method: 'POST',
-    hostname: config.url,
-    port: config.port,
-    headers: {
-      'Content-type': 'application/x-ofx',
-      'content-length': Buffer.byteLength(bodyString),
-    },
+    const httpOptions = {
+      method: 'POST',
+      hostname: config.url,
+      port: config.port,
+      path: routerName,
+      headers: {
+          'content-type': 'application/json',
+          'content-length': Buffer.byteLength(bodyString),
+      },
   };
 
   let res = new Promise<AccountResponseBase>((resolve, reject) => {
@@ -65,8 +68,15 @@ export const callService = (config: ServiceConfig, rqst: AccountRequestBase): Pr
       });
 
       res.on('end', () => {
+        if (!buffer) {
+          return reject(`No data was received from ${routerName}`)
+        }
         const results = buffer.toString();
-        resolve(JSON.parse(results) as AccountResponseBase);
+        const data = JSON.parse(results) as AccountResponseBase;
+        if (data.error) {
+          return reject(`Error received from ${routerName}: ${data.error}`)
+        }
+        resolve(data);
       });
     });
 
@@ -75,7 +85,7 @@ export const callService = (config: ServiceConfig, rqst: AccountRequestBase): Pr
       reject(err);
     });
 
-    req.write(rqst);
+    req.write(bodyString);
     req.end();
   });
   return res;
