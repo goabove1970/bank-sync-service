@@ -1,4 +1,4 @@
-import { AccountResponseModel } from "../controllers/data-controller/account/AccountResponseModel";
+import { AccountResponseModel } from "../controllers/account-controller/AccountResponseModel";
 import { AccountCreateArgs } from "./accounts/AccountCreateArgs";
 import { AccountRequestType } from "./accounts/AccountRequestType";
 import { AccountUpdateArgs } from "./accounts/AccountUpdateArgs";

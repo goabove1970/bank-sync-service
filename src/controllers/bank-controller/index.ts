@@ -14,7 +14,7 @@ import moment = require('moment');
 import { GuidFull } from '@root/src/utils/generateGuid';
 import { bankConnectionController } from '../connections-controller';
 import accountController from '../account-controller';
-import { AccountResponseModel } from '../data-controller/account/AccountResponseModel';
+import { AccountResponseModel } from '../account-controller/AccountResponseModel';
 import { Transaction, ProcessingStatus } from '@root/src/models/transaction/Transaction';
 // import { inspect } from 'util';
 import { ofxTransaction } from '@root/src/models/ofx-transaction';
@@ -121,11 +121,6 @@ export class BankPollController {
       logger.error(`Error validating connection [${conn.connectionId}]: ${e.message || e}`);
     }
     return response;
-  }
-
-  async isConnectionValid(conn: BankConnection): Promise<boolean> {
-    const status = await this.getConnectionStatus(conn);
-    return status && status.statusData && status.statusData.severity !== 'ERROR';
   }
 
   async executeSync(userId?: string, connectionId?: string, force?: boolean): Promise<BankConnection[]> {

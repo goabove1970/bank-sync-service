@@ -1,13 +1,13 @@
 import { ReadAccountArgs } from '@models/accounts/ReadAccountArgs';
 import { AccountCreateArgs } from '@models/accounts/AccountCreateArgs';
 import { AccountUpdateArgs } from '@models/accounts/AccountUpdateArgs';
-import { AccountResponseModel } from '../data-controller/account/AccountResponseModel';
+import { AccountResponseModel } from './AccountResponseModel';
 import { CONFIG, ServiceConfig } from '@root/app.config';
 import { AccountRequestBase, AccountResponseBase, ResponseBase } from '@root/src/models/RequestBase';
 import logger from '@root/src/logger';
 import { callService } from '@root/src/utils/callService';
 
-class AccountController {
+export class AccountController {
   config: ServiceConfig;
   routerName: string;
     constructor(config: ServiceConfig) {

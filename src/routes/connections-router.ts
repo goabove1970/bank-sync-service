@@ -1,0 +1,50 @@
+import { BankConnectionResponse, BankSyncRequest, BankSyncRequestType } from './connections-request';
+import { Router } from 'express';
+import { BankConnectionError } from '@root/src/models/errors';
+import { bankConnectionController } from '../controllers/connections-controller';
+import pollController from '../controllers/bank-controller';
+import accountController from '../controllers/account-controller';
+import scheduler from '../controllers/bank-controller/scheduler';
+import { ConnectionsRequestProcessor } from './connections-request-proecessor';
+
+const router = Router();
+
+const processor =
+  new ConnectionsRequestProcessor(bankConnectionController, pollController, accountController, scheduler);
+
+const process = async function(req, res, next) {
+  const bankSyncRequest = req.body as BankSyncRequest;
+  if (!bankSyncRequest) {
+    return res.status(500).send(new BankConnectionError());
+  }
+
+  let responseData: BankConnectionResponse = {};
+
+  switch (bankSyncRequest.action) {
+    case BankSyncRequestType.AddBankConnection:
+      responseData = await processor.processAddBankConnectionRequest(bankSyncRequest.args);
+      break;
+    case BankSyncRequestType.GetBankConnections:
+      responseData = await processor.processReadBankConnectionsRequest(bankSyncRequest.args);
+      break;
+    case BankSyncRequestType.RemoveBankConnection:
+      responseData = await processor.processRemoveBankConnectionRequest(bankSyncRequest.args);
+      break;
+    case BankSyncRequestType.UpdateBankConnection:
+      responseData = await processor.processUpdateBankConnectionRequest(bankSyncRequest.args);
+      break;
+    case BankSyncRequestType.Synchonize:
+      responseData = await processor.processSyncBankConnectionsRequest(bankSyncRequest.args);
+      break;
+  }
+
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'content-type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.send(responseData);
+};
+
+router.post('/', process);
+router.get('/', process);
+
+export = router;

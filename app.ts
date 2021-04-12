@@ -5,7 +5,7 @@ var cors = require('cors');
 var createError = require('http-errors');
 require('@src/controllers/bank-controller/scheduler');
 
-import * as bankConnectionsRouter from '@root/src/routes/connections';
+import * as bankConnectionsRouter from '@root/src/routes/connections-router';
 import logger from '@src/logger';
 import { BankAdaptorBase } from './src/models/bank-adaptor-base';
 

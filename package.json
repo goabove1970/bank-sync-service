@@ -20,38 +20,6 @@
     "minor": "./scripts/bump-minor.sh",
     "major": "./scripts/bump-major.sh"
   },
-  "dependencies": {
-    "cors": "^2.8.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "grunt": "^1.1.0",
-    "grunt-bump": "^0.8.0",
-    "grunt-cli": "^1.3.2",
-    "guid-typescript": "^1.0.9",
-    "http-errors": "^1.7.3",
-    "https": "^1.0.0",
-    "module-alias": "^2.2.2",
-    "moment": "^2.24.0",
-    "multiparty": "^4.2.1",
-    "password-hash": "^1.2.2",
-    "prettier": "^1.18.2",
-    "ts-postgres": "^1.1.0",
-    "tsc": "^1.20150623.0",
-    "winston": "^3.2.1",
-    "zip-folder": "^1.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^12.11.1",
-    "typescript": "^4.2.3"
-  },
-  "_moduleAliases": {
-    "@root": "dist",
-    "@src": "dist/src",
-    "@models": "dist/src/models",
-    "@routes": "dist/src/routes",
-    "@utils": "dist/src/utils",
-    "@controllers": "dist/src/controllers"
-  },
   "jest": {
     "collectCoverage": false,
     "collectCoverageFrom": [
@@ -97,5 +65,41 @@
     "transformIgnorePatterns": [
       "<rootDir>/node_modules"
     ]
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.22",
+    "cors": "^2.8.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "grunt": "^1.1.0",
+    "grunt-bump": "^0.8.0",
+    "grunt-cli": "^1.3.2",
+    "guid-typescript": "^1.0.9",
+    "http-errors": "^1.7.3",
+    "https": "^1.0.0",
+    "jest": "^26.6.3",
+    "module-alias": "^2.2.2",
+    "moment": "^2.24.0",
+    "multiparty": "^4.2.1",
+    "password-hash": "^1.2.2",
+    "prettier": "^1.18.2",
+    "ts-postgres": "^1.1.0",
+    "tsc": "^1.20150623.0",
+    "winston": "^3.2.1",
+    "zip-folder": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.1",
+    "ts-jest": "^26.4.4",
+    "tslint": "^5.8.0",
+    "typescript": "^4.2.3"
+  },
+  "_moduleAliases": {
+    "@root": "dist",
+    "@src": "dist/src",
+    "@models": "dist/src/models",
+    "@routes": "dist/src/routes",
+    "@utils": "dist/src/utils",
+    "@controllers": "dist/src/controllers"
   }
 }
