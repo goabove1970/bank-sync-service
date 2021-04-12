@@ -10,8 +10,8 @@ const MockExecuteSync = jest.fn((userId?: string, connectionId?: string, force?:
   throw "Not implemented";
 });
 
-export const MockBankSyncScheduler: (pc: BankPollController) => 
-  BankSyncScheduler = jest.fn<BankSyncScheduler, [BankPollController]>((bankPollController) => ( {
+export const MockBankSyncScheduler: (pc: BankPollController) =>
+  BankSyncScheduler = jest.fn<BankSyncScheduler, [BankPollController]>((bankPollController) => ({
     bankPollController,
     restartScheduler: MockRestartScheduler,
     executeSync: MockExecuteSync,
