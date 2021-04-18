@@ -1,4 +1,4 @@
-import { PgConfig } from './src/controllers/data-controller/database/PgConfig';
+import { PgConfig } from './src/models/database/PgConfig';
 
 interface ApplicationConfig {
   PgConfig?: PgConfig;
@@ -26,5 +26,5 @@ export const CONFIG: ApplicationConfig = {
   ApiServiceConfig: {
     url: '127.0.0.1',
     port: 9000,
-  }
+  },
 };

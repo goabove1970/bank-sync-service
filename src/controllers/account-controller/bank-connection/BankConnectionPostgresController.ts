@@ -1,10 +1,12 @@
-import { DatabaseController } from '../DataController';
+import { DatabaseController } from '../../../models/database/DataController';
 import { Value } from 'ts-postgres';
 import { BankConnection } from '@root/src/models/bank-connection';
 import { BankConnectionStats } from '@root/src/models/bank-connection-stats';
 import logger from '@root/src/logger';
 
-export class BankConnectionsPostgresController extends DatabaseController<BankConnection> {
+export class BankConnectionsPostgresController extends DatabaseController<
+  BankConnection
+> {
   constructor() {
     super('bank_connections');
   }

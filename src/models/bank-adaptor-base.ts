@@ -45,7 +45,10 @@ export class BankAdaptorBase implements BankAdaptor {
             if (error) {
               reject(error);
             } else {
-              if (files[i].indexOf(ext) !== -1 && moment(stats.mtimeMs).isBefore(moment().subtract(1, 'hours'))) {
+              if (
+                files[i].indexOf(ext) !== -1 &&
+                moment(stats.mtimeMs).isBefore(moment().subtract(1, 'hours'))
+              ) {
                 filtered.push(files[i]);
               }
               resolve(() => {});
@@ -119,7 +122,7 @@ export class BankAdaptorBase implements BankAdaptor {
           acctData = re.exec(results);
           if (acctData && acctData.length) {
             acctData.forEach((acctString) => {
-              const data = parseAcctData(acctString);
+              const data: ofxAccount = parseAcctData(acctString);
               accts.push(data);
             });
           }

@@ -1,18 +1,15 @@
-import { BankPollController } from "@root/src/controllers/bank-controller";
-import { BankSyncScheduler } from "@root/src/controllers/bank-controller/scheduler";
-import { BankConnection } from "@root/src/models/bank-connection";
+import { SyncController } from '@root/src/controllers/sync-controller';
+import { SyncScheduler } from '@root/src/controllers/scheduler';
 
 const MockRestartScheduler = jest.fn((): void => {
-  throw "Not implemented";
+  throw 'Not implemented';
 });
 
-const MockExecuteSync = jest.fn((userId?: string, connectionId?: string, force?: boolean): Promise<BankConnection[]> => {
-  throw "Not implemented";
-});
-
-export const MockBankSyncScheduler: (pc: BankPollController) =>
-  BankSyncScheduler = jest.fn<BankSyncScheduler, [BankPollController]>((bankPollController) => ({
-    bankPollController,
+export const MockBankSyncScheduler: (
+  pc: SyncController
+) => SyncScheduler = jest.fn<SyncScheduler, [SyncController]>(
+  (bankPollController) => ({
+    syncController: bankPollController,
     restartScheduler: MockRestartScheduler,
-    executeSync: MockExecuteSync,
-  }));
+  })
+);

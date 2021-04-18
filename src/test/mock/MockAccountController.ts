@@ -8,66 +8,72 @@ import { GuidFull } from '@root/src/utils/generateGuid';
 import 'jest';
 
 export const mockableAccountArgs: { mockAccountCollection: UserAccount[] } = {
-    mockAccountCollection: [],
+  mockAccountCollection: [],
 };
 
-
 const getCollection: () => UserAccount[] = () => {
-    return mockableAccountArgs.mockAccountCollection;
+  return mockableAccountArgs.mockAccountCollection;
 };
 
 const updateItem = (item: UserAccount) => {
-    const index = getCollection().findIndex((e) => e.accountId === item.accountId);
-    if (index !== -1) {
-        getCollection()[index] = item;
-    }
+  const index = getCollection().findIndex(
+    (e) => e.accountId === item.accountId
+  );
+  if (index !== -1) {
+    getCollection()[index] = item;
+  }
 };
 
 const addItem = (item: UserAccount) => {
-    getCollection().push(item);
+  getCollection().push(item);
 };
 
 const MockRead = jest.fn(
-    (args: ReadAccountArgs): Promise<AccountResponseModel[]> => {
-        let subset = getCollection();
-        if (args.accountId) {
-            subset = subset.filter((d) => d.accountId === args.accountId);
-        }
-        if (args.userId) {
-            subset = subset.filter((d) => d.userId === args.userId);
-        }
-        return Promise.resolve(subset);
+  (args: ReadAccountArgs): Promise<AccountResponseModel[]> => {
+    let subset = getCollection();
+    if (args.accountId) {
+      subset = subset.filter((d) => d.accountId === args.accountId);
     }
+    if (args.userId) {
+      subset = subset.filter((d) => d.userId === args.userId);
+    }
+    return Promise.resolve(subset);
+  }
 );
 
-const MockCreate = jest.fn((args: AccountCreateArgs): Promise<string> => {
+const MockCreate = jest.fn(
+  (args: AccountCreateArgs): Promise<string> => {
     const acct: UserAccount = {
-        accountType: args.accountType,
-        userId: args.userId,
-        bankRoutingNumber: args.bankRoutingNumber,
-        bankAccountNumber: args.bankAccountNumber,
-        bankName: args.bankName,
-        serviceComment: args.serviceComment,
-        alias: args.alias,
-        cardNumber: args.cardNumber,
-        accountId: GuidFull(),
+      accountType: args.accountType,
+      userId: args.userId,
+      bankRoutingNumber: args.bankRoutingNumber,
+      bankAccountNumber: args.bankAccountNumber,
+      bankName: args.bankName,
+      serviceComment: args.serviceComment,
+      alias: args.alias,
+      cardNumber: args.cardNumber,
+      accountId: GuidFull(),
     };
     addItem(acct);
     return Promise.resolve(acct.accountId);
-});
-const MockAssignUser = jest.fn((userId: string, accountId: string): Promise<void> => {
-    throw "Not implemented";
-});
-const MockUpdate = jest.fn((args: AccountUpdateArgs): Promise<void>  => {
+  }
+);
+const MockAssignUser = jest.fn(
+  (userId: string, accountId: string): Promise<void> => {
+    throw 'Not implemented';
+  }
+);
+const MockUpdate = jest.fn(
+  (args: AccountUpdateArgs): Promise<void> => {
     return Promise.resolve(updateItem(args));
-});
+  }
+);
 
-
-export let MockAccountController = jest.fn<AccountController, []>(() => ({
-    config: {},
-    routerName: "",
-    create: MockCreate,
-    read: MockRead,
-    update: MockUpdate,
-    assignUser: MockAssignUser,
+export const MockAccountController = jest.fn<AccountController, []>(() => ({
+  config: {},
+  routerName: '',
+  create: MockCreate,
+  read: MockRead,
+  update: MockUpdate,
+  assignUser: MockAssignUser,
 }));

@@ -1,13 +1,18 @@
 import { BankConnectionPersistanceControllerBase } from './BankConnectionPersistanceControllerBase';
-import { DatabaseController } from '../DataController';
+import { DatabaseController } from '../../../models/database/DataController';
 import { bankConnectionsPostgresDataController } from './BankConnectionPostgresController';
 import moment = require('moment');
 import { BankConnection } from '@root/src/models/bank-connection';
 import { BankSyncArgs } from '@root/src/routes/connections-request';
-import { validateConnectionUpdateArgs, validateConnectionCreateArgs, matchesReadArgs } from './helper';
+import {
+  validateConnectionUpdateArgs,
+  validateConnectionCreateArgs,
+  matchesReadArgs,
+} from './helper';
 import { DatabaseError } from '@root/src/models/errors';
 
-export class BankConnectionPersistenceController implements BankConnectionPersistanceControllerBase {
+export class BankConnectionPersistenceController
+  implements BankConnectionPersistanceControllerBase {
   private dataController: DatabaseController<BankConnection>;
 
   constructor(controller: DatabaseController<BankConnection>) {
@@ -36,11 +41,15 @@ export class BankConnectionPersistenceController implements BankConnectionPersis
     }
 
     if (args.lastPollDate) {
-      updateFields.push(`last_poll_date='${moment(args.lastPollDate).toISOString()}'`);
+      updateFields.push(
+        `last_poll_date='${moment(args.lastPollDate).toISOString()}'`
+      );
     }
 
     if (args.lastPollStats) {
-      updateFields.push(`last_polls_stats='${escape(JSON.stringify(args.lastPollStats))}'`);
+      updateFields.push(
+        `last_polls_stats='${escape(JSON.stringify(args.lastPollStats))}'`
+      );
     }
 
     const updateStatement = updateFields.join(',\n');
@@ -73,7 +82,11 @@ export class BankConnectionPersistenceController implements BankConnectionPersis
             '${args.password}',
             '${moment(args.dateAdded).toISOString()}',
             ${args.status ? args.status : 'NULL'},
-            ${args.lastPollDate ? `'${moment(args.lastPollDate).toISOString()}'` : 'NULL'},
+            ${
+              args.lastPollDate
+                ? `'${moment(args.lastPollDate).toISOString()}'`
+                : 'NULL'
+            },
             ${args.lastPollStats ? `'${args.lastPollStats}'` : 'NULL'});`);
   }
 
