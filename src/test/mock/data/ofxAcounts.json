@@ -1,0 +1,25 @@
+{
+  "accounts": [
+    {
+      "description": "CREDIT CARD",
+      "accountId": "4266841594977983",
+      "svcstatus": "ACTIVE"
+    },
+    {
+      "description": "TOTAL CHECKING",
+      "accountId": "528960656",
+      "svcstatus": "ACTIVE",
+      "bankId": "071000013",
+      "acctype": "CHECKING"
+    },
+    {
+      "description": "CREDIT CARD",
+      "accountId": "4147202474828223",
+      "svcstatus": "ACTIVE"
+    }
+  ],
+  "statusData": {
+    "severity": "INFO",
+    "message": "SUCCESS"
+  }
+}

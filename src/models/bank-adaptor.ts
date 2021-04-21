@@ -5,5 +5,4 @@ import { ofxResponse } from './ofx-response';
 export interface BankAdaptor {
   extractAccounts(): Promise<ofxResponse>;
   getAccountData(acct: ofxAccount): Promise<AccountData>;
-  getAccountsData(): Promise<AccountData[]>;
 }

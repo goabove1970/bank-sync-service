@@ -178,18 +178,6 @@ export class BankAdaptorBase implements BankAdaptor {
         .catch((err) => reject(err));
     });
   }
-
-  async getAccountsData(): Promise<AccountData[]> {
-    const res: AccountData[] = [];
-    const accts = await this.extractAccounts();
-    if (accts.accounts) {
-      for (let i = 0; i < accts.accounts.length; i++) {
-        const acctData = await this.getAccountData(accts[i]);
-        res.push(acctData);
-      }
-    }
-    return res;
-  }
 }
 
 const parseAcctData = (str: string): ofxAccount => {

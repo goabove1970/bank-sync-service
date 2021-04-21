@@ -1,6 +1,7 @@
 import { CONFIG, ServiceConfig } from '@root/app.config';
 import logger from '@root/src/logger';
 import { RequestBase, ResponseBase } from '@root/src/models/RequestBase';
+import { TransactionReadArg } from '@root/src/models/transaction/TransactionReadArgs';
 import { callService } from '@root/src/utils/callService';
 import { Transaction } from '@src/models/transaction/Transaction';
 
@@ -43,6 +44,26 @@ export class TransactionProcessor {
     });
     return response;
   }
+
+  async readTransactions(args: TransactionReadArg): Promise<number | Transaction[]> {
+    const serviceArgs: RequestBase = {
+      args,
+      action: 'read-transactions'
+    }
+    const response = callService(this.config, this.routerName, serviceArgs).then((data: ResponseBase) => {
+      const responseData = data.payload as number | Transaction[];
+      console.log(`Account response: ${JSON.stringify(responseData)}`);
+      return responseData;
+    }).catch(e => {
+      const errorMessage = e.message || e;
+      console.error(errorMessage);
+      logger.error(errorMessage);
+      let resp: number | Transaction[]
+      return resp;
+    });
+    return response;
+  }
+
 
 }
 

@@ -17,7 +17,7 @@ export class MockableAccountData implements AccountData {
 
 export class MockableBankAdaptorData {
   mockOfxResponse?: ofxResponse;
-  acctData?: AccountData;
+  acctData?: Map<string, AccountData>;
 }
 export const mockableBankAdaptorData = new MockableBankAdaptorData();
 
@@ -50,7 +50,7 @@ const MockExtractAccounts = jest.fn(
 
 const MockGetAccountData = jest.fn(
   (acct: ofxAccount): Promise<AccountData> => {
-    return Promise.resolve(mockableBankAdaptorData.acctData);
+    return Promise.resolve(mockableBankAdaptorData.acctData[acct.accountId]);
   }
 );
 
