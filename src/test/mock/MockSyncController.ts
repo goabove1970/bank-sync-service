@@ -1,15 +1,15 @@
-import 'jest';
-import { BankConnection } from '@root/src/models/bank-connection';
-import { SyncController } from '@root/src/controllers/sync-controller';
-import { BankAdaptorBase } from '@root/src/models/bank-adaptor-base';
-import { ofxResponse } from '@root/src/models/ofx-response';
-import { MockBankAdaptorBase } from './MockBankAdaptorBase';
+import "jest";
+import { BankConnection } from "@root/src/models/bank-connection";
+import { SyncController } from "@root/src/controllers/sync-controller";
+import { BankAdaptorBase } from "@root/src/models/bank-adaptor-base";
+import { ofxResponse } from "@root/src/models/ofx-response";
+import { MockBankAdaptorBase } from "./MockBankAdaptorBase";
 import {
   BankAccountPollStatus,
   BankConnectionStats,
-} from '@root/src/models/bank-connection-stats';
-import { AccountResponseModel } from '@root/src/controllers/account-controller/AccountResponseModel';
-import { TransactionImprtResult } from '@root/src/controllers/transaction-processor-controller/TransactionProcessor';
+} from "@root/src/models/bank-connection-stats";
+import { AccountResponseModel } from "@root/src/controllers/account-controller/AccountResponseModel";
+import { TransactionImprtResult } from "@root/src/controllers/transaction-processor-controller/TransactionProcessor";
 
 export class MockableSyncControllerContext {
   mockGetConnectionStatusResponse: ofxResponse;
@@ -78,7 +78,7 @@ const MockGetConnectionStatus = jest.fn(
 
 const MockSyncConnection = jest.fn(
   (conn: BankConnection, sessionId: string): Promise<BankConnectionStats> => {
-    throw 'Not implemented';
+    throw "Not implemented";
   }
 );
 
@@ -87,7 +87,7 @@ const MockSyncTransactions = jest.fn(
     acctDataFromBank: BankAccountPollStatus,
     uac: AccountResponseModel
   ): Promise<TransactionImprtResult> => {
-    throw 'Not implemented';
+    throw "Not implemented";
   }
 );
 
@@ -100,4 +100,7 @@ export const MockSyncController = jest.fn<SyncController, []>(() => ({
   accountController: undefined,
   transactionProcessor: undefined,
   bankController: undefined,
+  accountTransactionCache: undefined,
+  getOldAccount: undefined,
+  cacheHasExpired: undefined,
 }));

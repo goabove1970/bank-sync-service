@@ -1,10 +1,10 @@
-import { Transaction } from '@src/models/transaction/Transaction';
+import { Transaction } from "@src/models/transaction/Transaction";
 
-import 'jest';
+import "jest";
 import {
   TransactionImprtResult,
   TransactionProcessor,
-} from '@root/src/controllers/transaction-processor-controller/TransactionProcessor';
+} from "@root/src/controllers/transaction-processor-controller/TransactionProcessor";
 
 export const mockableTransactionProcessorArgs: {
   transactions: Transaction[];
@@ -33,6 +33,7 @@ const MockAddTransactions = jest.fn(
 
 export let MockTransactionProcessor = jest.fn<TransactionProcessor, []>(() => ({
   config: {},
-  routerName: '',
+  routerName: "",
   addTransactions: MockAddTransactions,
+  readTransactions: undefined,
 }));
