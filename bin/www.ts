@@ -1,4 +1,5 @@
 import { app } from "../app";
+import { CONFIG } from "../app.config";
 
 var debug = require("debug")("api:server");
 var http = require("http");
@@ -51,5 +52,6 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   console.log(`Listening on ${bind}`);
+  console.log(`Service config: ${JSON.stringify(CONFIG, null, 2)}`);
   debug("Listening on " + bind);
 }
