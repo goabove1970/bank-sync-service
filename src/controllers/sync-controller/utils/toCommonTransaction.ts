@@ -1,24 +1,25 @@
-import { ofxTransaction } from '@root/src/models/ofx-transaction';
+import { AccountType } from "@root/src/models/accounts/Account";
+import { ofxTransaction } from "@root/src/models/ofx-transaction";
 import {
   Transaction,
   ProcessingStatus,
-} from '@root/src/models/transaction/Transaction';
-import { isCreditAccountType } from '@root/src/utils/accountUtils';
+} from "@root/src/models/transaction/Transaction";
+import { isCreditAccountType } from "@root/src/utils/accountUtils";
 import {
   parseChaseTransDetails,
   parseChaseTransactionType,
   parseCreditCardTransactionType,
-} from '@root/src/utils/ChaseParseHelper';
-import { GuidFull } from '@root/src/utils/generateGuid';
-import moment = require('moment');
-import { AccountResponseModel } from '../../account-controller/AccountResponseModel';
+} from "@root/src/utils/ChaseParseHelper";
+import { GuidFull } from "@root/src/utils/generateGuid";
+import moment = require("moment");
 
 export const toCommonTransaciton = (
   tr: ofxTransaction,
-  uac: AccountResponseModel
+  accountId: string,
+  accountType: AccountType
 ): Transaction => {
   return {
-    accountId: uac.accountId,
+    accountId,
     transactionId: GuidFull(),
     importedDate: moment().toDate(),
     categoryId: undefined,
@@ -33,14 +34,14 @@ export const toCommonTransaciton = (
     chaseTransaction: {
       Details: parseChaseTransDetails(tr.transactionType),
       PostingDate: tr.datePosted,
-      Description: tr.name + (tr.memo ? ` ${tr.memo}` : ''),
+      Description: tr.name + (tr.memo ? ` ${tr.memo}` : ""),
       Amount: tr.amount,
-      Type: isCreditAccountType(uac.accountType)
+      Type: isCreditAccountType(accountType)
         ? undefined
         : parseChaseTransactionType(tr.transactionType),
       Balance: undefined,
       CheckOrSlip: tr.memo,
-      CreditCardTransactionType: isCreditAccountType(uac.accountType)
+      CreditCardTransactionType: isCreditAccountType(accountType)
         ? parseCreditCardTransactionType(tr.transactionType)
         : undefined,
       BankDefinedCategory: tr.fitid,

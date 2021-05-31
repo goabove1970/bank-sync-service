@@ -1,9 +1,10 @@
-import { AccountData } from '@root/src/models/account-data';
-import { BankAdaptorBase } from '@root/src/models/bank-adaptor-base';
-import { ofxAccount } from '@root/src/models/ofx-account';
-import { ofxResponse } from '@root/src/models/ofx-response';
-import { ofxStatusData } from '@root/src/models/ofx-status-data';
-import { ofxTransaction } from '@root/src/models/ofx-transaction';
+import "jest";
+import { AccountData } from "@root/src/models/account-data";
+import { BankAdaptorBase } from "@root/src/models/bank-adaptor-base";
+import { ofxAccount } from "@root/src/models/ofx-account";
+import { ofxResponse } from "@root/src/models/ofx-response";
+import { ofxStatusData } from "@root/src/models/ofx-status-data";
+import { ofxTransaction } from "@root/src/models/ofx-transaction";
 
 export class MockableOfxResponse implements ofxResponse {
   accounts?: ofxAccount[];
@@ -13,6 +14,10 @@ export class MockableOfxResponse implements ofxResponse {
 export class MockableAccountData implements AccountData {
   transactions: ofxTransaction[];
   transactionsCount: number;
+  accountId: string;
+  accountType: string;
+  bankId: string;
+  description: string;
 }
 
 export class MockableBankAdaptorData {
@@ -23,22 +28,22 @@ export const mockableBankAdaptorData = new MockableBankAdaptorData();
 
 const MockRemoveOldFiles = jest.fn(
   (): Promise<void> => {
-    throw 'Not implemented mock method';
+    throw "Not implemented mock method";
     return Promise.resolve();
   }
 );
 
 const MockClearOldFileUploads = jest.fn(
   (tmpDir: string, ext: string): Promise<void> => {
-    throw 'Not implemented mock method';
+    throw "Not implemented mock method";
     return Promise.resolve();
   }
 );
 
 const MockCallBank = jest.fn(
   (rqst: string): Promise<string> => {
-    throw 'Not implemented mock method';
-    return Promise.resolve('');
+    throw "Not implemented mock method";
+    return Promise.resolve("");
   }
 );
 
@@ -56,7 +61,7 @@ const MockGetAccountData = jest.fn(
 
 const MockGetAccountsData = jest.fn(
   (): Promise<AccountData[]> => {
-    throw 'Not implemented mock method';
+    throw "Not implemented mock method";
     let acctData: AccountData[] = [];
     return Promise.resolve(acctData);
   }
@@ -70,10 +75,10 @@ export const MockBankAdaptorBase = jest.fn<BankAdaptorBase, []>(() => ({
   getAccountData: MockGetAccountData,
   getAccountsData: MockGetAccountsData,
 
-  login: '',
-  bankName: '',
-  password: '',
-  debitPythonScript: '',
-  accountPythonScript: '',
-  creditPythonScript: '',
+  login: "",
+  bankName: "",
+  password: "",
+  debitPythonScript: "",
+  accountPythonScript: "",
+  creditPythonScript: "",
 }));

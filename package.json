@@ -67,7 +67,6 @@
     ]
   },
   "dependencies": {
-    "@types/jest": "^26.0.22",
     "cors": "^2.8.4",
     "debug": "~2.6.9",
     "express": "~4.16.0",
@@ -77,7 +76,6 @@
     "guid-typescript": "^1.0.9",
     "http-errors": "^1.7.3",
     "https": "^1.0.0",
-    "jest": "^26.6.3",
     "module-alias": "^2.2.2",
     "moment": "^2.24.0",
     "multiparty": "^4.2.1",
@@ -92,7 +90,9 @@
     "@types/node": "^12.11.1",
     "ts-jest": "^26.4.4",
     "tslint": "^5.8.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "jest": "^26.6.3",
+    "@types/jest": "^26.0.22"
   },
   "_moduleAliases": {
     "@root": "dist",

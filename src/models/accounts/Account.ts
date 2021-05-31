@@ -1,4 +1,4 @@
-import { AccountStatus } from './AccountStatus';
+import { AccountStatus } from "./AccountStatus";
 
 export interface UserAccount {
   accountId?: string;
@@ -8,11 +8,18 @@ export interface UserAccount {
   bankName?: string;
   createDate?: Date;
   status?: AccountStatus;
-  serviceComment?: string;
+  serviceComment?: AccountServiceComment;
   accountType?: AccountType;
   cardNumber?: string;
   cardExpiration?: Date;
   alias?: string;
+}
+
+export interface AccountServiceComment {
+  replacedByAccount?: string;
+  replacesAccount?: string;
+  serviceMessage?: string;
+  closeDate?: Date;
 }
 
 export enum AccountType {

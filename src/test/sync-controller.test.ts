@@ -1,257 +1,457 @@
-import { SyncController } from '../controllers/sync-controller';
-import { AccountData } from '../models/account-data';
-import { AccountType, UserAccount } from '../models/accounts/Account';
-import { AccountStatus } from '../models/accounts/AccountStatus';
-import { BankConnection } from '../models/bank-connection';
-import { BankAccountPollStatus, BankConnectionStats } from '../models/bank-connection-stats';
-// import {  BankConnectionStats } from '../models/bank-connection-stats';
-// import { BankAccountPollStatus, BankConnectionStats } from '../models/bank-connection-stats';
-import { BankConnectionStatus } from '../models/bank-connection-status';
-// import { ofxAccount } from '../models/ofx-account';
-import { ofxResponse } from '../models/ofx-response';
-// import { ofxTransaction } from '../models/ofx-transaction';
-const fs = require('fs');
+import { AccountController } from "../controllers/account-controller/account-controller";
+import { BankController } from "../controllers/bank-controller";
+import { AccountTransactionsCache } from "../controllers/sync-controller/model/account-cache/account-cache";
+import { SyncController } from "../controllers/sync-controller/sync-controller";
+import {
+  transactionsMatch,
+  transactionsMatchOfx,
+} from "../controllers/sync-controller/utils/findMatchingOfxTransaction";
+import bankAdaptorFabric from "../controllers/sync-controller/utils/getBankAdapter";
+import { toCommonTransaciton } from "../controllers/sync-controller/utils/toCommonTransaction";
+import { TransactionProcessor } from "../controllers/transaction-processor-controller/call-through-transaction-processor";
+import { AccountData } from "../models/account-data";
+import { AccountType, UserAccount } from "../models/accounts/Account";
+import { AccountStatus } from "../models/accounts/AccountStatus";
+import { BankConnection } from "../models/bank-connection";
+import {
+  BankAccountPollStatus,
+  BankConnectionStats,
+} from "../models/bank-connection-stats";
+import { BankConnectionStatus } from "../models/bank-connection-status";
+import { ofxAccount } from "../models/ofx-account";
+import { ofxResponse } from "../models/ofx-response";
+import { ofxTransaction } from "../models/ofx-transaction";
+import {
+  getAccountResponseFrame,
+  getCreditAccountSaphireSample,
+} from "./mock/data/generateMockAcountsResponse";
+import {
+  getMockCreditAccountSapphire,
+  getMockSyncResponse,
+} from "./mock/data/mockSynckResponse";
 import {
   mockableAccountArgs,
   MockAccountController,
-} from './mock/MockAccountController';
+} from "./mock/MockAccountController";
 import {
   MockableAccountData,
   mockableBankAdaptorData,
   MockableOfxResponse,
-} from './mock/MockBankAdaptorBase';
+  MockBankAdaptorBase,
+} from "./mock/MockBankAdaptorBase";
 import {
   mockableBankConnectiondsArgs,
   MockBankController,
-} from './mock/MockBankController';
-// import { MockSyncController } from './mock/MockSyncController';
-import { MockTransactionProcessor } from './mock/MockTransactionProcessor';
+} from "./mock/MockBankController";
+import {
+  mockableTransactionProcessorArgs,
+  MockTransactionProcessor,
+} from "./mock/MockTransactionProcessor";
 
-const loadSyncResponse = (filename: string) => {
-  let res = {
-
-  };
-  if (fs.existsSync(filename)) {
-    try {
-      const data = fs.readFileSync(filename, {encoding:'utf8', flag:'r'});
-      res = JSON.parse(data);
-    } catch (error) {
-      console.log(`Can't read BankConnectionStats from file: ${error.message || error}`);
-    }
-  }
-
-  return res;
-}
-
-describe('SyncController', () => {
-  // let mockSyncController: SyncController;
-
-  beforeEach(() => {
-    // mockSyncController = new MockSyncController();
-  });
-
-  // it.skip(`Should poll accounts with transactions on syncing bank connection`, async () => {
-  //   const userId = 'user_id';
-  //   const accountId = 'account-id';
-
-  //   const transactionProcessor = new MockTransactionProcessor();
-  //   const accountController = new MockAccountController();
-  //   const bankController = new MockBankController();
-  //   const controller = new SyncController(
-  //     transactionProcessor,
-  //     accountController,
-  //     bankController
-  //   );
-
-  //   // setup OFX bank data
-  //   mockableBankAdaptorData.mockOfxResponse = new MockableOfxResponse();
-  //   mockableBankAdaptorData.mockOfxResponse.accounts = [];
-  //   const bankAccount: ofxAccount = {
-  //     accountId: 'bank-account-id-1234345364657',
-  //     acctype: 'DEBIT',
-  //     bankId: 'bank-id-sdf456234',
-  //   };
-  //   mockableBankAdaptorData.mockOfxResponse.accounts.push(bankAccount);
-  //   mockableBankAdaptorData.mockOfxResponse.statusData = {};
-  //   mockableBankAdaptorData.acctData = new MockableAccountData();
-  //   mockableBankAdaptorData.acctData.transactions = [];
-  //   const transaction: ofxTransaction = {
-  //     amount: 100,
-  //     datePosted: new Date(2020, 4, 16),
-  //     transactionType: 'transaction-type',
-  //     fitid: 'transaction-fitid',
-  //     memo: 'transaction-memo',
-  //     name: 'transaction-name',
-  //   };
-  //   mockableBankAdaptorData.acctData.transactions.push(transaction);
-  //   mockableBankAdaptorData.acctData.transactionsCount = 1;
-
-  //   mockableAccountArgs.mockAccountCollection = [];
-
-  //   const userAccount: UserAccount = {
-  //     accountId,
-  //     bankAccountNumber: 'bank-account-number',
-  //     bankName: 'MOCK',
-  //     userId,
-  //     status: AccountStatus.Active,
-  //   };
-  //   mockableAccountArgs.mockAccountCollection.push(userAccount);
-
-  //   const sessionId = 'session-id';
-  //   const connection: BankConnection = {
-  //     bankName: 'MOCK',
-  //     userId,
-  //     login: 'login',
-  //     password: 'password',
-  //     connectionId: '2234546',
-  //     status: BankConnectionStatus.Active | BankConnectionStatus.Validated,
-  //   };
-
-  //   // TESTING HERE
-  //   const syncConnectionResult = await controller.syncConnection(
-  //     connection,
-  //     sessionId
-  //   );
-  //   expect(syncConnectionResult.userId).toEqual(userId);
-  //   expect(syncConnectionResult.bankConnectionId).toEqual(
-  //     connection.connectionId
-  //   );
-  //   expect(syncConnectionResult.syncSessionId).toEqual(sessionId);
-  // });
-
-  // it.skip(`Should poll accounts on syncing bank connection`, async () => {
-  //   const userId = 'user_id';
-  //   const accountId = 'account-id';
-  //   const transactionProcessor = new MockTransactionProcessor();
-  //   const accountController = new MockAccountController();
-  //   const bankController = new MockBankController();
-  //   const controller = new SyncController(
-  //     transactionProcessor,
-  //     accountController,
-  //     bankController
-  //   );
-
-  //   // setup OFX bank data
-  //   mockableBankAdaptorData.mockOfxResponse = new MockableOfxResponse();
-  //   mockableBankAdaptorData.mockOfxResponse.accounts = [];
-  //   const bankAccount: ofxAccount = {
-  //     accountId: 'bank-account-id-1234345364657',
-  //     acctype: 'DEBIT',
-  //     bankId: 'bank-id-sdf456234',
-  //   };
-  //   mockableBankAdaptorData.mockOfxResponse.accounts.push(bankAccount);
-  //   mockableBankAdaptorData.mockOfxResponse.statusData = {};
-  //   mockableBankAdaptorData.acctData = new MockableAccountData();
-  //   mockableBankAdaptorData.acctData.transactions = [];
-  //   const transaction: ofxTransaction = {
-  //     amount: 100,
-  //     datePosted: new Date(2020, 4, 16),
-  //     transactionType: 'transaction-type',
-  //     fitid: 'transaction-fitid',
-  //     memo: 'transaction-memo',
-  //     name: 'transaction-name',
-  //   };
-  //   mockableBankAdaptorData.acctData.transactions.push(transaction);
-  //   mockableBankAdaptorData.acctData.transactionsCount = 1;
-
-  //   mockableAccountArgs.mockAccountCollection = [];
-
-  //   const userAccount: UserAccount = {
-  //     accountId,
-  //     bankAccountNumber: 'bank-account-number',
-  //     bankName: 'MOCK',
-  //     userId,
-  //     status: AccountStatus.Active,
-  //   };
-  //   mockableAccountArgs.mockAccountCollection.push(userAccount);
-
-  //   const connection: BankConnection = {
-  //     bankName: 'MOCK',
-  //     userId,
-  //     login: 'login',
-  //     password: 'password',
-  //     connectionId: '2234546',
-  //     status: BankConnectionStatus.Active | BankConnectionStatus.Validated,
-  //   };
-
-  //   const executeSyncResult: BankConnection[] = await controller.executeSync(
-  //     userId,
-  //     connection.connectionId,
-  //     true
-  //   );
-  //   expect(executeSyncResult.length).toEqual(1);
-  // });
-
-  it(`Should poll accounts on syncing bank connection`, async () => {
-    const transactionProcessor = new MockTransactionProcessor();
-    const accountController = new MockAccountController();
-    const bankController = new MockBankController();
-    const controller = new SyncController(
-      transactionProcessor,
-      accountController,
-      bankController
+describe("SyncController", () => {
+  describe("when getting exitsint ofc account from bank", () => {
+    const transactionsNeededToMatchAccounts = 20;
+    const userId = "26a89c19-f32b-de23-85ca-4a8929c61e36";
+    const syncSessionId = "5bf22687-4ac6-b373-1a02-1fcc4e0d7f1d";
+    const bankConnectionId = "7b244d70-ad54-f501-9708-c6932a0ad420";
+    const accountId = "766bc1ab-8b57-7f11-2e7c-eed123cd3cb7";
+    const sapphireAccountNumber = "4266841594977983";
+    const userLogin = "goabove1970";
+    const userPassword = "K8cu5SaE97Kc2w9V3f37R5fkwwyapfh";
+    const sapphireAccount: ofxAccount = getCreditAccountSaphireSample();
+    const sapphireAccountData = getMockCreditAccountSapphire(
+      sapphireAccount.accountId
     );
 
-    // retrieve mock OXF bank data
-    
-    const ofxAccountsPath = 'src/test/mock/data/ofxAcounts.json';
-    const mockAccountsData: ofxResponse = loadSyncResponse(ofxAccountsPath) as ofxResponse;
-    expect(mockAccountsData).not.toBeUndefined()
+    let controller: SyncController;
+    let accountCache: AccountTransactionsCache;
+    let bankController: BankController;
+    let accountController: AccountController;
+    let transactionProcessor: TransactionProcessor;
 
-    // setup OFX bank data
-    mockableBankAdaptorData.mockOfxResponse = new MockableOfxResponse();
-    mockableBankAdaptorData.mockOfxResponse.accounts = [];
-    expect(mockAccountsData.accounts).not.toBeUndefined()
-    mockableBankAdaptorData.mockOfxResponse.accounts = mockAccountsData.accounts;
-    expect(mockAccountsData.statusData).not.toBeUndefined()
-    mockableBankAdaptorData.mockOfxResponse.statusData = {};
-    mockableBankAdaptorData.acctData = new Map<string, AccountData>();
+    beforeEach(() => {
+      transactionProcessor = new MockTransactionProcessor();
+      accountController = new MockAccountController();
+      bankController = new MockBankController();
+      accountCache = new AccountTransactionsCache(transactionProcessor);
+      controller = new SyncController(
+        transactionProcessor,
+        accountController,
+        bankController,
+        accountCache
+      );
 
-    const mockResponsePath = 'src/test/mock/data/mockSynckResponse.json';
-    const moackTransactionsData: BankConnectionStats = loadSyncResponse(mockResponsePath);
-    expect(moackTransactionsData).not.toBeUndefined()
-    expect(moackTransactionsData.accounts).not.toBeUndefined()
+      mockableAccountArgs.mockAccountCollection = [];
+      mockableTransactionProcessorArgs.transactions = [];
 
-    moackTransactionsData.accounts.forEach((acct: BankAccountPollStatus) => {
-      mockableBankAdaptorData.acctData[acct.accountNumber] = new MockableAccountData();
-      mockableBankAdaptorData.acctData[acct.accountNumber].transactions = acct.accountData.transactions;
-      mockableBankAdaptorData.acctData[acct.accountNumber].transactionsCount = acct.accountData.transactions.length;
+      spyOn(bankAdaptorFabric, "getBankAdapter").and.returnValue(
+        new MockBankAdaptorBase()
+      );
     });
-    
-    // 2. Existing in database
-    // 2.1 User's bank account's tied to this usedId
-    const userAccount: UserAccount = {
-      accountId: '766bc1ab-8b57-7f11-2e7c-eed123cd3cb7',
-      bankAccountNumber: '4266841594977983',
-      bankRoutingNumber: '4266841594977983',
-      bankName: 'MOCK',
-      userId: '26a89c19-f32b-de23-85ca-4a8929c61e36',
-      status: AccountStatus.Active,
-      accountType: AccountType.Credit,
-      alias: 'FREEDOM',
-      cardNumber: '4266841594977983',
-      createDate: new Date(2020, 5, 5),
-    };
-    mockableAccountArgs.mockAccountCollection = [];
-    mockableAccountArgs.mockAccountCollection.push(userAccount);
 
-    // 2.2 Bank connection from database to be synched
-    const connection: BankConnection = {
-      bankName: 'MOCK',
-      userId: '26a89c19-f32b-de23-85ca-4a8929c61e36',
-      login: 'goabove1970',
-      password: 'K8cu5SaE97Kc2w9V3f37R5fkwwyapfh',
-      connectionId: '7b244d70-ad54-f501-9708-c6932a0ad420',
-      status: BankConnectionStatus.Active | BankConnectionStatus.Validated,
-    };
-    mockableBankConnectiondsArgs.mockBankConnectionsCollection = [];
-    mockableBankConnectiondsArgs.mockBankConnectionsCollection.push(connection);
+    it("should add new transactions from ofc account to existing account", async () => {
+      const mockAccountsData: ofxResponse = getAccountResponseFrame([
+        sapphireAccount,
+      ]);
+      // setup OFX bank data
+      mockableBankAdaptorData.mockOfxResponse = new MockableOfxResponse();
+      mockableBankAdaptorData.mockOfxResponse.accounts =
+        mockAccountsData.accounts;
+      mockableBankAdaptorData.mockOfxResponse.statusData = {};
+      mockableBankAdaptorData.acctData = new Map<string, AccountData>();
 
-    const executeSyncResult: BankConnection[] = await controller.executeSync(
-      connection.userId,
-      connection.connectionId,
-      true
-    );
-    expect(executeSyncResult.length).toEqual(1);
+      const mockTransactionsData: BankConnectionStats = getMockSyncResponse(
+        userId,
+        syncSessionId,
+        bankConnectionId
+      );
+      mockTransactionsData.accounts.push(sapphireAccountData);
+      mockTransactionsData.accounts.forEach((acct: BankAccountPollStatus) => {
+        mockableBankAdaptorData.acctData[
+          acct.accountNumber
+        ] = new MockableAccountData();
+        mockableBankAdaptorData.acctData[acct.accountNumber].transactions =
+          acct.accountData.transactions;
+        mockableBankAdaptorData.acctData[acct.accountNumber].transactionsCount =
+          acct.accountData.transactions.length;
+      });
+      // 2. Existing in database
+      // 2.1 User's bank account's tied to this usedId
+      const userAccount: UserAccount = {
+        accountId,
+        bankAccountNumber: sapphireAccountNumber,
+        bankRoutingNumber: sapphireAccountNumber,
+        bankName: "MOCK",
+        userId,
+        status: AccountStatus.Active,
+        accountType: AccountType.Credit,
+        alias: "FREEDOM",
+        cardNumber: sapphireAccountNumber,
+        createDate: new Date(2020, 5, 5),
+      };
+
+      mockableAccountArgs.mockAccountCollection.push(userAccount);
+      // 2.2 Bank connection from database to be synched
+      const connection: BankConnection = {
+        bankName: "MOCK",
+        userId,
+        login: userLogin,
+        password: userPassword,
+        connectionId: bankConnectionId,
+        status: BankConnectionStatus.Active | BankConnectionStatus.Validated,
+      };
+      mockableBankConnectiondsArgs.mockBankConnectionsCollection = [];
+      mockableBankConnectiondsArgs.mockBankConnectionsCollection.push(
+        connection
+      );
+      spyOn(controller, "syncTransactionsExistingAccount").and.callThrough();
+      spyOn(controller, "syncTransactionsCreateNewAccount").and.callThrough();
+      spyOn(controller, "syncTransactionsOldAccount").and.callThrough();
+
+      const executeSyncResult: BankConnection[] = await controller.executeSync(
+        connection.userId,
+        connection.connectionId,
+        true
+      );
+
+      expect(executeSyncResult.length).toEqual(1);
+      expect(controller.syncTransactionsExistingAccount).toBeCalledTimes(1);
+      expect(controller.syncTransactionsOldAccount).toBeCalledTimes(0);
+      expect(controller.syncTransactionsCreateNewAccount).toBeCalledTimes(0);
+
+      const mockDbTransactions = mockableTransactionProcessorArgs.transactions;
+      const polledTransactions: ofxTransaction[] =
+        sapphireAccountData.accountData.transactions;
+
+      // expect all of the polled transactions to be added
+      polledTransactions.forEach((ofxtr: ofxTransaction) => {
+        if (ofxtr.datePosted) {
+          const addedTransaction = mockDbTransactions.find((tr) =>
+            transactionsMatch(tr, ofxtr)
+          );
+          if (!addedTransaction) {
+            console.log(
+              `Transaction has not been imported: ${JSON.stringify(ofxtr)}`
+            );
+          }
+          expect(addedTransaction).not.toBeUndefined();
+        }
+      });
+
+      // expect all of the polled transactions to be in poll result
+      const syncData: BankConnection = executeSyncResult[0];
+      expect(syncData).not.toBeUndefined();
+      expect(syncData.lastPollStats.accounts[0].recordsPolled).toEqual(
+        polledTransactions.length
+      );
+      expect(
+        syncData.lastPollStats.accounts[0].syncData.newTransactions
+      ).toEqual(polledTransactions.length);
+      expect(syncData.lastPollStats.accounts[0].syncData.duplicates).toEqual(0);
+      const importedTransactions: ofxTransaction[] =
+        syncData.lastPollStats.accounts[0].accountData.transactions;
+      polledTransactions.forEach((ofxtr: ofxTransaction) => {
+        if (ofxtr.datePosted) {
+          const addedTransaction = importedTransactions.find((tr) =>
+            transactionsMatchOfx(tr, ofxtr)
+          );
+          if (!addedTransaction) {
+            console.log(
+              `Transaction has not been imported: ${JSON.stringify(ofxtr)}`
+            );
+          }
+          expect(addedTransaction).not.toBeUndefined();
+        }
+      });
+    });
+
+    it(`should not recognize old account after card replacement if old account has less transactions than ${transactionsNeededToMatchAccounts}`, async () => {
+      const mockAccountsData: ofxResponse = getAccountResponseFrame([
+        sapphireAccount,
+      ]);
+      // setup OFX bank data
+      mockableBankAdaptorData.mockOfxResponse = new MockableOfxResponse();
+      mockableBankAdaptorData.mockOfxResponse.accounts =
+        mockAccountsData.accounts;
+      mockableBankAdaptorData.mockOfxResponse.statusData = {};
+      mockableBankAdaptorData.acctData = new Map<string, AccountData>();
+
+      const mockTransactionsData: BankConnectionStats = getMockSyncResponse(
+        userId,
+        syncSessionId,
+        bankConnectionId
+      );
+      mockTransactionsData.accounts.push(sapphireAccountData);
+      mockTransactionsData.accounts.forEach((acct: BankAccountPollStatus) => {
+        mockableBankAdaptorData.acctData[
+          acct.accountNumber
+        ] = new MockableAccountData();
+        mockableBankAdaptorData.acctData[acct.accountNumber].transactions =
+          acct.accountData.transactions;
+        mockableBankAdaptorData.acctData[acct.accountNumber].transactionsCount =
+          acct.accountData.transactions.length;
+      });
+      // 2. Existing in database
+      // 2.1 User's bank account's tied to this usedId
+
+      // here we will modify account id in database
+      const userAccount: UserAccount = {
+        accountId: "some-account-id",
+        bankAccountNumber: "some-account-number",
+        bankRoutingNumber: sapphireAccountNumber,
+        bankName: "MOCK",
+        userId,
+        status: AccountStatus.Active,
+        accountType: AccountType.Credit,
+        alias: "FREEDOM",
+        cardNumber: sapphireAccountNumber,
+        createDate: new Date(2020, 5, 5),
+      };
+      mockableAccountArgs.mockAccountCollection.push(userAccount);
+      // 2.2 Bank connection from database to be synched
+      const connection: BankConnection = {
+        bankName: "MOCK",
+        userId,
+        login: userLogin,
+        password: userPassword,
+        connectionId: bankConnectionId,
+        status: BankConnectionStatus.Active | BankConnectionStatus.Validated,
+      };
+      mockableBankConnectiondsArgs.mockBankConnectionsCollection = [];
+      mockableBankConnectiondsArgs.mockBankConnectionsCollection.push(
+        connection
+      );
+      spyOn(controller, "syncTransactionsExistingAccount").and.callThrough();
+      spyOn(controller, "syncTransactionsCreateNewAccount").and.callThrough();
+      spyOn(controller, "syncTransactionsOldAccount").and.callThrough();
+
+      const executeSyncResult: BankConnection[] = await controller.executeSync(
+        connection.userId,
+        connection.connectionId,
+        true
+      );
+
+      expect(executeSyncResult.length).toEqual(1);
+      expect(controller.syncTransactionsExistingAccount).toBeCalledTimes(0);
+      expect(controller.syncTransactionsOldAccount).toBeCalledTimes(0);
+      expect(controller.syncTransactionsCreateNewAccount).toBeCalledTimes(1);
+
+      const mockDbTransactions = mockableTransactionProcessorArgs.transactions;
+      const polledTransactions: ofxTransaction[] =
+        sapphireAccountData.accountData.transactions;
+
+      // expect all of the polled transactions to be added
+      polledTransactions.forEach((ofxtr: ofxTransaction) => {
+        if (ofxtr.datePosted) {
+          const addedTransaction = mockDbTransactions.find((tr) =>
+            transactionsMatch(tr, ofxtr)
+          );
+          if (!addedTransaction) {
+            console.log(
+              `Transaction has not been imported: ${JSON.stringify(ofxtr)}`
+            );
+          }
+          expect(addedTransaction).not.toBeUndefined();
+        }
+      });
+
+      // expect all of the polled transactions to be in poll result
+      const syncData: BankConnection = executeSyncResult[0];
+      expect(syncData).not.toBeUndefined();
+      expect(syncData.lastPollStats.accounts[0].recordsPolled).toEqual(
+        polledTransactions.length
+      );
+      expect(
+        syncData.lastPollStats.accounts[0].syncData.newTransactions
+      ).toEqual(polledTransactions.length);
+      expect(syncData.lastPollStats.accounts[0].syncData.duplicates).toEqual(0);
+      const importedTransactions: ofxTransaction[] =
+        syncData.lastPollStats.accounts[0].accountData.transactions;
+      polledTransactions.forEach((ofxtr: ofxTransaction) => {
+        if (ofxtr.datePosted) {
+          const addedTransaction = importedTransactions.find((tr) =>
+            transactionsMatchOfx(tr, ofxtr)
+          );
+          if (!addedTransaction) {
+            console.log(
+              `Transaction has not been imported: ${JSON.stringify(ofxtr)}`
+            );
+          }
+          expect(addedTransaction).not.toBeUndefined();
+        }
+      });
+    });
+
+    it(`should recognize old account after card replacement if old account has more transactions than ${transactionsNeededToMatchAccounts}`, async () => {
+      const oldAccountId = "old-account-id";
+      const oldBankAccountNumber = "old-account-id";
+
+      const mockAccountsData: ofxResponse = getAccountResponseFrame([
+        sapphireAccount,
+      ]);
+      // setup OFX bank data
+      mockableBankAdaptorData.mockOfxResponse = new MockableOfxResponse();
+      mockableBankAdaptorData.mockOfxResponse.accounts =
+        mockAccountsData.accounts;
+      mockableBankAdaptorData.mockOfxResponse.statusData = {};
+      mockableBankAdaptorData.acctData = new Map<string, AccountData>();
+
+      const mockTransactionsData: BankConnectionStats = getMockSyncResponse(
+        userId,
+        syncSessionId,
+        bankConnectionId
+      );
+      mockTransactionsData.accounts.push(sapphireAccountData);
+      mockTransactionsData.accounts.forEach((acct: BankAccountPollStatus) => {
+        mockableBankAdaptorData.acctData[
+          acct.accountNumber
+        ] = new MockableAccountData();
+        mockableBankAdaptorData.acctData[acct.accountNumber].transactions =
+          acct.accountData.transactions;
+        mockableBankAdaptorData.acctData[acct.accountNumber].transactionsCount =
+          acct.accountData.transactions.length;
+      });
+      // 2. Existing in database
+      // 2.1 User's bank account's tied to this usedId
+
+      // here we will modify account id in database
+      const userAccount: UserAccount = {
+        accountId: oldAccountId,
+        bankAccountNumber: oldBankAccountNumber,
+        bankRoutingNumber: sapphireAccountNumber,
+        bankName: "MOCK",
+        userId,
+        status: AccountStatus.Active,
+        accountType: AccountType.Credit,
+        alias: "FREEDOM",
+        cardNumber: sapphireAccountNumber,
+        createDate: new Date(2020, 5, 5),
+      };
+      mockableAccountArgs.mockAccountCollection.push(userAccount);
+
+      // fill with transactions
+      for (let i = 0; i < transactionsNeededToMatchAccounts; i++) {
+        mockableTransactionProcessorArgs.transactions.push(
+          toCommonTransaciton(
+            sapphireAccountData.accountData.transactions[i],
+            oldAccountId,
+            userAccount.accountType
+          )
+        );
+      }
+
+      // 2.2 Bank connection from database to be synched
+      const connection: BankConnection = {
+        bankName: "MOCK",
+        userId,
+        login: userLogin,
+        password: userPassword,
+        connectionId: bankConnectionId,
+        status: BankConnectionStatus.Active | BankConnectionStatus.Validated,
+      };
+      mockableBankConnectiondsArgs.mockBankConnectionsCollection = [];
+      mockableBankConnectiondsArgs.mockBankConnectionsCollection.push(
+        connection
+      );
+      spyOn(controller, "syncTransactionsExistingAccount").and.callThrough();
+      spyOn(controller, "syncTransactionsCreateNewAccount").and.callThrough();
+      spyOn(controller, "syncTransactionsOldAccount").and.callThrough();
+
+      const executeSyncResult: BankConnection[] = await controller.executeSync(
+        connection.userId,
+        connection.connectionId,
+        true
+      );
+
+      expect(executeSyncResult.length).toEqual(1);
+      expect(controller.syncTransactionsExistingAccount).toBeCalledTimes(0);
+      expect(controller.syncTransactionsOldAccount).toBeCalledTimes(1);
+      expect(controller.syncTransactionsCreateNewAccount).toBeCalledTimes(0);
+
+      const mockDbTransactions = mockableTransactionProcessorArgs.transactions;
+      const polledTransactions: ofxTransaction[] =
+        sapphireAccountData.accountData.transactions;
+
+      // expect all of the polled transactions to be added
+      polledTransactions.forEach((ofxtr: ofxTransaction) => {
+        if (ofxtr.datePosted) {
+          const addedTransaction = mockDbTransactions.find((tr) =>
+            transactionsMatch(tr, ofxtr)
+          );
+          if (!addedTransaction) {
+            console.log(
+              `Transaction has not been imported: ${JSON.stringify(ofxtr)}`
+            );
+          }
+          expect(addedTransaction).not.toBeUndefined();
+        }
+      });
+
+      // expect all of the polled transactions to be in poll result
+      const syncData: BankConnection = executeSyncResult[0];
+      expect(syncData).not.toBeUndefined();
+      expect(syncData.lastPollStats.accounts[0].recordsPolled).toEqual(
+        polledTransactions.length
+      );
+      expect(
+        syncData.lastPollStats.accounts[0].syncData.newTransactions
+      ).toEqual(polledTransactions.length - transactionsNeededToMatchAccounts);
+      expect(syncData.lastPollStats.accounts[0].syncData.duplicates).toEqual(0);
+      const importedTransactions: ofxTransaction[] =
+        syncData.lastPollStats.accounts[0].accountData.transactions;
+      polledTransactions.forEach((ofxtr: ofxTransaction) => {
+        if (ofxtr.datePosted) {
+          const addedTransaction = importedTransactions.find((tr) =>
+            transactionsMatchOfx(tr, ofxtr)
+          );
+          if (!addedTransaction) {
+            console.log(
+              `Transaction has not been imported: ${JSON.stringify(ofxtr)}`
+            );
+          }
+          expect(addedTransaction).not.toBeUndefined();
+        }
+      });
+    });
   });
 });

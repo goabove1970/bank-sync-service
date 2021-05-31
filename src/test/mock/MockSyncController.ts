@@ -1,15 +1,13 @@
 import "jest";
 import { BankConnection } from "@root/src/models/bank-connection";
-import { SyncController } from "@root/src/controllers/sync-controller";
 import { BankAdaptorBase } from "@root/src/models/bank-adaptor-base";
 import { ofxResponse } from "@root/src/models/ofx-response";
 import { MockBankAdaptorBase } from "./MockBankAdaptorBase";
-import {
-  BankAccountPollStatus,
-  BankConnectionStats,
-} from "@root/src/models/bank-connection-stats";
-import { AccountResponseModel } from "@root/src/controllers/account-controller/AccountResponseModel";
-import { TransactionImprtResult } from "@root/src/controllers/transaction-processor-controller/TransactionProcessor";
+import { BankConnectionStats } from "@root/src/models/bank-connection-stats";
+import { AccountType } from "@root/src/models/accounts/Account";
+import { ofxTransaction } from "@root/src/models/ofx-transaction";
+import { SyncController } from "@root/src/controllers/sync-controller/sync-controller";
+import { TransactionImprtResult } from "@root/src/controllers/transaction-processor-controller/transaction-import-result";
 
 export class MockableSyncControllerContext {
   mockGetConnectionStatusResponse: ofxResponse;
@@ -30,24 +28,6 @@ export const getDefaultConnectionStatusResponse: () => ofxResponse = () => {
 };
 
 export const mockableSyncControllerArgs = new MockableSyncControllerContext();
-
-// const getCollection: () => BankConnection[] = () => {
-//     return mockableBankConnectiondsArgs.mockBankConnectionsCollection;
-// };
-
-// const updateItem = (item: BankConnection) => {
-//     const index = getCollection().findIndex((e) => e.connectionId === item.connectionId);
-//     if (index !== -1) {
-//         getCollection()[index] = item;
-//     }
-// };
-
-// const deleteItem = (key: string) => {
-//     const index = getCollection().findIndex((e) => e.connectionId === key);
-//     if (index > -1) {
-//         getCollection().splice(index, 1);
-//     }
-// };
 
 const MockExecuteSync = jest.fn(
   (
@@ -84,12 +64,17 @@ const MockSyncConnection = jest.fn(
 
 const MockSyncTransactions = jest.fn(
   (
-    acctDataFromBank: BankAccountPollStatus,
-    uac: AccountResponseModel
+    transactions: ofxTransaction[],
+    accountId: string,
+    accountType: AccountType
   ): Promise<TransactionImprtResult> => {
     throw "Not implemented";
   }
 );
+
+const mockMethodUndefined = jest.fn(() => {
+  throw "Method not implemented, try using spyOn(object, \"method name\").and.callThrough();";
+});
 
 export const MockSyncController = jest.fn<SyncController, []>(() => ({
   executeSync: MockExecuteSync,
@@ -97,10 +82,15 @@ export const MockSyncController = jest.fn<SyncController, []>(() => ({
   getConnectionStatus: MockGetConnectionStatus,
   syncConnection: MockSyncConnection,
   syncTransactions: MockSyncTransactions,
-  accountController: undefined,
+  createNewAccount: mockMethodUndefined,
+  createNewAccountFromOld: mockMethodUndefined,
+  getOldAccount: mockMethodUndefined,
+  syncTransactionsCreateNewAccount: mockMethodUndefined,
+  syncTransactionsExistingAccount: mockMethodUndefined,
+  syncTransactionsOldAccount: mockMethodUndefined,
   transactionProcessor: undefined,
+  accountCache: undefined,
+  accountController: undefined,
   bankController: undefined,
-  accountTransactionCache: undefined,
-  getOldAccount: undefined,
-  cacheHasExpired: undefined,
+  getNewTransactions: undefined,
 }));

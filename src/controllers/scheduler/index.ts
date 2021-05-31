@@ -1,4 +1,5 @@
-import syncController, { SyncController } from '../sync-controller';
+import syncController from "../sync-controller";
+import { SyncController } from "../sync-controller/sync-controller";
 
 export class SyncScheduler {
   syncController: SyncController;

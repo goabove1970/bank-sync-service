@@ -2,14 +2,14 @@ import {
   BankConnectionResponse,
   BankSyncRequest,
   BankSyncRequestType,
-} from './connections-request';
-import { Router } from 'express';
-import { BankConnectionError } from '@root/src/models/errors';
-import { bankController } from '../controllers/bank-controller';
-import syncController from '../controllers/sync-controller';
-import accountController from '../controllers/account-controller';
-import scheduler from '../controllers/scheduler';
-import { ConnectionsRequestProcessor } from './connections-request-proecessor';
+} from "./connections-request";
+import { Router } from "express";
+import { BankConnectionError } from "@root/src/models/errors";
+import { bankController } from "../controllers/bank-controller";
+import syncController from "../controllers/sync-controller";
+import scheduler from "../controllers/scheduler";
+import { ConnectionsRequestProcessor } from "./connections-request-proecessor";
+import accountController from "../controllers/account-controller";
 
 const router = Router();
 
@@ -56,16 +56,16 @@ const process = async function(req, res, next) {
       break;
   }
 
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'content-type');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "content-type");
   res.header(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PUT, DELETE, PATCH, OPTIONS'
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
   res.send(responseData);
 };
 
-router.post('/', process);
-router.get('/', process);
+router.post("/", process);
+router.get("/", process);
 
 export = router;

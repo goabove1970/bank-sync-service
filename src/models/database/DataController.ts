@@ -1,7 +1,7 @@
-import pool from './PgPool';
-import { Value, Result } from 'ts-postgres';
-import { CONFIG } from '@root/app.config';
-import logger from '@root/src/logger';
+import pool from "./PgPool";
+import { Value, Result } from "ts-postgres";
+import { CONFIG } from "@root/app.config";
+import logger from "@root/src/logger";
 
 export abstract class DataController<T> {}
 
@@ -10,7 +10,7 @@ export abstract class DatabaseController<T> extends DataController<T> {
   constructor(table: string) {
     super();
     this.tableName = table;
-    console.log(
+    logger.info(
       `Initializing DatabaseController for [${this.tableName}] (${CONFIG.PgConfig.login}@${CONFIG.PgConfig.host}:${CONFIG.PgConfig.port}/${CONFIG.PgConfig.database})`
     );
   }
@@ -35,7 +35,7 @@ export abstract class DatabaseController<T> extends DataController<T> {
   select(where?: string, fields?: string): Promise<T[]> {
     return pool
       .query(
-        `SELECT ${fields ? fields : '*'} FROM ${CONFIG.PgConfig.schema}.${
+        `SELECT ${fields ? fields : "*"} FROM ${CONFIG.PgConfig.schema}.${
           this.tableName
         } ${where}`
       )
@@ -50,7 +50,7 @@ export abstract class DatabaseController<T> extends DataController<T> {
     return pool
       .query(
         `SELECT * FROM ${CONFIG.PgConfig.schema}.${this.tableName} ${
-          where ? where : ''
+          where ? where : ""
         };`
       )
       .then((value) => {

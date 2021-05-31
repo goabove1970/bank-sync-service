@@ -1,11 +1,11 @@
-import { AccountController } from '@root/src/controllers/account-controller';
-import { AccountResponseModel } from '@root/src/controllers/account-controller/AccountResponseModel';
-import { UserAccount } from '@root/src/models/accounts/Account';
-import { AccountCreateArgs } from '@root/src/models/accounts/AccountCreateArgs';
-import { AccountUpdateArgs } from '@root/src/models/accounts/AccountUpdateArgs';
-import { ReadAccountArgs } from '@root/src/models/accounts/ReadAccountArgs';
-import { GuidFull } from '@root/src/utils/generateGuid';
-import 'jest';
+import { AccountController } from "@root/src/controllers/account-controller/account-controller";
+import { AccountResponseModel } from "@root/src/controllers/account-controller/AccountResponseModel";
+import { UserAccount } from "@root/src/models/accounts/Account";
+import { AccountCreateArgs } from "@root/src/models/accounts/AccountCreateArgs";
+import { AccountUpdateArgs } from "@root/src/models/accounts/AccountUpdateArgs";
+import { ReadAccountArgs } from "@root/src/models/accounts/ReadAccountArgs";
+import { GuidFull } from "@root/src/utils/generateGuid";
+import "jest";
 
 export const mockableAccountArgs: { mockAccountCollection: UserAccount[] } = {
   mockAccountCollection: [],
@@ -60,7 +60,7 @@ const MockCreate = jest.fn(
 );
 const MockAssignUser = jest.fn(
   (userId: string, accountId: string): Promise<void> => {
-    throw 'Not implemented';
+    throw "Not implemented";
   }
 );
 const MockUpdate = jest.fn(
@@ -71,7 +71,7 @@ const MockUpdate = jest.fn(
 
 export const MockAccountController = jest.fn<AccountController, []>(() => ({
   config: {},
-  routerName: '',
+  routerName: "",
   create: MockCreate,
   read: MockRead,
   update: MockUpdate,

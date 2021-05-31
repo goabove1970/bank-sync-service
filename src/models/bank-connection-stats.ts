@@ -1,5 +1,5 @@
-import { AccountData } from './account-data';
-import { TransactionImprtResult } from '../controllers/transaction-processor-controller/TransactionProcessor';
+import { TransactionImprtResult } from "../controllers/transaction-processor-controller/transaction-import-result";
+import { AccountData } from "./account-data";
 
 export interface BankAccountPollStatus {
   accountNumber?: string;

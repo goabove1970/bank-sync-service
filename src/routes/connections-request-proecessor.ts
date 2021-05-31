@@ -2,24 +2,24 @@ import {
   BankConnectionResponse,
   BankSyncArgs,
   BankSyncRequestType,
-} from './connections-request';
-import { BankController } from '../controllers/bank-controller';
-import { BankConnection } from '../models/bank-connection';
-import { GuidFull } from '../utils/generateGuid';
-import * as moment from 'moment';
-import { BankConnectionStatus } from '../models/bank-connection-status';
-import { SyncController } from '../controllers/sync-controller';
-import { AccountType } from '../models/accounts/Account';
-import { AccountCreateArgs } from '../models/accounts/AccountCreateArgs';
-import { isCreditAccountType } from '../utils/accountUtils';
-import { AccountController } from '../controllers/account-controller';
-import { SyncScheduler } from '../controllers/scheduler';
-import logger from '../logger';
-import { toResponseBankConnection } from './connection-route-utils';
+} from "./connections-request";
+import { BankController } from "../controllers/bank-controller";
+import { BankConnection } from "../models/bank-connection";
+import { GuidFull } from "../utils/generateGuid";
+import * as moment from "moment";
+import { BankConnectionStatus } from "../models/bank-connection-status";
+import { AccountType } from "../models/accounts/Account";
+import { AccountCreateArgs } from "../models/accounts/AccountCreateArgs";
+import { isCreditAccountType } from "../utils/accountUtils";
+import { AccountController } from "../controllers/account-controller/account-controller";
+import { SyncScheduler } from "../controllers/scheduler";
+import logger from "../logger";
+import { toResponseBankConnection } from "./connection-route-utils";
+import { SyncController } from "../controllers/sync-controller/sync-controller";
 
 export class ConnectionsRequestProcessor {
   bankConnectionsControlelr: BankController;
-  pollController: SyncController;
+  syncController: SyncController;
   accountController: AccountController;
   scheduler: SyncScheduler;
   constructor(
@@ -29,7 +29,7 @@ export class ConnectionsRequestProcessor {
     scheduler: SyncScheduler
   ) {
     this.bankConnectionsControlelr = bankConnectionsControlelr;
-    this.pollController = pollController;
+    this.syncController = pollController;
     this.accountController = accountController;
     this.scheduler = scheduler;
   }
@@ -70,12 +70,12 @@ export class ConnectionsRequestProcessor {
     const linkedAccounts = [];
 
     try {
-      const connectionStatus = await this.pollController.getConnectionStatus(
+      const connectionStatus = await this.syncController.getConnectionStatus(
         newBankConnection
       );
       if (
         connectionStatus.statusData &&
-        connectionStatus.statusData.severity !== 'ERROR'
+        connectionStatus.statusData.severity !== "ERROR"
       ) {
         newBankConnection.status |= BankConnectionStatus.Validated;
         // add new bank account records to 'accounts' table
@@ -83,7 +83,7 @@ export class ConnectionsRequestProcessor {
         for (let it = 0; it < (connectionStatus.accounts || []).length; ++it) {
           const acct = connectionStatus.accounts[it];
           const type =
-            acct.acctype === 'CHECKING'
+            acct.acctype === "CHECKING"
               ? AccountType.Debit | AccountType.Checking
               : AccountType.Credit;
           const acctCreateArgs: AccountCreateArgs = {
@@ -92,7 +92,9 @@ export class ConnectionsRequestProcessor {
             bankAccountNumber: acct.accountId,
             bankName: args.bankName,
             accountType: type,
-            serviceComment: acct.acctype,
+            serviceComment: {
+              serviceMessage: "Generated automatically while syncing",
+            },
             alias: acct.description,
           };
           if (isCreditAccountType(type)) {
@@ -235,12 +237,12 @@ export class ConnectionsRequestProcessor {
         connection.status &= ~BankConnectionStatus.Suspended;
       }
 
-      const connectionStatus = await this.pollController.getConnectionStatus(
+      const connectionStatus = await this.syncController.getConnectionStatus(
         connection
       );
       if (
         connectionStatus.statusData &&
-        connectionStatus.statusData.severity !== 'ERROR'
+        connectionStatus.statusData.severity !== "ERROR"
       ) {
         connection.status |= BankConnectionStatus.Validated;
       } else {
@@ -281,7 +283,7 @@ export class ConnectionsRequestProcessor {
     };
 
     try {
-      const syncData = await this.pollController.executeSync(
+      const syncData = await this.syncController.executeSync(
         args.userId,
         args.connectionId,
         true

@@ -1,8 +1,8 @@
-import { BankController } from '../../controllers/bank-controller';
-import 'jest';
-import { BankConnection } from '@root/src/models/bank-connection';
-import { BankSyncArgs } from '@root/src/routes/connections-request';
-import { validateConnectionCreateArgs } from '@root/src/controllers/account-controller/bank-connection/helper';
+import "jest";
+import { BankController } from "../../controllers/bank-controller";
+import { BankConnection } from "@root/src/models/bank-connection";
+import { BankSyncArgs } from "@root/src/routes/connections-request";
+import { validateConnectionCreateArgs } from "@root/src/controllers/account-controller/bank-connection/helper";
 
 export const mockableBankConnectiondsArgs: {
   mockBankConnectionsCollection: BankConnection[];

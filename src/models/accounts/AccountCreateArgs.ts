@@ -1,4 +1,4 @@
-import { AccountType } from './Account';
+import { AccountServiceComment, AccountType } from "./Account";
 
 export interface AccountCreateArgs {
   userId?: string;
@@ -6,7 +6,7 @@ export interface AccountCreateArgs {
   bankAccountNumber?: string;
   bankName?: string;
   accountType?: AccountType;
-  serviceComment?: string;
+  serviceComment?: AccountServiceComment;
   alias?: string;
   cardNumber?: string;
 }

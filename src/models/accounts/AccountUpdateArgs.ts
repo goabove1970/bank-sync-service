@@ -1,5 +1,5 @@
-import { AccountStatus } from './AccountStatus';
-import { AccountType } from './Account';
+import { AccountStatus } from "./AccountStatus";
+import { AccountServiceComment, AccountType } from "./Account";
 export interface AccountUpdateArgs {
   accountId?: string;
   userId?: string;
@@ -12,5 +12,5 @@ export interface AccountUpdateArgs {
   cardNumber?: string;
   cardExpiration?: Date;
   alias?: string;
-  serviceComment?: string;
+  serviceComment?: AccountServiceComment;
 }
