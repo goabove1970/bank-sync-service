@@ -1,12 +1,12 @@
-import { BankConnection } from '../models/bank-connection';
-import { BankConnectionStats } from '../models/bank-connection-stats';
+import { BankConnection } from "../models/bank-connection";
+import { BankConnectionStats } from "../models/bank-connection-stats";
 
 export enum BankSyncRequestType {
-  AddBankConnection = 'add-bank-connection',
-  RemoveBankConnection = 'remove-bank-connection',
-  UpdateBankConnection = 'update-bank-connection',
-  GetBankConnections = 'get-bank-connections',
-  Synchonize = 'sync',
+  AddBankConnection = "add-bank-connection",
+  RemoveBankConnection = "remove-bank-connection",
+  UpdateBankConnection = "update-bank-connection",
+  GetBankConnections = "get-bank-connections",
+  Synchonize = "sync",
 }
 
 interface BankResponseBase {
