@@ -23,7 +23,7 @@ export class TransactionProcessor {
         transactions: bulk,
         accountId,
       },
-      action: "add-transactions",
+      action: "import-transactions",
     };
     const response = callService(this.config, this.routerName, serviceArgs)
       .then((data: ResponseBase) => {

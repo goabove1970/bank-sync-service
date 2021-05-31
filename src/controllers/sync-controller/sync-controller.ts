@@ -83,7 +83,12 @@ export class SyncController {
       logger.info(
         `Requesting accounts for connection [${conn.connectionId}], bank [${conn.bankName}]. Session [${sessionId}].`
       );
-      const acctData: ofxResponse = await bankAdapter.extractAccounts();
+      const acctData: ofxResponse = await bankAdapter
+        .extractAccounts()
+        .catch((e) => {
+          console.error(`Error while calling bank: ${e.message || e}`);
+          throw e;
+        });
       if (acctData.statusData) {
         logger.info(
           `Received [${acctData.statusData.severity}] for connection [${conn.connectionId}], bank [${conn.bankName}]. Session [${sessionId}].`
@@ -496,10 +501,19 @@ export class SyncController {
     const newTransactions = transactions.map((t) =>
       toCommonTransaciton(t, accountId, accountType)
     );
-    result = await this.transactionProcessor.addTransactions(
-      newTransactions,
-      accountId
-    );
+    try {
+      result = await this.transactionProcessor.addTransactions(
+        newTransactions,
+        accountId
+      );
+    } catch (error) {
+      logger.error(
+        `Error occured while trying to transactionProcessor.addTransactions: ${error.message |
+          error}`
+      );
+      throw error;
+    }
+
     return result;
   };
 }

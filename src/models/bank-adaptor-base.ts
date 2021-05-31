@@ -25,9 +25,21 @@ export class BankAdaptorBase implements BankAdaptor {
   }
 
   static async removeOldFiles(): Promise<void> {
-    await this.clearOldFileUploads("./tmp/fileUploads", ".tmp");
-    await this.clearOldFileUploads(".", ".ofx");
-    return Promise.resolve();
+    await this.clearOldFileUploads("./tmp/fileUploads", ".tmp")
+      .then(async () => {
+        await this.clearOldFileUploads(".", ".ofx").catch((e) => {
+          logger.error(
+            `Error while removing old bank sync files ${e.message || e}`
+          );
+          throw e;
+        });
+      })
+      .catch((e) => {
+        logger.error(
+          `Error while removing old bank sync files ${e.message || e}`
+        );
+        throw e;
+      });
   }
 
   static async clearOldFileUploads(tmpDir: string, ext: string): Promise<void> {
@@ -114,31 +126,35 @@ export class BankAdaptorBase implements BankAdaptor {
     let res: Promise<ofxResponse> = new Promise((resolve, reject) => {
       const ofxData: ofxResponse = {};
       const rqst = acctRqst(this.login, this.password);
-      return this.callBank(rqst).then((results: string) => {
-        const accts: ofxAccount[] = [];
-        var re = /<ACCTINFO>.*?<\/ACCTINFO>/gm;
-        var acctData;
-        do {
-          acctData = re.exec(results);
-          if (acctData && acctData.length) {
-            acctData.forEach((acctString) => {
-              const data: ofxAccount = parseAcctData(acctString);
-              accts.push(data);
-            });
+      return this.callBank(rqst)
+        .then((results: string) => {
+          const accts: ofxAccount[] = [];
+          var re = /<ACCTINFO>.*?<\/ACCTINFO>/gm;
+          var acctData;
+          do {
+            acctData = re.exec(results);
+            if (acctData && acctData.length) {
+              acctData.forEach((acctString) => {
+                const data: ofxAccount = parseAcctData(acctString);
+                accts.push(data);
+              });
+            }
+          } while (acctData);
+          ofxData.accounts = accts;
+
+          // extracting status data
+          var statusRegex = /<STATUS>.*?<\/STATUS>/gm;
+          var statsMatch = statusRegex.exec(results);
+
+          if (statsMatch && statsMatch.length === 1) {
+            ofxData.statusData = parseStatusData(statsMatch[0]);
           }
-        } while (acctData);
-        ofxData.accounts = accts;
 
-        // extracting status data
-        var statusRegex = /<STATUS>.*?<\/STATUS>/gm;
-        var statsMatch = statusRegex.exec(results);
-
-        if (statsMatch && statsMatch.length === 1) {
-          ofxData.statusData = parseStatusData(statsMatch[0]);
-        }
-
-        resolve(ofxData);
-      });
+          resolve(ofxData);
+        })
+        .catch((e) => {
+          reject(e);
+        });
     });
 
     return res;
