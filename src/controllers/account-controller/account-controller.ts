@@ -33,9 +33,12 @@ export class AccountController {
       })
       .catch((e) => {
         const errorMessage = e.message || e;
-        console.error(errorMessage);
-        logger.error(errorMessage);
-        return [];
+        logger.error(
+          `Error while trying to call the service at ${JSON.stringify(
+            this.config
+          )}: ${errorMessage}`
+        );
+        throw e;
       });
     return response;
   }
@@ -53,9 +56,12 @@ export class AccountController {
       })
       .catch((e) => {
         const errorMessage = e.message || e;
-        console.error(errorMessage);
-        logger.error(errorMessage);
-        return "";
+        logger.error(
+          `Error while trying to call the service at ${JSON.stringify(
+            this.config
+          )}: ${errorMessage}`
+        );
+        throw e;
       });
     return response;
   }
@@ -75,9 +81,12 @@ export class AccountController {
       })
       .catch((e) => {
         const errorMessage = e.message || e;
-        console.error(errorMessage);
-        logger.error(errorMessage);
-        return Promise.resolve();
+        logger.error(
+          `Error while trying to call the service at ${JSON.stringify(
+            this.config
+          )}: ${errorMessage}`
+        );
+        throw e;
       });
     return response;
   }
@@ -94,9 +103,12 @@ export class AccountController {
       })
       .catch((e) => {
         const errorMessage = e.message || e;
-        console.error(errorMessage);
-        logger.error(errorMessage);
-        return Promise.resolve();
+        logger.error(
+          `Error while trying to call the service at ${JSON.stringify(
+            this.config
+          )}: ${errorMessage}`
+        );
+        throw e;
       });
     return response;
   }
