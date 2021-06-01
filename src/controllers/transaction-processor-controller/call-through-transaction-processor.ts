@@ -33,10 +33,9 @@ export class TransactionProcessor {
       })
       .catch((e) => {
         const errorMessage = e.message || e;
-        console.error(errorMessage);
-        logger.error(errorMessage);
-        let resp: TransactionImprtResult;
-        return resp;
+        const error = `Error while saving ${bulk.length} transactions in database for account ${accountId}: ${errorMessage}`;
+        logger.error(error);
+        throw error;
       });
     return response;
   }

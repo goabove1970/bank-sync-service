@@ -17,7 +17,6 @@ import { GuidFull } from "@root/src/utils/generateGuid";
 import { BankController } from "../bank-controller";
 import { AccountController } from "../account-controller/account-controller";
 import { AccountResponseModel } from "../account-controller/AccountResponseModel";
-import { TransactionProcessor } from "../transaction-processor-controller/call-through-transaction-processor";
 import bankAdaptorFabric from "./utils/getBankAdapter";
 import {
   getOldestTransactionDate,
@@ -34,6 +33,7 @@ import { toCommonTransaciton } from "./utils/toCommonTransaction";
 import { ReadAccountArgs } from "@root/src/models/accounts/ReadAccountArgs";
 import { transactionsMatch } from "./utils/findMatchingOfxTransaction";
 import { Transaction } from "@root/src/models/transaction/Transaction";
+import { TransactionProcessor } from "../transaction-processor-controller/call-through-transaction-processor";
 import { TransactionImprtResult } from "../transaction-processor-controller/transaction-import-result";
 
 export class SyncController {
@@ -422,7 +422,7 @@ export class SyncController {
       accountType: AccountType.Credit,
       bankName: oldAccount.bankName,
       alias: oldAccount.alias ? `Replaces ${oldAccount.alias}` : undefined,
-      bankRoutingNumber: oldAccount.bankRoutingNumber,
+      bankRoutingNumber: oldAccount.bankRoutingNumber || newCardNumber,
       cardNumber: newCardNumber,
       serviceComment: serviceComment,
       userId: oldAccount.userId,
@@ -471,7 +471,7 @@ export class SyncController {
       accountType: AccountType.Credit,
       bankName: args.bankName,
       alias: args.alias,
-      bankRoutingNumber: args.bankRouting,
+      bankRoutingNumber: args.bankRouting || args.bankAccountNumber,
       cardNumber: args.bankAccountNumber,
       serviceComment: serviceComment,
       userId: args.userId,

@@ -51,6 +51,11 @@ export class AccountController {
       .then((data: ResponseBase) => {
         const accountData = data as AccountResponseBase;
         logger.info(`Account response: ${JSON.stringify(accountData)}`);
+        if (data.error) {
+          const errorMessage = `Error while creating new account in ${data.error}`;
+          logger.error(errorMessage);
+          throw errorMessage;
+        }
         const result: string = accountData.payload.accountId;
         return result;
       })
