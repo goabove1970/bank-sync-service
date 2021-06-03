@@ -472,7 +472,7 @@ export class SyncController {
     };
     const accountType = AccountType.Credit;
     const lastFourNumbres =
-      args.bankAccountNumber.length >= 4
+      args.bankAccountNumber && args.bankAccountNumber.length >= 4
         ? args.bankAccountNumber.substring(args.bankAccountNumber.length - 4)
         : args.bankAccountNumber;
     const alias = `${AccountTypeToString(accountType)}-${lastFourNumbres}`;
