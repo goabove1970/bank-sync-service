@@ -23,7 +23,10 @@ import {
   ofxTransactionsHaveLastDbTransactions,
 } from "./sync-controller-helper";
 import { AccountTransactionsCache } from "./model/account-cache/account-cache";
-import { AccountType } from "@root/src/models/accounts/Account";
+import {
+  AccountType,
+  AccountTypeToString,
+} from "@root/src/models/accounts/Account";
 import { AccountUpdateArgs } from "@root/src/models/accounts/AccountUpdateArgs";
 import { AccountStatus } from "@root/src/models/accounts/AccountStatus";
 import { AccountCreateArgs } from "@root/src/models/accounts/AccountCreateArgs";
@@ -290,7 +293,8 @@ export class SyncController {
     );
 
     const args: CreateAccountArgsForSyncing = {
-      alias: `${bacct.accountData.description} ${bacct.accountData.accountId}`,
+      // alias: `${bacct.accountData.description} ${bacct.accountData.accountId}`,
+      alias: undefined,
       bankAccountNumber: bacct.accountData.accountId,
       bankName: conn.bankName,
       userId: conn.userId,
@@ -466,11 +470,17 @@ export class SyncController {
     const serviceComment = {
       serviceMessage: "Added automatically while synking",
     };
+    const accountType = AccountType.Credit;
+    const lastFourNumbres =
+      args.bankAccountNumber.length >= 4
+        ? args.bankAccountNumber.substring(args.bankAccountNumber.length - 4)
+        : args.bankAccountNumber;
+    const alias = `${AccountTypeToString(accountType)}-${lastFourNumbres}`;
     const acctCreateArgs: AccountCreateArgs = {
       bankAccountNumber: args.bankAccountNumber,
-      accountType: AccountType.Credit,
+      accountType: accountType,
       bankName: args.bankName,
-      alias: args.alias,
+      alias: args.alias && args.alias.length > 0 ? args.alias : alias,
       bankRoutingNumber: args.bankRouting || args.bankAccountNumber,
       cardNumber: args.bankAccountNumber,
       serviceComment: serviceComment,

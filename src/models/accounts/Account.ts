@@ -28,3 +28,16 @@ export enum AccountType {
   Checking = 4,
   Savings = 8,
 }
+
+export const AccountTypeToString = (type: AccountType): string => {
+  switch (type) {
+    case AccountType.Credit:
+      return "Credit";
+    case AccountType.Debit:
+      return "Debit";
+    case AccountType.Checking:
+      return "Checking";
+    case AccountType.Savings:
+      return "Savings";
+  }
+};
