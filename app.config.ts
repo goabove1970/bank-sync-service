@@ -1,4 +1,4 @@
-import { PgConfig } from './src/models/database/PgConfig';
+import { PgConfig } from "./src/models/database/PgConfig";
 
 interface ApplicationConfig {
   PgConfig?: PgConfig;
@@ -12,19 +12,30 @@ export interface ServiceConfig {
 
 export const CONFIG: ApplicationConfig = {
   PgConfig: {
-    host: '127.0.0.1',
+    host: "134.122.16.140",
     port: 5432,
-    login: 'postgres',
-    password: 'admin',
-    database: 'postgres',
-    schema: 'public',
+    login: "zhenia",
+    password: "a84hg7dT!!a",
+    database: "postgres",
+    schema: "public",
   },
-  // ApiServiceConfig: {
-  //   url: 'https://dinero-app.com/sessions',
-  //   port: undefined,
-  // },
   ApiServiceConfig: {
-    url: '127.0.0.1',
+    url: "127.0.0.1",
+    port: 9000,
+  },
+};
+
+export const CONFIG_LOCAL: ApplicationConfig = {
+  PgConfig: {
+    host: "127.0.0.1",
+    port: 5432,
+    login: "postgres",
+    password: "admin",
+    database: "postgres",
+    schema: "public",
+  },
+  ApiServiceConfig: {
+    url: "127.0.0.1",
     port: 9000,
   },
 };
