@@ -1,7 +1,7 @@
-import { Client, Configuration, Result } from 'ts-postgres';
-import { PgConfig } from './PgConfig';
-import { CONFIG } from '@root/app.config';
-import logger from '@root/src/logger';
+import { Client, Configuration, Result } from "ts-postgres";
+import { PgConfig } from "./PgConfig";
+import { getConfig } from "@root/app.config";
+import logger from "@root/src/logger";
 
 export class PgPool {
   private client: Client;
@@ -29,11 +29,13 @@ export class PgPool {
     this.client
       .connect()
       .then(() => {
-        this.client.on('error', console.error);
+        this.client.on("error", console.error);
       })
       .then(() => {
         if (!this.client.closed) {
-          logger.info(`Conneted to the database: ${this.client.config.database}:${this.client.config.port}`);
+          logger.info(
+            `Conneted to the database: ${this.client.config.database}:${this.client.config.port}`
+          );
         }
       });
   }
@@ -52,5 +54,5 @@ export class PgPool {
   }
 }
 
-const pool = new PgPool(CONFIG.PgConfig);
+const pool = new PgPool(getConfig().PgConfig);
 export default pool;

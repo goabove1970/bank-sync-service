@@ -1,6 +1,6 @@
 import pool from "./PgPool";
 import { Value, Result } from "ts-postgres";
-import { CONFIG } from "@root/app.config";
+import { getConfig } from "@root/app.config";
 import logger from "@root/src/logger";
 
 export abstract class DataController<T> {}
@@ -11,7 +11,11 @@ export abstract class DatabaseController<T> extends DataController<T> {
     super();
     this.tableName = table;
     logger.info(
-      `Initializing DatabaseController for [${this.tableName}] (${CONFIG.PgConfig.login}@${CONFIG.PgConfig.host}:${CONFIG.PgConfig.port}/${CONFIG.PgConfig.database})`
+      `Initializing DatabaseController for [${this.tableName}] (${
+        getConfig().PgConfig.login
+      }@${getConfig().PgConfig.host}:${getConfig().PgConfig.port}/${
+        getConfig().PgConfig.database
+      })`
     );
   }
 
@@ -28,14 +32,14 @@ export abstract class DatabaseController<T> extends DataController<T> {
 
   delete(where?: string): Promise<Result> {
     return pool.query(
-      `DELETE FROM ${CONFIG.PgConfig.schema}.${this.tableName} ${where}`
+      `DELETE FROM ${getConfig().PgConfig.schema}.${this.tableName} ${where}`
     );
   }
 
   select(where?: string, fields?: string): Promise<T[]> {
     return pool
       .query(
-        `SELECT ${fields ? fields : "*"} FROM ${CONFIG.PgConfig.schema}.${
+        `SELECT ${fields ? fields : "*"} FROM ${getConfig().PgConfig.schema}.${
           this.tableName
         } ${where}`
       )
@@ -49,7 +53,7 @@ export abstract class DatabaseController<T> extends DataController<T> {
   count(where?: string): Promise<number> {
     return pool
       .query(
-        `SELECT * FROM ${CONFIG.PgConfig.schema}.${this.tableName} ${
+        `SELECT * FROM ${getConfig().PgConfig.schema}.${this.tableName} ${
           where ? where : ""
         };`
       )
@@ -61,13 +65,13 @@ export abstract class DatabaseController<T> extends DataController<T> {
 
   update(where?: string): Promise<Result> {
     return pool.query(
-      `UPDATE ${CONFIG.PgConfig.schema}.${this.tableName} ${where}`
+      `UPDATE ${getConfig().PgConfig.schema}.${this.tableName} ${where}`
     );
   }
 
   insert(where?: string): Promise<Result> {
     return pool.query(
-      `INSERT INTO ${CONFIG.PgConfig.schema}.${this.tableName} ${where}`
+      `INSERT INTO ${getConfig().PgConfig.schema}.${this.tableName} ${where}`
     );
   }
 }

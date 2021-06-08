@@ -10,7 +10,7 @@ export interface ServiceConfig {
   port?: number;
 }
 
-export const CONFIG: ApplicationConfig = {
+const CONFIG: ApplicationConfig = {
   PgConfig: {
     host: "134.122.16.140",
     port: 5432,
@@ -25,7 +25,15 @@ export const CONFIG: ApplicationConfig = {
   },
 };
 
-export const CONFIG_LOCAL: ApplicationConfig = {
+const LOCAL_CONFIG: ApplicationConfig = {
+  // PgConfig: {
+  //   host: "134.122.16.140",
+  //   port: 5432,
+  //   login: "zhenia",
+  //   password: "a84hg7dT!!a",
+  //   database: "postgres",
+  //   schema: "public",
+  // },
   PgConfig: {
     host: "127.0.0.1",
     port: 5432,
@@ -38,4 +46,11 @@ export const CONFIG_LOCAL: ApplicationConfig = {
     url: "127.0.0.1",
     port: 9000,
   },
+};
+
+export const getConfig = (): ApplicationConfig => {
+  if (process.env.NODE_ENV === "development") {
+    return LOCAL_CONFIG;
+  }
+  return CONFIG;
 };
