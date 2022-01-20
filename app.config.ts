@@ -26,14 +26,6 @@ const CONFIG: ApplicationConfig = {
 };
 
 const LOCAL_CONFIG: ApplicationConfig = {
-  // PgConfig: {
-  //   host: "134.122.16.140",
-  //   port: 5432,
-  //   login: "zhenia",
-  //   password: "a84hg7dT!!a",
-  //   database: "postgres",
-  //   schema: "public",
-  // },
   PgConfig: {
     host: "127.0.0.1",
     port: 5432,

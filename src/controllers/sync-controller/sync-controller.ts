@@ -1,43 +1,44 @@
-import { ofxResponse } from "@root/src/models/ofx-response";
-import { BankConnection } from "@root/src/models/bank-connection";
-import logger from "@root/src/logger";
-import { BankAdaptorBase } from "@root/src/models/bank-adaptor-base";
+import { ofxResponse } from '@root/src/models/ofx-response';
+import { BankConnection } from '@root/src/models/bank-connection';
+import logger from '@root/src/logger';
+import { BankAdaptorBase } from '@root/src/models/bank-adaptor-base';
 import {
   BankConnectionStats,
   BankAccountPollStatus,
-} from "@root/src/models/bank-connection-stats";
+} from '@root/src/models/bank-connection-stats';
 import {
   isConnectionActive,
   isSuspended,
   isCouldNotConnect,
   isValidated,
-} from "@root/src/models/bank-connection-status";
-import moment = require("moment");
-import { GuidFull } from "@root/src/utils/generateGuid";
-import { BankController } from "../bank-controller";
-import { AccountController } from "../account-controller/account-controller";
-import { AccountResponseModel } from "../account-controller/AccountResponseModel";
-import bankAdaptorFabric from "./utils/getBankAdapter";
+} from '@root/src/models/bank-connection-status';
+import moment = require('moment');
+import { GuidFull } from '@root/src/utils/generateGuid';
+import { BankController } from '../bank-controller';
+import { AccountController } from '../account-controller/account-controller';
+import { AccountResponseModel } from '../account-controller/AccountResponseModel';
+import bankAdaptorFabric from './utils/getBankAdapter';
 import {
   getOldestTransactionDate,
   ofxTransactionsHaveLastDbTransactions,
-} from "./sync-controller-helper";
-import { AccountTransactionsCache } from "./model/account-cache/account-cache";
+} from './sync-controller-helper';
+import { AccountTransactionsCache } from './model/account-cache/account-cache';
 import {
   AccountType,
   AccountTypeToString,
-} from "@root/src/models/accounts/Account";
-import { AccountUpdateArgs } from "@root/src/models/accounts/AccountUpdateArgs";
-import { AccountStatus } from "@root/src/models/accounts/AccountStatus";
-import { AccountCreateArgs } from "@root/src/models/accounts/AccountCreateArgs";
-import { CreateAccountArgsForSyncing } from "./model/create-account-args-for-syncing";
-import { ofxTransaction } from "@root/src/models/ofx-transaction";
-import { toCommonTransaciton } from "./utils/toCommonTransaction";
-import { ReadAccountArgs } from "@root/src/models/accounts/ReadAccountArgs";
-import { transactionsMatch } from "./utils/findMatchingOfxTransaction";
-import { Transaction } from "@root/src/models/transaction/Transaction";
-import { TransactionProcessor } from "../transaction-processor-controller/call-through-transaction-processor";
-import { TransactionImprtResult } from "../transaction-processor-controller/transaction-import-result";
+} from '@root/src/models/accounts/Account';
+import { AccountUpdateArgs } from '@root/src/models/accounts/AccountUpdateArgs';
+import { AccountStatus } from '@root/src/models/accounts/AccountStatus';
+import { AccountCreateArgs } from '@root/src/models/accounts/AccountCreateArgs';
+import { CreateAccountArgsForSyncing } from './model/create-account-args-for-syncing';
+import { ofxTransaction } from '@root/src/models/ofx-transaction';
+import { toCommonTransaciton } from './utils/toCommonTransaction';
+import { ReadAccountArgs } from '@root/src/models/accounts/ReadAccountArgs';
+import { transactionsMatch } from './utils/findMatchingOfxTransaction';
+import { Transaction } from '@root/src/models/transaction/Transaction';
+import { TransactionProcessor } from '../transaction-processor-controller/call-through-transaction-processor';
+import { TransactionImprtResult } from '../transaction-processor-controller/transaction-import-result';
+import { inspect } from 'util';
 
 export class SyncController {
   transactionProcessor: TransactionProcessor;
@@ -97,20 +98,20 @@ export class SyncController {
           `Received [${acctData.statusData.severity}] for connection [${conn.connectionId}], bank [${conn.bankName}]. Session [${sessionId}].`
         );
 
-        if (acctData.statusData.severity === "ERROR") {
+        if (acctData.statusData.severity === 'ERROR') {
           syncStats.bankConnectionError = acctData.statusData.message;
           syncStats.bankConnectionErrorCode = acctData.statusData.code;
         } else {
           accounts = acctData.accounts;
         }
       }
-    } catch (e) {
+    } catch (error) {
       logger.error(
         `Error polling accounts for connection [${
           conn.connectionId
-        }]: ${e.message || e}`
+        }]: ${inspect(error)}`
       );
-      syncStats.bankConnectionError = e.message || e;
+      syncStats.bankConnectionError = inspect(error);
     }
 
     // iterate through accounts
@@ -133,11 +134,11 @@ export class SyncController {
         acctStats.accountData = accountData;
         acctStats.recordsPolled = accountData.transactions.length;
         acctStats.syncCompleted = moment().toDate();
-      } catch (e) {
+      } catch (error) {
         logger.error(
           `Error polling data for account [${conn.connectionId}/${account.accountId}]. Session [${sessionId}].`
         );
-        acctStats.bankConnectionError = e.message || e;
+        acctStats.bankConnectionError = inspect(error);
       }
     }
     return syncStats;
@@ -156,13 +157,13 @@ export class SyncController {
           `Received [${response.statusData.severity}] for connection [${conn.connectionId}], bank [${conn.bankName}].`
         );
 
-        if (response.statusData.severity !== "ERROR") {
+        if (response.statusData.severity !== 'ERROR') {
           response.accounts = response.accounts;
         }
       }
-    } catch (e) {
+    } catch (error) {
       logger.error(
-        `Error validating connection [${conn.connectionId}]: ${e.message || e}`
+        `Error validating connection [${conn.connectionId}]: ${inspect(error)}`
       );
     }
     return response;
@@ -189,7 +190,7 @@ export class SyncController {
         force ||
         !c.lastPollDate ||
         (c.lastPollDate &&
-          moment(c.lastPollDate).isBefore(moment().subtract(1, "hour")))
+          moment(c.lastPollDate).isBefore(moment().subtract(1, 'hour')))
     );
     logger.info(
       `Scheduling ${toBePolled.length} connections for polling. Session [${sessionId}].`
@@ -202,6 +203,13 @@ export class SyncController {
     for (let connIter = 0; connIter < toBePolled.length; connIter++) {
       const conn: BankConnection = toBePolled[connIter];
       const connStatus = await this.syncConnection(conn, sessionId);
+      // logger.info(
+      //   `Received connection status data: \n ${JSON.stringify(
+      //     connStatus,
+      //     null,
+      //     4
+      //   )}`
+      // );
       conn.lastPollStats = connStatus;
       conn.lastPollDate = moment().toDate();
 
@@ -299,7 +307,7 @@ export class SyncController {
       bankName: conn.bankName,
       userId: conn.userId,
       bankRouting:
-        bacct.accountData.accountType == "CHECKING"
+        bacct.accountData.accountType == 'CHECKING'
           ? bacct.accountData.bankId
           : undefined,
     };
@@ -310,7 +318,7 @@ export class SyncController {
 
     // 4. Sync new transactions into the new account
     const acctType: AccountType =
-      bacct.accountData.accountType == "CHECKING"
+      bacct.accountData.accountType == 'CHECKING'
         ? AccountType.Checking
         : AccountType.Credit;
     const syncTransactionsData = await this.syncTransactions(
@@ -468,7 +476,7 @@ export class SyncController {
     args: CreateAccountArgsForSyncing
   ): Promise<string> => {
     const serviceComment = {
-      serviceMessage: "Added automatically while synking",
+      serviceMessage: 'Added automatically while synking',
     };
     const accountType = AccountType.Credit;
     const lastFourNumbres =
@@ -518,8 +526,9 @@ export class SyncController {
       );
     } catch (error) {
       logger.error(
-        `Error occured while trying to transactionProcessor.addTransactions: ${error.message |
-          error}`
+        `Error occured while trying to transactionProcessor.addTransactions: ${inspect(
+          error
+        )}`
       );
       throw error;
     }

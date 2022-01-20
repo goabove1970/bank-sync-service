@@ -2,20 +2,21 @@ import {
   BankConnectionResponse,
   BankSyncArgs,
   BankSyncRequestType,
-} from "./connections-request";
-import { BankController } from "../controllers/bank-controller";
-import { BankConnection } from "../models/bank-connection";
-import { GuidFull } from "../utils/generateGuid";
-import * as moment from "moment";
-import { BankConnectionStatus } from "../models/bank-connection-status";
-import { AccountType } from "../models/accounts/Account";
-import { AccountCreateArgs } from "../models/accounts/AccountCreateArgs";
-import { isCreditAccountType } from "../utils/accountUtils";
-import { AccountController } from "../controllers/account-controller/account-controller";
-import { SyncScheduler } from "../controllers/scheduler";
-import logger from "../logger";
-import { toResponseBankConnection } from "./connection-route-utils";
-import { SyncController } from "../controllers/sync-controller/sync-controller";
+} from './connections-request';
+import { BankController } from '../controllers/bank-controller';
+import { BankConnection } from '../models/bank-connection';
+import { GuidFull } from '../utils/generateGuid';
+import * as moment from 'moment';
+import { BankConnectionStatus } from '../models/bank-connection-status';
+import { AccountType } from '../models/accounts/Account';
+import { AccountCreateArgs } from '../models/accounts/AccountCreateArgs';
+import { isCreditAccountType } from '../utils/accountUtils';
+import { AccountController } from '../controllers/account-controller/account-controller';
+import { SyncScheduler } from '../controllers/scheduler';
+import logger from '../logger';
+import { toResponseBankConnection } from './connection-route-utils';
+import { SyncController } from '../controllers/sync-controller/sync-controller';
+import { inspect } from 'util';
 
 export class ConnectionsRequestProcessor {
   bankConnectionsControlelr: BankController;
@@ -75,7 +76,7 @@ export class ConnectionsRequestProcessor {
       );
       if (
         connectionStatus.statusData &&
-        connectionStatus.statusData.severity !== "ERROR"
+        connectionStatus.statusData.severity !== 'ERROR'
       ) {
         newBankConnection.status |= BankConnectionStatus.Validated;
         // add new bank account records to 'accounts' table
@@ -83,7 +84,7 @@ export class ConnectionsRequestProcessor {
         for (let it = 0; it < (connectionStatus.accounts || []).length; ++it) {
           const acct = connectionStatus.accounts[it];
           const type =
-            acct.acctype === "CHECKING"
+            acct.acctype === 'CHECKING'
               ? AccountType.Debit | AccountType.Checking
               : AccountType.Credit;
           const acctCreateArgs: AccountCreateArgs = {
@@ -93,7 +94,7 @@ export class ConnectionsRequestProcessor {
             bankName: args.bankName,
             accountType: type,
             serviceComment: {
-              serviceMessage: "Generated automatically while syncing",
+              serviceMessage: 'Generated automatically while syncing',
             },
             alias: acct.description,
           };
@@ -126,8 +127,8 @@ export class ConnectionsRequestProcessor {
         linkedAccounts,
       };
     } catch (error) {
-      console.error(error.message || error);
-      response.error = error.message || error;
+      console.error(inspect(error));
+      response.error = inspect(error);
     }
     return response;
   }
@@ -155,8 +156,8 @@ export class ConnectionsRequestProcessor {
       };
       return response;
     } catch (error) {
-      console.error(error.message || error);
-      response.error = error.message || error;
+      console.error(inspect(error));
+      response.error = inspect(error);
     }
     return response;
   }
@@ -192,8 +193,8 @@ export class ConnectionsRequestProcessor {
         userId: connection.userId,
       };
     } catch (error) {
-      console.error(error.message || error);
-      response.error = error.message || error;
+      console.error(inspect(error));
+      response.error = inspect(error);
     }
     return response;
   }
@@ -242,7 +243,7 @@ export class ConnectionsRequestProcessor {
       );
       if (
         connectionStatus.statusData &&
-        connectionStatus.statusData.severity !== "ERROR"
+        connectionStatus.statusData.severity !== 'ERROR'
       ) {
         connection.status |= BankConnectionStatus.Validated;
       } else {
@@ -265,8 +266,8 @@ export class ConnectionsRequestProcessor {
           connectionStatus.statusData && connectionStatus.statusData.code,
       };
     } catch (error) {
-      console.error(error.message || error);
-      response.error = error.message || error;
+      console.error(inspect(error));
+      response.error = inspect(error);
     }
     return response;
   }
@@ -311,8 +312,8 @@ export class ConnectionsRequestProcessor {
         syncData,
       };
     } catch (error) {
-      console.error(error.message || error);
-      response.error = error.message || error;
+      console.error(inspect(error));
+      response.error = inspect(error);
     }
     return response;
   }

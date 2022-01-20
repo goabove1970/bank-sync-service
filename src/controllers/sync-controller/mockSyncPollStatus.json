@@ -1,0 +1,2158 @@
+{
+    "userId": "26a89c19-f32b-de23-85ca-4a8929c61e36",
+    "syncSessionId": "0f818342-3ffc-e139-93fc-7b1d1cff90c9",
+    "bankConnectionId": "7b244d70-ad54-f501-9708-c6932a0ad420",
+    "accounts": [
+        {
+            "accountNumber": "4266841594977983",
+            "syncStarted": "2022-01-07T04:29:53.810Z",
+            "accountData": {
+                "transactions": [
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-22T17:00:00.000Z",
+                        "amount": -39.05,
+                        "fitid": "2021122224906411355136937611298",
+                        "name": "ABC*PLANET FITNESS"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-03T17:00:00.000Z",
+                        "amount": 7.98,
+                        "fitid": "GEN20211203-0000007.98AUTOMATIC_PAYME00000",
+                        "name": "AUTOMATIC PAYMENT - THANK"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-22T16:00:00.000Z",
+                        "amount": -39.05,
+                        "fitid": "2021102224906411294132682588439",
+                        "name": "ABC*PLANET FITNESS"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-14T17:00:00.000Z",
+                        "amount": -10.88,
+                        "fitid": "2021121424431061348400259000127",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-14T17:00:00.000Z",
+                        "amount": -26.13,
+                        "fitid": "2021111424431061318400259000065",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-27T17:00:00.000Z",
+                        "amount": -15.23,
+                        "fitid": "2021122724510721360100902897160",
+                        "name": "NETFLIX.COM"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-10-31T16:00:00.000Z",
+                        "amount": 560.66,
+                        "fitid": "2021103123043041600055869659063",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-09T17:00:00.000Z",
+                        "amount": -26.13,
+                        "fitid": "2021120924431061343400254000283",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": 150,
+                        "fitid": "2022010220020021600057020223651",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-10T16:00:00.000Z",
+                        "amount": -10.88,
+                        "fitid": "2021101024431061283400254000095",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-27T16:00:00.000Z",
+                        "amount": -13.99,
+                        "fitid": "2021102724510721299100586362347",
+                        "name": "NETFLIX.COM"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": -61.55,
+                        "fitid": "2022010224431062001083022269884",
+                        "name": "CRUNCH100A"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": -51.21,
+                        "fitid": "2022010224431062001083033999081",
+                        "name": "CRUNCH100A"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": -26.13,
+                        "fitid": "2022010224431062001400256000183",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-07T17:00:00.000Z",
+                        "amount": -55,
+                        "fitid": "2021120724510721336100784302348",
+                        "name": "CRICKET WIRELESS"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -4.23,
+                        "fitid": "2021122124431061355091587000457",
+                        "name": "CRUNCH501"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-16T17:00:00.000Z",
+                        "amount": -10.33,
+                        "fitid": "2021111624431061320400251000168",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-07T17:00:00.000Z",
+                        "amount": -3.99,
+                        "fitid": "2021120724510721336100755609820",
+                        "name": "APPLE.COM/BILL"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -5,
+                        "fitid": "2021122124210731355091272000163",
+                        "name": "MIAMIBCH PARKING METER"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -55,
+                        "fitid": "2022010324510722002100439615285",
+                        "name": "CRICKET WIRELESS"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-02T16:00:00.000Z",
+                        "amount": -61.55,
+                        "fitid": "2021110224431061305083001279016",
+                        "name": "CRUNCH100A"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-21T17:00:00.000Z",
+                        "amount": -83.74,
+                        "fitid": "2021112124431061325400256000085",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -74.99,
+                        "fitid": "2021122324510721356100852472937",
+                        "name": "SPECTRUM"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-28T17:00:00.000Z",
+                        "amount": -13.99,
+                        "fitid": "2021112824510721330100995330563",
+                        "name": "NETFLIX.COM"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-14T16:00:00.000Z",
+                        "amount": -10.88,
+                        "fitid": "2021101424431061287400258000105",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-23T17:00:00.000Z",
+                        "amount": -74.99,
+                        "fitid": "2021112324510721326100778287135",
+                        "name": "SPECTRUM"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-24T17:00:00.000Z",
+                        "amount": -39.05,
+                        "fitid": "2021112424906411327134905751852",
+                        "name": "ABC*PLANET FITNESS"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-19T17:00:00.000Z",
+                        "amount": 96,
+                        "fitid": "2021121923523521600056779212142",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-05T17:00:00.000Z",
+                        "amount": 360.99,
+                        "fitid": "2021120523383381600056511741992",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-02T17:00:00.000Z",
+                        "amount": -51.21,
+                        "fitid": "2021120224431061335083032571948",
+                        "name": "CRUNCH100A"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-02T17:00:00.000Z",
+                        "amount": -61.55,
+                        "fitid": "2021120224431061335083008755939",
+                        "name": "CRUNCH100A"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-22T16:00:00.000Z",
+                        "amount": -74.99,
+                        "fitid": "2021102224510721295100330255577",
+                        "name": "SPECTRUM"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-05T16:00:00.000Z",
+                        "amount": -7.98,
+                        "fitid": "2021110524430991308828715692805",
+                        "name": "APPLE.COM/BILL"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-04T16:00:00.000Z",
+                        "amount": 55,
+                        "fitid": "2021110423083080900055951417731",
+                        "name": "Payment Thank You - Web"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-25T16:00:00.000Z",
+                        "amount": -10.33,
+                        "fitid": "2021102524431061298400259000051",
+                        "name": "CRUNCH105"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": 61.55,
+                        "fitid": "2021110323073071600055925367628",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": -55,
+                        "fitid": "2021110324510721306100372296015",
+                        "name": "CRICKET WIRELESS"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": 131.73,
+                        "fitid": "2021122623593591600056892203836",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-22T17:00:00.000Z",
+                        "amount": -8.46,
+                        "fitid": "2021122224431061356091588000133",
+                        "name": "CRUNCH501"
+                    }
+                ],
+                "transactionsCount": 39,
+                "description": "CREDIT CARD",
+                "accountId": "4266841594977983"
+            },
+            "recordsPolled": 39,
+            "syncCompleted": "2022-01-07T04:29:54.533Z"
+        },
+        {
+            "accountNumber": "528960656",
+            "syncStarted": "2022-01-07T04:29:54.533Z",
+            "accountData": {
+                "transactions": [
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-04T17:00:00.000Z",
+                        "amount": -4,
+                        "fitid": "202201040",
+                        "name": "PAYPAL           INST XFER  NY T",
+                        "memo": "IMES NYTIME WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": 185,
+                        "fitid": "202201030",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": 70,
+                        "fitid": "202201031",
+                        "name": "Zelle payment from ANDRII KLYSHE",
+                        "memo": "IKO 13368579771"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -1310.36,
+                        "fitid": "202201032",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -150,
+                        "fitid": "202201033",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -3000,
+                        "fitid": "202201034",
+                        "name": "Online Transfer 13363592737 to F",
+                        "memo": "idelity INDIVIDUAL - X8 ########"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -60,
+                        "fitid": "202201035",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "709047572   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -160,
+                        "fitid": "202201036",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "741380103   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-31T17:00:00.000Z",
+                        "amount": 5863.29,
+                        "fitid": "202112310",
+                        "name": "Bloomberg LP     PAYROLL",
+                        "memo": "PPD ID: 1133417984"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-31T17:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "202112311",
+                        "name": "PAYPAL           INST XFER  FACE",
+                        "memo": "BOOK FACEBO WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-30T17:00:00.000Z",
+                        "amount": -72,
+                        "fitid": "202112300",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "671051385   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-27T17:00:00.000Z",
+                        "amount": 74,
+                        "fitid": "202112270",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-12-27T17:00:00.000Z",
+                        "amount": -1446.03,
+                        "fitid": "202112271",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-12-27T17:00:00.000Z",
+                        "amount": -131.73,
+                        "fitid": "202112272",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-27T17:00:00.000Z",
+                        "amount": -100,
+                        "fitid": "202112273",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "603293195   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-27T17:00:00.000Z",
+                        "amount": -100,
+                        "fitid": "202112274",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "603934319   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": 183,
+                        "fitid": "202112240",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -2.35,
+                        "fitid": "202112241",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -2.35,
+                        "fitid": "202112242",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -4.35,
+                        "fitid": "202112243",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -8.35,
+                        "fitid": "202112230",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -6.35,
+                        "fitid": "202112231",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -1.35,
+                        "fitid": "202112232",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -4.35,
+                        "fitid": "202112210",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "202112211",
+                        "name": "PAYPAL           INST XFER  FACE",
+                        "memo": "BOOK FACEBO WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -128.9,
+                        "fitid": "202112200",
+                        "name": "CON ED OF NY     INTELL CK",
+                        "memo": "PPD ID: 2462467002"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -3498.4,
+                        "fitid": "202112201",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -96,
+                        "fitid": "202112202",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "202112203",
+                        "name": "Zelle payment to Murtaza  132652",
+                        "memo": "62447"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "202112204",
+                        "name": "Zelle payment to Murtaza  132652",
+                        "memo": "68853"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -4.35,
+                        "fitid": "202112205",
+                        "name": "PAYPAL           INST XFER  PARK",
+                        "memo": "MOBILE      WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-16T17:00:00.000Z",
+                        "amount": 120,
+                        "fitid": "202112160",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-15T17:00:00.000Z",
+                        "amount": 6499.35,
+                        "fitid": "202112150",
+                        "name": "Bloomberg LP     PAYROLL",
+                        "memo": "PPD ID: 1133417984"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-15T17:00:00.000Z",
+                        "amount": 260,
+                        "fitid": "202112151",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "OTHER",
+                        "datePosted": "2021-12-13T17:00:00.000Z",
+                        "amount": 300,
+                        "fitid": "202112130",
+                        "name": "Zelle payment from MIKHAIL IGNAT",
+                        "memo": "OV BACxstlmqs54"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-13T17:00:00.000Z",
+                        "amount": -32.54,
+                        "fitid": "202112131",
+                        "name": "PAYPAL           INST XFER  EBAY",
+                        "memo": "800-456-32 WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "CHECK",
+                        "datePosted": "2021-12-09T17:00:00.000Z",
+                        "amount": -1827,
+                        "fitid": "202112090",
+                        "name": "CHECK 384"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-08T17:00:00.000Z",
+                        "amount": -18.33,
+                        "fitid": "202112080",
+                        "name": "PAYPAL           INST XFER  DIGI",
+                        "memo": "TALOCEA     WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-08T17:00:00.000Z",
+                        "amount": -12.99,
+                        "fitid": "202112081",
+                        "name": "Spotify USA 877-7781161 NY",
+                        "memo": "12/08"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-07T17:00:00.000Z",
+                        "amount": 12.06,
+                        "fitid": "202112070",
+                        "name": "Barclays Bank De P2P        Meln",
+                        "memo": "ychuk,Ievge WEB ID: 9660830001"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-07T17:00:00.000Z",
+                        "amount": -4,
+                        "fitid": "202112071",
+                        "name": "PAYPAL           INST XFER  NY T",
+                        "memo": "IMES NYTIME WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-06T17:00:00.000Z",
+                        "amount": -22,
+                        "fitid": "202112060",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "179868670   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-06T17:00:00.000Z",
+                        "amount": -15,
+                        "fitid": "202112061",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "178956230   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-12-06T17:00:00.000Z",
+                        "amount": -360.99,
+                        "fitid": "202112062",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-06T17:00:00.000Z",
+                        "amount": -40,
+                        "fitid": "202112063",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "211810986   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-06T17:00:00.000Z",
+                        "amount": -7.98,
+                        "fitid": "202112064",
+                        "name": "CHASE CREDIT CRD AUTOPAY",
+                        "memo": "PPD ID: 4760039224"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-03T17:00:00.000Z",
+                        "amount": -1000,
+                        "fitid": "202112030",
+                        "name": "FID BKG SVC LLC  MONEYLINE",
+                        "memo": "PPD ID: 1035141383"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-30T17:00:00.000Z",
+                        "amount": 5546.89,
+                        "fitid": "202111300",
+                        "name": "Bloomberg LP     PAYROLL",
+                        "memo": "PPD ID: 1133417984"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-30T17:00:00.000Z",
+                        "amount": -3525.88,
+                        "fitid": "202111301",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-29T17:00:00.000Z",
+                        "amount": 55,
+                        "fitid": "202111290",
+                        "name": "Zelle payment from ANDRII KLYSHE",
+                        "memo": "IKO 13102354070"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-29T17:00:00.000Z",
+                        "amount": -35,
+                        "fitid": "202111291",
+                        "name": "VENMO            PAYMENT    1017",
+                        "memo": "076223987   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-24T17:00:00.000Z",
+                        "amount": 30,
+                        "fitid": "202111240",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-22T17:00:00.000Z",
+                        "amount": 40,
+                        "fitid": "202111220",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-22T17:00:00.000Z",
+                        "amount": -100,
+                        "fitid": "202111221",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "938775567   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-19T17:00:00.000Z",
+                        "amount": -26,
+                        "fitid": "202111190",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "891466864   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-18T17:00:00.000Z",
+                        "amount": 70.49,
+                        "fitid": "202111180",
+                        "name": "Apple Cash       TRANSFER   Zhen",
+                        "memo": "ia  Melnych WEB ID: 6192912998"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-17T17:00:00.000Z",
+                        "amount": 18.5,
+                        "fitid": "202111170",
+                        "name": "LIBERTY MUTUAL   PAYMENT",
+                        "memo": "PPD ID: 9267721101"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-17T17:00:00.000Z",
+                        "amount": -121.58,
+                        "fitid": "202111171",
+                        "name": "CON ED OF NY     INTELL CK",
+                        "memo": "PPD ID: 2462467002"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": 5458.46,
+                        "fitid": "202111150",
+                        "name": "Bloomberg LP     PAYROLL",
+                        "memo": "PPD ID: 1133417984"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": 37,
+                        "fitid": "202111151",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "ATM",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -102,
+                        "fitid": "202111152",
+                        "name": "NON-CHASE ATM WITHDRAW",
+                        "memo": "145481  11/1432 02 36T"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -4000,
+                        "fitid": "202111153",
+                        "name": "Online Transfer 13020105543 to F",
+                        "memo": "idelity INDIVIDUAL - X8 ########"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -2001.13,
+                        "fitid": "202111154",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -270,
+                        "fitid": "202111155",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "818325856   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "FEE",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -2.5,
+                        "fitid": "202111156",
+                        "name": "NON-CHASE ATM FEE-WITH"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-12T17:00:00.000Z",
+                        "amount": -130.73,
+                        "fitid": "202111120",
+                        "name": "WUVISAAFT 800-325-6000 CO",
+                        "memo": "11/10"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-10T17:00:00.000Z",
+                        "amount": 64.64,
+                        "fitid": "202111100",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CHECK",
+                        "datePosted": "2021-11-10T17:00:00.000Z",
+                        "amount": -1827,
+                        "fitid": "202111101",
+                        "name": "CHECK 383"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-09T17:00:00.000Z",
+                        "amount": 10.39,
+                        "fitid": "202111090",
+                        "name": "HSBCBK SV WEBXFR P2P        IEVG",
+                        "memo": "EN MELNYCHU WEB ID: 1770527921"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-09T17:00:00.000Z",
+                        "amount": -12.99,
+                        "fitid": "202111091",
+                        "name": "Spotify USA 877-7781161 NY",
+                        "memo": "11/08"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-09T17:00:00.000Z",
+                        "amount": -204.99,
+                        "fitid": "202111092",
+                        "name": "BARSUKOVA VIKTOR IAT PAYPAL 1016",
+                        "memo": "720312188   WEB ID: 770510487C"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-09T17:00:00.000Z",
+                        "amount": -52.5,
+                        "fitid": "202111093",
+                        "name": "BARSUKOVA VIKTOR IAT PAYPAL 1016",
+                        "memo": "720316108   WEB ID: 770510487C"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-09T17:00:00.000Z",
+                        "amount": -4,
+                        "fitid": "202111094",
+                        "name": "PAYPAL           INST XFER  NY T",
+                        "memo": "IMES NYTIME WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-08T17:00:00.000Z",
+                        "amount": 134.96,
+                        "fitid": "202111080",
+                        "name": "Cash Redemption"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-08T17:00:00.000Z",
+                        "amount": 128,
+                        "fitid": "202111081",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-08T17:00:00.000Z",
+                        "amount": 20,
+                        "fitid": "202111082",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-08T17:00:00.000Z",
+                        "amount": -100,
+                        "fitid": "202111083",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "660227794   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-05T16:00:00.000Z",
+                        "amount": 20,
+                        "fitid": "202111050",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-05T16:00:00.000Z",
+                        "amount": 10.18,
+                        "fitid": "202111051",
+                        "name": "Barclays Bank De P2P        Meln",
+                        "memo": "ychuk,Ievge WEB ID: 9660510001"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-05T16:00:00.000Z",
+                        "amount": -2000,
+                        "fitid": "202111052",
+                        "name": "Online Transfer 12950683061 to F",
+                        "memo": "idelity INDIVIDUAL - X8 ########"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-05T16:00:00.000Z",
+                        "amount": -9.51,
+                        "fitid": "202111053",
+                        "name": "PAYPAL           INST XFER  DIGI",
+                        "memo": "TALOCEA     WEB ID: PAYPALSI77"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-04T16:00:00.000Z",
+                        "amount": -195.2,
+                        "fitid": "202111040",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-04T16:00:00.000Z",
+                        "amount": -55,
+                        "fitid": "202111041",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": 1840.97,
+                        "fitid": "202111030",
+                        "name": "REMOTE ONLINE DEPOSIT #",
+                        "memo": "1"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": -664.86,
+                        "fitid": "202111031",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": -61.55,
+                        "fitid": "202111032",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-02T16:00:00.000Z",
+                        "amount": 6,
+                        "fitid": "202111020",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-02T16:00:00.000Z",
+                        "amount": -70,
+                        "fitid": "202111021",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "582733948   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-02T16:00:00.000Z",
+                        "amount": -22.05,
+                        "fitid": "202111022",
+                        "name": "BARSUKOVA VIKTOR IAT PAYPAL 1016",
+                        "memo": "594491990   WEB ID: 770510487C"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": 164,
+                        "fitid": "202111010",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": 120,
+                        "fitid": "202111011",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": 25,
+                        "fitid": "202111012",
+                        "name": "VENMO            CASHOUT",
+                        "memo": "PPD ID: 5264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": -271.1,
+                        "fitid": "202111013",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "519011013   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": -560.66,
+                        "fitid": "202111014",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "7983"
+                    },
+                    {
+                        "transactionType": "XFER",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": -2643.37,
+                        "fitid": "202111015",
+                        "name": "Payment to Chase card ending in",
+                        "memo": "1103"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-10-29T16:00:00.000Z",
+                        "amount": 5322.85,
+                        "fitid": "202110290",
+                        "name": "Bloomberg LP     PAYROLL",
+                        "memo": "PPD ID: 1133417984"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-29T16:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "202110291",
+                        "name": "HSBCBK SV WEBXFR TRANSFER   4039",
+                        "memo": "810925      WEB ID: 3770527921"
+                    },
+                    {
+                        "transactionType": "ATM",
+                        "datePosted": "2021-10-25T16:00:00.000Z",
+                        "amount": -103,
+                        "fitid": "202110250",
+                        "name": "NON-CHASE ATM WITHDRAW",
+                        "memo": "371589  10/233423 US 9"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-25T16:00:00.000Z",
+                        "amount": -207,
+                        "fitid": "202110251",
+                        "name": "VENMO            PAYMENT    1016",
+                        "memo": "414426610   WEB ID: 3264681992"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-29T17:00:00.000Z",
+                        "amount": -26.16,
+                        "fitid": "2021112924037241332900013696544",
+                        "name": "HYDRATE ELIXIR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": -38,
+                        "fitid": "2022010224269792002000540398134",
+                        "name": "H K HALL"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": -41.24,
+                        "fitid": "2022010224269792001500633750704",
+                        "name": "CANTINA ROOFTOP"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-30T17:00:00.000Z",
+                        "amount": -28.92,
+                        "fitid": "2021123024765011363010000547523",
+                        "name": "SAKE BAR HAGI 46."
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-28T16:00:00.000Z",
+                        "amount": -24.99,
+                        "fitid": "2021102824510721301100962342620",
+                        "name": "LYFT   *1 RIDE 10-26"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-28T17:00:00.000Z",
+                        "amount": -20,
+                        "fitid": "2021112824055221331091310000489",
+                        "name": "EAST OF MUSEUM OF SCIENC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-17T17:00:00.000Z",
+                        "amount": -60.68,
+                        "fitid": "2021121724510721351100231909869",
+                        "name": "LYFT   *2 RIDES 12-15"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-09-29T16:00:00.000Z",
+                        "amount": -111.9,
+                        "fitid": "2021092924460081271030021327590",
+                        "name": "SUZUKI SHOKUDO"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-09-29T16:00:00.000Z",
+                        "amount": -12.48,
+                        "fitid": "2021092924137461272001120658421",
+                        "name": "C-TOWN SUPERMARKET 041059"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-29T17:00:00.000Z",
+                        "amount": -78.68,
+                        "fitid": "2021112924510721333100388669855",
+                        "name": "LYFT   *4 RIDES 11-27"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-10T16:00:00.000Z",
+                        "amount": -39.6,
+                        "fitid": "2021101024164071281741233565714",
+                        "name": "FEDEX 284649985904"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -18.99,
+                        "fitid": "2021111524034541318001426455018",
+                        "name": "7-ELEVEN 33570"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-16T17:00:00.000Z",
+                        "amount": -35.62,
+                        "fitid": "2021111624760621320390000761305",
+                        "name": "NYC BAGEL &amp; COFFEE HOUSE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-16T17:00:00.000Z",
+                        "amount": -30,
+                        "fitid": "2021111624445001320000703072367",
+                        "name": "DUANE READE #14221"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-19T17:00:00.000Z",
+                        "amount": -156.4,
+                        "fitid": "2021111924943001322344901098989",
+                        "name": "AMERICAN AIR0017657734819"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-29T17:00:00.000Z",
+                        "amount": -18.44,
+                        "fitid": "2021112924037241332900013696262",
+                        "name": "HYDRATE ELIXIR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-15T17:00:00.000Z",
+                        "amount": -60.08,
+                        "fitid": "2021111524036281318030033709443",
+                        "name": "BUA THAI RAMEN &amp; ROBATA G"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-21T17:00:00.000Z",
+                        "amount": -285,
+                        "fitid": "2021112124692161324100178680229",
+                        "name": "MET OPERA"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-10T16:00:00.000Z",
+                        "amount": -10.88,
+                        "fitid": "2021101024943001283091087000787",
+                        "name": "WAVERLY WINES AND SPIRIT"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-13T16:00:00.000Z",
+                        "amount": -39.75,
+                        "fitid": "2021101324137461286001162947371",
+                        "name": "KEY FOOD 1620"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-24T17:00:00.000Z",
+                        "amount": 563.52,
+                        "fitid": "2021112474692161328100380069253",
+                        "name": "Chase Travel"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-09-29T16:00:00.000Z",
+                        "amount": -26.56,
+                        "fitid": "2021092924137461272001120658348",
+                        "name": "C-TOWN SUPERMARKET 041059"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": -113.27,
+                        "fitid": "2021110324445001306500351317673",
+                        "name": "FOOD BAZAAR #41"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-21T17:00:00.000Z",
+                        "amount": -50,
+                        "fitid": "2021112124445731324600109536226",
+                        "name": "BLOOMINGDALES  NEW YORK"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-21T17:00:00.000Z",
+                        "amount": -30.48,
+                        "fitid": "2021112124510721325100930118757",
+                        "name": "SQ *THE Q NYC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-03T17:00:00.000Z",
+                        "amount": -21.38,
+                        "fitid": "2022010324510722003100680474340",
+                        "name": "LYFT   *1 RIDE 01-01"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": 664.86,
+                        "fitid": "2021110323073071600055925363502",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-21T17:00:00.000Z",
+                        "amount": -9,
+                        "fitid": "2021112124510721325100885823849",
+                        "name": "SQ *THE Q NYC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -64.24,
+                        "fitid": "2021122124405981354900012900192",
+                        "name": "THE BUTCHER SHOP"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-15T16:00:00.000Z",
+                        "amount": -95.56,
+                        "fitid": "2021101524138291287802005562304",
+                        "name": "BED BATH &amp; BEYOND #565"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-22T16:00:00.000Z",
+                        "amount": -112.15,
+                        "fitid": "2021102224013391294002146467369",
+                        "name": "PSARI"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-16T17:00:00.000Z",
+                        "amount": -66.98,
+                        "fitid": "2021121624510721350100318656939",
+                        "name": "LYFT   *2 RIDES 12-14"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-20T16:00:00.000Z",
+                        "amount": -5.54,
+                        "fitid": "2021102024137461293001494544079",
+                        "name": "KEY FOOD 1620"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-11T16:00:00.000Z",
+                        "amount": -0.5,
+                        "fitid": "2021101124335491283900010159305",
+                        "name": "RIOC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-25T16:00:00.000Z",
+                        "amount": -30.66,
+                        "fitid": "2021102524510721298100640893064",
+                        "name": "LYFT   *1 RIDE 10-23"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": -4,
+                        "fitid": "2021122624755421359643590557897",
+                        "name": "SHOPPES AT WEST AVENUE GA"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-24T16:00:00.000Z",
+                        "amount": -1.7,
+                        "fitid": "2021102424510721297100921937284",
+                        "name": "LYFT   *CITIBIKE RIDES"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-29T17:00:00.000Z",
+                        "amount": 65.79,
+                        "fitid": "2021122924510721363100053571942",
+                        "name": "TRAVEL CREDIT $300/YEAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "2021122624510721359100319071907",
+                        "name": "LYFT   *CANCEL FEE"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-19T17:00:00.000Z",
+                        "amount": 11.98,
+                        "fitid": "2021121974510721352100860237909",
+                        "name": "SQ *NOONA NOODLES"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-14T17:00:00.000Z",
+                        "amount": -219.89,
+                        "fitid": "2021121424445001347500352393138",
+                        "name": "FOOD BAZAAR #41"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-15T17:00:00.000Z",
+                        "amount": -47.72,
+                        "fitid": "2021121524137461349001365164084",
+                        "name": "C-TOWN SUPERMARKET 041059"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-31T16:00:00.000Z",
+                        "amount": -240.53,
+                        "fitid": "2021103124733091303207138400500",
+                        "name": "36TH AVE WINE &amp; SPIRITS"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-28T17:00:00.000Z",
+                        "amount": -45.11,
+                        "fitid": "2021112824122541331744007591844",
+                        "name": "BP#1041600WOODLAWN BP"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-09T17:00:00.000Z",
+                        "amount": -306.81,
+                        "fitid": "2021120924943001343634001109834",
+                        "name": "AMERICAN AIR0012317419643"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-10T17:00:00.000Z",
+                        "amount": -65.75,
+                        "fitid": "2021121024510721344100035599940",
+                        "name": "LYFT   *2 RIDES 12-08"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-11T16:00:00.000Z",
+                        "amount": -36,
+                        "fitid": "2021101124000971283350709872484",
+                        "name": "THE SPOT BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -84.32,
+                        "fitid": "2021122424493981358091085000448",
+                        "name": "LA PARRILLA LIBERTY"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-12T16:00:00.000Z",
+                        "amount": -62.77,
+                        "fitid": "2021101224692161284100151533054",
+                        "name": "BROADWAY STATION"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-28T17:00:00.000Z",
+                        "amount": -8.77,
+                        "fitid": "2021112824431061332838000357692",
+                        "name": "HUDSONNEWS  ST855"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-03T17:00:00.000Z",
+                        "amount": -40.08,
+                        "fitid": "2021120324510721337100059198347",
+                        "name": "LYFT   *1 RIDE 12-01"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-31T17:00:00.000Z",
+                        "amount": -67.91,
+                        "fitid": "2021123124510721365100646468133",
+                        "name": "LYFT   *2 RIDES 12-29"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -27.96,
+                        "fitid": "2021122324239001356900016800023",
+                        "name": "NATHAN'S VIDEO BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -15.56,
+                        "fitid": "2021122424239001357900015000244",
+                        "name": "NATHAN'S VIDEO BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-08T17:00:00.000Z",
+                        "amount": -23.69,
+                        "fitid": "2021110824510721312100526436832",
+                        "name": "LYFT   *1 RIDE 11-06"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-08T17:00:00.000Z",
+                        "amount": -74.9,
+                        "fitid": "2021120824445001341500266897246",
+                        "name": "FOOD BAZAAR #41"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -6,
+                        "fitid": "2021122424755421358643581129350",
+                        "name": "SHOPPES AT WEST AVENUE GA"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -79.83,
+                        "fitid": "2021122424510721357100115716343",
+                        "name": "TST* Pura Vida - West Ave"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-12T17:00:00.000Z",
+                        "amount": -62.32,
+                        "fitid": "2021111224510721316100633603957",
+                        "name": "LYFT   *2 RIDES 11-10"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-05T17:00:00.000Z",
+                        "amount": -75.44,
+                        "fitid": "2021120524510721339100883960019",
+                        "name": "LYFT   *2 RIDES 12-03"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-19T17:00:00.000Z",
+                        "amount": -67.71,
+                        "fitid": "2021121924510721352100183231113",
+                        "name": "LYFT   *2 RIDES 12-16"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-25T16:00:00.000Z",
+                        "amount": -61,
+                        "fitid": "2021102524000971297408608337415",
+                        "name": "THE SPOT BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -4,
+                        "fitid": "2021122024210731354091000000015",
+                        "name": "MIAMIBCH PARKING METER"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-08T17:00:00.000Z",
+                        "amount": -0.99,
+                        "fitid": "2021110824431061311602020312649",
+                        "name": "9640 AMC ONLINE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-05T16:00:00.000Z",
+                        "amount": -110.7,
+                        "fitid": "2021100524445001277500353580638",
+                        "name": "FOOD BAZAAR #41"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-01T16:00:00.000Z",
+                        "amount": -2.5,
+                        "fitid": "2021110124248361304900018500829",
+                        "name": "RICO DELI GROCERY"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-05T17:00:00.000Z",
+                        "amount": -38.06,
+                        "fitid": "2021120524510721338100089746114",
+                        "name": "SQ *THE Q NYC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-04T16:00:00.000Z",
+                        "amount": -14.58,
+                        "fitid": "2021100424137461277001046856724",
+                        "name": "C-TOWN SUPERMARKET 041059"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-05T17:00:00.000Z",
+                        "amount": -2.48,
+                        "fitid": "2021120524510721339100884353222",
+                        "name": "LYFT   *CITIBIKE RIDES"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-06T17:00:00.000Z",
+                        "amount": -39.9,
+                        "fitid": "2021120624760621340390000659802",
+                        "name": "NYC BAGEL &amp; COFFEE HOUSE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-10T17:00:00.000Z",
+                        "amount": -42.51,
+                        "fitid": "2021111024510721314100048226602",
+                        "name": "LYFT   *1 RIDE 11-08"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-17T16:00:00.000Z",
+                        "amount": -76.05,
+                        "fitid": "2021101724510721290100509462512",
+                        "name": "LYFT   *2 RIDES 10-15"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-25T17:00:00.000Z",
+                        "amount": -55.06,
+                        "fitid": "2021112524137461329001532820174",
+                        "name": "NORDSTROM RACK #245"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-25T17:00:00.000Z",
+                        "amount": -10,
+                        "fitid": "2021112524445001329001207632558",
+                        "name": "VENTRA MOBILE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-14T17:00:00.000Z",
+                        "amount": -61.72,
+                        "fitid": "2021111424510721317100464557016",
+                        "name": "LYFT   *2 RIDES 11-11"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-22T17:00:00.000Z",
+                        "amount": -23.08,
+                        "fitid": "2021112224510721325100064163165",
+                        "name": "STARBUCKS STORE 11738"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-05T16:00:00.000Z",
+                        "amount": -2.75,
+                        "fitid": "2021100524510721278100340997441",
+                        "name": "MTA*NYCT PAYGO"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-14T17:00:00.000Z",
+                        "amount": -48.98,
+                        "fitid": "2021111424510721318100162099583",
+                        "name": "GNC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-14T17:00:00.000Z",
+                        "amount": -138,
+                        "fitid": "2021111424204291317000827865855",
+                        "name": "Nike Inc 365"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-05T17:00:00.000Z",
+                        "amount": -20.44,
+                        "fitid": "2022010524445002005000684325255",
+                        "name": "DUANE READE #14221"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-19T16:00:00.000Z",
+                        "amount": -9,
+                        "fitid": "2021101924000971291383305355570",
+                        "name": "CENTRAL PARK BOATHOUSE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-11T17:00:00.000Z",
+                        "amount": -72.18,
+                        "fitid": "2021111124510721315100833920566",
+                        "name": "LYFT   *2 RIDES 11-09"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-29T16:00:00.000Z",
+                        "amount": -52.48,
+                        "fitid": "2021102924510721302100747545108",
+                        "name": "LYFT   *2 RIDES 10-27"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-01T17:00:00.000Z",
+                        "amount": 59.7,
+                        "fitid": "2021120174510721334100644389953",
+                        "name": "THE HOME DEPOT 6177"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": -29.73,
+                        "fitid": "2021122624510721359100317757804",
+                        "name": "SQ *HUSH, LLC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-14T17:00:00.000Z",
+                        "amount": -27.66,
+                        "fitid": "2021111424510721318100279921323",
+                        "name": "LYFT   *1 RIDE 11-12"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-23T17:00:00.000Z",
+                        "amount": -40.18,
+                        "fitid": "2021112324492151326713834181373",
+                        "name": "SEAMLSSBAGELPOINT"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-23T17:00:00.000Z",
+                        "amount": -32.45,
+                        "fitid": "2021112324510721327100525765879",
+                        "name": "LYFT   *1 RIDE 11-21"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": -77.31,
+                        "fitid": "2021122624510721359100353225104",
+                        "name": "TST* Pura Vida - West Ave"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-01T17:00:00.000Z",
+                        "amount": -64.65,
+                        "fitid": "2021120124510721335100178469613",
+                        "name": "LYFT   *2 RIDES 11-29"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-22T17:00:00.000Z",
+                        "amount": -2,
+                        "fitid": "2021122224210731356091273000187",
+                        "name": "MIAMIBCH PARKING METER"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-22T17:00:00.000Z",
+                        "amount": -4,
+                        "fitid": "2021122224210731356091273000161",
+                        "name": "MIAMIBCH PARKING METER"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -6.27,
+                        "fitid": "2021122124210731355200464010118",
+                        "name": "PARKING PAY PHONE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-26T17:00:00.000Z",
+                        "amount": -48.21,
+                        "fitid": "2021112624071051329939128129780",
+                        "name": "RAGSTOCK 73 WATER TOWE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -15.15,
+                        "fitid": "2021122324445001357000966467730",
+                        "name": "PAS*PASSPT KEYWEST PR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-26T17:00:00.000Z",
+                        "amount": -27.6,
+                        "fitid": "2021112624445001330000252570983",
+                        "name": "XSPORT BROADWAY"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-26T16:00:00.000Z",
+                        "amount": -29.46,
+                        "fitid": "2021102624037611298900016301528",
+                        "name": "TOAST &amp; ROAST"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -25,
+                        "fitid": "2021122324323001356200500901057",
+                        "name": "KEY WEST ART &amp; HISTORIC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-12T17:00:00.000Z",
+                        "amount": -21.45,
+                        "fitid": "2021121224707521344030037294777",
+                        "name": "KABAB KING"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-12T17:00:00.000Z",
+                        "amount": -54.62,
+                        "fitid": "2021111224707521315030036172110",
+                        "name": "KABAB KING"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-23T17:00:00.000Z",
+                        "amount": -12.27,
+                        "fitid": "2021122324122541357744002876611",
+                        "name": "AMOCO#1207900SFM 516"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-05T17:00:00.000Z",
+                        "amount": -115,
+                        "fitid": "2022010524071052004627193938199",
+                        "name": "THE CLIFFS AT LONG ISL"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-09-28T16:00:00.000Z",
+                        "amount": -38.25,
+                        "fitid": "2021092824510721271100800447181",
+                        "name": "LYFT   *1 RIDE 09-26"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-07T17:00:00.000Z",
+                        "amount": -34.02,
+                        "fitid": "2021110724510721310100090516870",
+                        "name": "SQ *INDUSTRY BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-03T16:00:00.000Z",
+                        "amount": -1.57,
+                        "fitid": "2021100324510721276100840947674",
+                        "name": "LYFT   *CITIBIKE RIDES"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-10T17:00:00.000Z",
+                        "amount": -74.33,
+                        "fitid": "2021111024342851313017029020392",
+                        "name": "LILLY`S CRAFT &amp; KITCHEN"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-03T16:00:00.000Z",
+                        "amount": -49.4,
+                        "fitid": "2021100324733091274207138500643",
+                        "name": "36TH AVE WINE &amp; SPIRITS"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-03T16:00:00.000Z",
+                        "amount": -28.47,
+                        "fitid": "2021100324231681274837007407952",
+                        "name": "GULF OIL 92033124"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-04T16:00:00.000Z",
+                        "amount": -115,
+                        "fitid": "2021110424071051307627193544399",
+                        "name": "THE CLIFFS AT LONG ISL"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-04T16:00:00.000Z",
+                        "amount": -46.95,
+                        "fitid": "2021110424049551307900012400020",
+                        "name": "CENTRO PIZZA"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-25T16:00:00.000Z",
+                        "amount": -108.88,
+                        "fitid": "2021102524510721297100986327108",
+                        "name": "SQ *THE Q NYC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-31T16:00:00.000Z",
+                        "amount": -32.65,
+                        "fitid": "2021103124733091303207114900580",
+                        "name": "36TH AVE WINE &amp; SPIRITS"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-21T17:00:00.000Z",
+                        "amount": -91.76,
+                        "fitid": "2021122124493981355091081000361",
+                        "name": "LA PARRILLA LIBERTY"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-10-31T16:00:00.000Z",
+                        "amount": 2643.37,
+                        "fitid": "2021103123043041600055869662463",
+                        "name": "Payment Thank You-Mobile"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": -10.06,
+                        "fitid": "2021122624510721358100721241164",
+                        "name": "STARBUCKS STORE 08251"
+                    },
+                    {
+                        "transactionType": "FEE",
+                        "datePosted": "2021-10-01T16:00:00.000Z",
+                        "amount": -550,
+                        "fitid": "GEN20211001+0000550.00ANNUAL_MEMBERSH00000",
+                        "name": "ANNUAL MEMBERSHIP FEE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-24T16:00:00.000Z",
+                        "amount": -18.99,
+                        "fitid": "2021102424137461297600190442177",
+                        "name": "STEWARTS SHOP 362"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-31T16:00:00.000Z",
+                        "amount": -56.09,
+                        "fitid": "2021103124492151303713112426083",
+                        "name": "SEAMLSSKYOTO"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-11T16:00:00.000Z",
+                        "amount": -18,
+                        "fitid": "2021101124000971283350709871437",
+                        "name": "THE SPOT BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-15T17:00:00.000Z",
+                        "amount": -63.88,
+                        "fitid": "2021121524510721349100406673709",
+                        "name": "LYFT   *2 RIDES 12-13"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-29T17:00:00.000Z",
+                        "amount": -65.79,
+                        "fitid": "GEN20211229+0000065.79LYFT___*2_RIDES00000",
+                        "name": "LYFT   *2 RIDES 12-27"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-11-04T16:00:00.000Z",
+                        "amount": 195.2,
+                        "fitid": "2021110423083080900055951408474",
+                        "name": "Payment Thank You - Web"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-10T17:00:00.000Z",
+                        "amount": -67.93,
+                        "fitid": "2021121024510721344100845284659",
+                        "name": "FEMINA THREADING &amp; WAX"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-28T17:00:00.000Z",
+                        "amount": -14.8,
+                        "fitid": "2021112824510721331100694898638",
+                        "name": "LYFT   *1 RIDE 11-25"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-28T17:00:00.000Z",
+                        "amount": -64.57,
+                        "fitid": "2021112824231681330837001507270",
+                        "name": "JEWEL OSCO 3514"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-06T16:00:00.000Z",
+                        "amount": -13.34,
+                        "fitid": "2021100624510721279100111924243",
+                        "name": "LYFT   *CITIBIKE RIDES"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-26T17:00:00.000Z",
+                        "amount": -87.82,
+                        "fitid": "2021122624492151360745921234027",
+                        "name": "SEAMLSSKYOTO"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -5.13,
+                        "fitid": "2021122424164051357837004468335",
+                        "name": "EXXONMOBIL    96742192"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-22T17:00:00.000Z",
+                        "amount": -22.99,
+                        "fitid": "2021122224510721356100638220386",
+                        "name": "GNC"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-07T17:00:00.000Z",
+                        "amount": -46.4,
+                        "fitid": "2021120724765011340010000009811",
+                        "name": "TORIFUKU RAMEN"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2022-01-02T17:00:00.000Z",
+                        "amount": -57,
+                        "fitid": "2022010224269792002000540398050",
+                        "name": "H K HALL"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-24T17:00:00.000Z",
+                        "amount": -22.99,
+                        "fitid": "2021122424510721358100578127276",
+                        "name": "LYFT   *1 RIDE 12-22"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-09-29T16:00:00.000Z",
+                        "amount": -6.8,
+                        "fitid": "2021092924510721271100943541056",
+                        "name": "STARBUCKS STORE 07525"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-03T16:00:00.000Z",
+                        "amount": -12.74,
+                        "fitid": "2021110324510721306100969903924",
+                        "name": "STARBUCKS STORE 07525"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-08T17:00:00.000Z",
+                        "amount": -691.19,
+                        "fitid": "2021120824692161342100339092544",
+                        "name": "EXPEDIA 72211108086453"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-16T17:00:00.000Z",
+                        "amount": -144.41,
+                        "fitid": "2021111624445001319500567520206",
+                        "name": "FOOD BAZAAR #41"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-19T17:00:00.000Z",
+                        "amount": -186.4,
+                        "fitid": "2021111924717051322873223558436",
+                        "name": "DELTA AIR   0067657734822"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-19T17:00:00.000Z",
+                        "amount": -36.58,
+                        "fitid": "2021121924510721353100101761158",
+                        "name": "LYFT   *1 RIDE 12-17"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-31T17:00:00.000Z",
+                        "amount": -75.12,
+                        "fitid": "2021123124183101364900012900367",
+                        "name": "KARAKATTA"
+                    },
+                    {
+                        "transactionType": "CREDIT",
+                        "datePosted": "2021-12-05T17:00:00.000Z",
+                        "amount": 33.08,
+                        "fitid": "2021120574055231338846798803358",
+                        "name": "FOOT LOCKER - 07790"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-27T16:00:00.000Z",
+                        "amount": -68.27,
+                        "fitid": "2021102724510721300100183848174",
+                        "name": "LYFT   *2 RIDES 10-25"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-29T17:00:00.000Z",
+                        "amount": -15,
+                        "fitid": "2021112924037241332900014081985",
+                        "name": "HYDRATE ELIXIR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-22T17:00:00.000Z",
+                        "amount": -37.96,
+                        "fitid": "2021112224246661325900015100037",
+                        "name": "TACO DELI SPOT"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-05T17:00:00.000Z",
+                        "amount": -4.9,
+                        "fitid": "2021120524510721338100412243425",
+                        "name": "SQ *COFFEE PLUS CAKE"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-04T16:00:00.000Z",
+                        "amount": -71.1,
+                        "fitid": "2021100424692161277100408594213",
+                        "name": "SEPHORA 60TH &amp; LEXINGT"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-16T17:00:00.000Z",
+                        "amount": -39.71,
+                        "fitid": "2021111624510721320100832662212",
+                        "name": "LYFT   *1 RIDE 11-14"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-12-20T17:00:00.000Z",
+                        "amount": -51.51,
+                        "fitid": "2021122024492151354719256116172",
+                        "name": "DD DOORDASH RITEAID"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-19T17:00:00.000Z",
+                        "amount": -70.35,
+                        "fitid": "2021111924510721323100121156592",
+                        "name": "LYFT   *2 RIDES 11-17"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-18T17:00:00.000Z",
+                        "amount": -751.36,
+                        "fitid": "2021111824692161321100063166691",
+                        "name": "Chase Travel"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-10-24T16:00:00.000Z",
+                        "amount": -41.37,
+                        "fitid": "2021102424510721297100967177282",
+                        "name": "SQ *INDUSTRY BAR"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-30T17:00:00.000Z",
+                        "amount": -59.42,
+                        "fitid": "2021113024755421333173333830568",
+                        "name": "GERMAN GLASS CHRISTKINDL"
+                    },
+                    {
+                        "transactionType": "DEBIT",
+                        "datePosted": "2021-11-21T17:00:00.000Z",
+                        "amount": -66.5,
+                        "fitid": "2021112174149501324053397284128",
+                        "name": "FLORINA.KH.UA1"
+                    }
+                ],
+                "transactionsCount": 329,
+                "description": "CREDIT CARD",
+                "accountId": "4147202497281103"
+            },
+            "recordsPolled": 329,
+            "syncCompleted": "2022-01-07T04:29:58.525Z"
+        }
+    ]
+}

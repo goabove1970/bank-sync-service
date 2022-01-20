@@ -6,31 +6,31 @@ import { ReadAccountArgs } from "./accounts/ReadAccountArgs";
 import { Transaction } from "./transaction/Transaction";
 
 export class RequestBase {
-    action?: string;
-    args?: {} | AddTransactionsArgs;
+  action?: string;
+  args?: {} | AddTransactionsArgs;
 }
 
 export class AddTransactionsArgs {
-    transactions?: Transaction[];
-    accountId?: string;
+  transactions?: Transaction[];
+  accountId?: string;
 }
 
 export class ResponseBase {
-    action?: string;
-    payload?: {};
-    error?: string;
+  action?: string;
+  payload?: {};
+  error?: string;
 }
 
 export class AccountRequestBase extends RequestBase {
-    action?: AccountRequestType;
-    args?: ReadAccountArgs & AccountCreateArgs & AccountUpdateArgs;
+  declare action?: AccountRequestType;
+  declare args?: ReadAccountArgs & AccountCreateArgs & AccountUpdateArgs;
 }
 
 export class AccountResponseBase extends ResponseBase {
-    action?: AccountRequestType;
-    payload?: {
-        accounts?: AccountResponseModel[],
-        count?: number,
-        accountId?: string
-    };
+  declare action?: AccountRequestType;
+  declare payload?: {
+    accounts?: AccountResponseModel[];
+    count?: number;
+    accountId?: string;
+  };
 }

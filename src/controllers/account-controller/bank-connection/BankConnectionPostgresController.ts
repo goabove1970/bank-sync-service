@@ -3,6 +3,7 @@ import { Value } from 'ts-postgres';
 import { BankConnection } from '@root/src/models/bank-connection';
 import { BankConnectionStats } from '@root/src/models/bank-connection-stats';
 import logger from '@root/src/logger';
+import { inspect } from 'util';
 
 export class BankConnectionsPostgresController extends DatabaseController<
   BankConnection
@@ -20,7 +21,7 @@ export class BankConnectionsPostgresController extends DatabaseController<
         try {
           stats = JSON.parse(unescape(pollstats));
         } catch (error) {
-          logger.error(error.message || error);
+          logger.error(inspect(error));
         }
       }
 

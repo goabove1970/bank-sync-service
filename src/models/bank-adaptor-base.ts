@@ -1,15 +1,16 @@
-import { BankAdaptor } from "./bank-adaptor";
-import { ofxAccount } from "./ofx-account";
-import { AccountData } from "./account-data";
-import { ofxTransaction } from "./ofx-transaction";
-import moment = require("moment");
-import { ofxResponse } from "./ofx-response";
-import { ofxStatusData } from "./ofx-status-data";
-import { acctRqst, ccStatsRqst, bankStatsRqst } from "./request-builder";
-const fs = require("fs");
-var path = require("path");
-import * as https from "https";
-import logger from "../logger";
+import { BankAdaptor } from './bank-adaptor';
+import { ofxAccount } from './ofx-account';
+import { AccountData } from './account-data';
+import { ofxTransaction } from './ofx-transaction';
+import moment = require('moment');
+import { ofxResponse } from './ofx-response';
+import { ofxStatusData } from './ofx-status-data';
+import { acctRqst, ccStatsRqst, bankStatsRqst } from './request-builder';
+const fs = require('fs');
+var path = require('path');
+import * as https from 'https';
+import logger from '../logger';
+import { inspect } from 'util';
 
 export class BankAdaptorBase implements BankAdaptor {
   login: string;
@@ -25,9 +26,9 @@ export class BankAdaptorBase implements BankAdaptor {
   }
 
   static async removeOldFiles(): Promise<void> {
-    await this.clearOldFileUploads("./tmp/fileUploads", ".tmp")
+    await this.clearOldFileUploads('./tmp/fileUploads', '.tmp')
       .then(async () => {
-        await this.clearOldFileUploads(".", ".ofx").catch((e) => {
+        await this.clearOldFileUploads('.', '.ofx').catch((e) => {
           logger.error(
             `Error while removing old bank sync files ${e.message || e}`
           );
@@ -59,7 +60,7 @@ export class BankAdaptorBase implements BankAdaptor {
             } else {
               if (
                 files[i].indexOf(ext) !== -1 &&
-                moment(stats.mtimeMs).isBefore(moment().subtract(1, "hours"))
+                moment(stats.mtimeMs).isBefore(moment().subtract(1, 'hours'))
               ) {
                 filtered.push(files[i]);
               }
@@ -77,7 +78,7 @@ export class BankAdaptorBase implements BankAdaptor {
         try {
           fs.unlinkSync(filename);
         } catch (error) {
-          logger.error(error.message || error);
+          logger.error(inspect(error));
         }
       }
     }
@@ -86,18 +87,18 @@ export class BankAdaptorBase implements BankAdaptor {
 
   callBank(rqst: string): Promise<string> {
     const httpOptions = {
-      method: "POST",
-      hostname: "ofx.chase.com",
+      method: 'POST',
+      hostname: 'ofx.chase.com',
       headers: {
-        "Content-type": "application/x-ofx",
-        "content-length": Buffer.byteLength(rqst),
+        'Content-type': 'application/x-ofx',
+        'content-length': Buffer.byteLength(rqst),
       },
     };
 
     let res = new Promise<string>((resolve, reject) => {
       const req = https.request(httpOptions, (res) => {
         let buffer: Buffer;
-        res.on("data", (chunk: Buffer) => {
+        res.on('data', (chunk: Buffer) => {
           if (!buffer) {
             buffer = chunk;
           } else {
@@ -105,13 +106,13 @@ export class BankAdaptorBase implements BankAdaptor {
           }
         });
 
-        res.on("end", () => {
+        res.on('end', () => {
           const results = buffer.toString();
           resolve(results);
         });
       });
 
-      req.on("error", (err) => {
+      req.on('error', (err) => {
         console.error(`Error: ${err.message || err}`);
         reject(err);
       });
@@ -171,7 +172,7 @@ export class BankAdaptorBase implements BankAdaptor {
         accountId: acct.accountId,
       };
       const rqst =
-        acct.acctype === "CHECKING"
+        acct.acctype === 'CHECKING'
           ? bankStatsRqst(this.login, this.password, acct.accountId, 12)
           : ccStatsRqst(this.login, this.password, acct.accountId, 12);
       this.callBank(rqst)
@@ -182,7 +183,7 @@ export class BankAdaptorBase implements BankAdaptor {
             trnsMatch = re.exec(results);
             if (trnsMatch && trnsMatch.length) {
               trnsMatch.forEach((acctString) => {
-                if (acct.acctype === "CHECKING") {
+                if (acct.acctype === 'CHECKING') {
                   const data = extractDebitTransData(acctString);
                   acctData.transactions.push(data);
                 } else {
@@ -253,7 +254,7 @@ const extractCreditTransData = (str: string): ofxTransaction => {
   if (datePosted && datePosted.length && datePosted[0].length > 6) {
     let match = datePosted[0].substr(10);
     match = match.substring(0, match.length - 1);
-    acct.datePosted = moment(match, "YYYYMMDDhhmmss[hA]").toDate();
+    acct.datePosted = moment(match, 'YYYYMMDDhhmmss[hA]').toDate();
   }
   const amount = /<TRNAMT>.*?</gm.exec(str);
   if (amount && amount.length && amount[0].length > 6) {
@@ -289,7 +290,7 @@ const extractDebitTransData = (str: string): ofxTransaction => {
   if (datePosted && datePosted.length && datePosted[0].length > 6) {
     let match = datePosted[0].substr(10);
     match = match.substring(0, match.length - 1);
-    acct.datePosted = moment(match, "YYYYMMDDhhmmss[hA]").toDate();
+    acct.datePosted = moment(match, 'YYYYMMDDhhmmss[hA]').toDate();
   }
   const amount = /<TRNAMT>.*?</gm.exec(str);
   if (amount && amount.length && amount[0].length > 6) {
