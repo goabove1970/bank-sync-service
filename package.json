@@ -1,6 +1,6 @@
 {
   "name": "dinero-bank-manager",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "private": true,
   "scripts": {
     "start": "node ./dist/bin/www",
@@ -82,7 +82,7 @@
     "moment": "^2.24.0",
     "multiparty": "^4.2.1",
     "password-hash": "^1.2.2",
-    "ts-postgres": "^1.1.0",
+    "ts-postgres": "1.1.0",
     "tsc": "^1.20150623.0",
     "winston": "^3.2.1",
     "zip-folder": "^1.0.0"
