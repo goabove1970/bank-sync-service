@@ -16,6 +16,8 @@ interface BankResponseBase {
     connectionId?: string;
     userId?: string;
     connections?: BankConnection[];
+    users?: BankConnection[];
+    count?: number;
     bankSeverity?: string;
     bankMessage?: string;
     bankCode?: number;

@@ -15,6 +15,14 @@ export async function matchesReadArgs(args: BankSyncArgs): Promise<string> {
     conditions.push(`user_id = '${args.userId}'`);
   }
 
+  if (args.login) {
+    conditions.push(`login = '${args.login}'`);
+  }
+
+  if (args.bankName) {
+    conditions.push(`bank_name = '${args.bankName}'`);
+  }
+
   let finalSattement = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
   return finalSattement;

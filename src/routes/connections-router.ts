@@ -4,12 +4,12 @@ import {
   BankSyncRequestType,
 } from "./connections-request";
 import { Router } from "express";
-import { BankConnectionError } from "@root/src/models/errors";
 import { bankController } from "../controllers/bank-controller";
 import syncController from "../controllers/sync-controller";
 import scheduler from "../controllers/scheduler";
 import { ConnectionsRequestProcessor } from "./connections-request-proecessor";
 import accountController from "../controllers/account-controller";
+import { ErrorCode } from "../models/error-codes";
 
 const router = Router();
 
@@ -23,10 +23,17 @@ const processor = new ConnectionsRequestProcessor(
 const process = async function(req, res, next) {
   const bankSyncRequest = req.body as BankSyncRequest;
   if (!bankSyncRequest) {
-    return res.status(500).send(new BankConnectionError());
+    const errorResponse: BankConnectionResponse = {
+      action: undefined,
+      error: 'Invalid request: request body is required',
+      errorCode: ErrorCode.INVALID_REQUEST,
+    };
+    return res.status(400).send(errorResponse);
   }
 
-  let responseData: BankConnectionResponse = {};
+  let responseData: BankConnectionResponse = {
+    action: bankSyncRequest.action,
+  };
 
   switch (bankSyncRequest.action) {
     case BankSyncRequestType.AddBankConnection:
@@ -53,6 +60,14 @@ const process = async function(req, res, next) {
       responseData = await processor.processSyncBankConnectionsRequest(
         bankSyncRequest.args
       );
+      break;
+    default:
+      if (bankSyncRequest.action) {
+        responseData.error = `Invalid action: ${bankSyncRequest.action}`;
+      } else {
+        responseData.error = 'Invalid request: action is required';
+      }
+      responseData.errorCode = ErrorCode.INVALID_ACTION;
       break;
   }
 

@@ -17,6 +17,7 @@ A TypeScript-based microservice for managing bank connections and synchronizing 
 - npm or yarn
 - PostgreSQL database
 - TypeScript 4.9+
+- **Account Service** (external dependency) - This service requires an account management service to be running. See [Service Dependencies](#service-dependencies) below.
 
 ## Installation
 
@@ -31,17 +32,51 @@ cd bank-sync-service
 npm install
 ```
 
-3. Configure the application by editing `app.config.ts`:
-   - Update database connection settings (host, port, login, password, database)
-   - Configure API service settings (url, port)
+3. Set up the database:
+   
+   The service requires a PostgreSQL database. Set up the database schema using one of the following methods:
+   
+   **Option 1: Using the Node.js setup script (Recommended)**
+   ```bash
+   npm run db:setup
+   ```
+   
+   Or directly:
+   ```bash
+   node database/setup.js
+   ```
+   
+   The script uses the database configuration from `app.config.ts` (LOCAL_CONFIG for development). You can override with environment variables:
+   ```bash
+   DB_HOST=localhost DB_PORT=5432 DB_NAME=postgres DB_USER=postgres DB_PASSWORD=yourpassword npm run db:setup
+   ```
+   
+   **Option 2: Using the shell setup script (requires psql)**
+   ```bash
+   cd database
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+   
+   **Option 3: Manual setup with psql**
+   ```bash
+   psql -h localhost -U postgres -d postgres -f database/schema.sql
+   ```
+   
+   See `database/README.md` for detailed database setup instructions and troubleshooting.
 
-4. Set up the database:
-   - Create the database schema using SQL files in the `database/` directory:
-     - `common.sql`
-     - `bank-connections.sql`
-     - `copy-transactions.sql`
+4. Configure the application by editing `app.config.ts`:
+   - Update database connection settings (host, port, login, password, database) to match your database setup
+   - Configure API service settings (url, port) - this should point to your Account Service
+   - **Important**: The Account Service must be running for sync operations to work
 
-5. Build the project:
+5. Start the Account Service (if available):
+   - This service requires an external Account Service to be running
+   - Ensure the Account Service is accessible at the URL/port specified in `ApiServiceConfig`
+   - Without the Account Service, only read/update/delete bank connection operations will work
+   - See [Service Dependencies](#service-dependencies) for more details
+
+6. Build the project:
 ```bash
 npm run build
 ```
@@ -60,13 +95,22 @@ The application uses `app.config.ts` for configuration. Two configuration modes 
 
 ## Running the Application
 
+### Prerequisites Before Starting
+
+**Important**: Before starting the service, ensure:
+1. PostgreSQL database is running and the schema is set up (`npm run db:setup`)
+2. Account Service is running (required for sync operations)
+3. Database and Account Service connection details are correct in `app.config.ts`
+
 ### Development Mode
 
 ```bash
 npm run start-local
 ```
 
-This sets `NODE_ENV=development` and starts the server.
+This sets `NODE_ENV=development` and starts the server on port 9300.
+
+**Note**: If you get `ECONNREFUSED` errors when using sync operations, check that the Account Service is running at the configured URL/port.
 
 ### Production Mode
 
@@ -219,16 +263,24 @@ The project includes scripts for version bumping:
 - `npm run patch` - Bump patch version (e.g., 4.0.0 → 4.0.1)
 - `npm run minor` - Bump minor version (e.g., 4.0.0 → 4.1.0)
 - `npm run major` - Bump major version (e.g., 4.0.0 → 5.0.0)
+- `npm run db:setup` - Set up the database schema (creates tables and indexes)
 
 ## Database Schema
 
-The database schema is defined in SQL files in the `database/` directory. Key tables include:
+The service requires a PostgreSQL database with the `bank_connections` table. The database schema is defined in `database/schema.sql`.
 
-- Bank connections
-- Accounts
-- Transactions
+### Required Table
 
-Refer to the SQL files for the complete schema definition.
+- **bank_connections**: Stores bank connection credentials and synchronization status
+
+The schema includes:
+- Table definition with all required columns
+- Indexes for optimal query performance
+- Column comments for documentation
+
+For detailed database setup instructions, troubleshooting, and schema documentation, see `database/README.md`.
+
+**Note**: This service manages the `bank_connections` table directly. Account and transaction data are managed by a separate account service (configured via `ApiServiceConfig` in `app.config.ts`).
 
 ## Logging
 
@@ -238,12 +290,43 @@ The application uses Winston for logging. Logs are configured in `src/logger.ts`
 
 The application includes error handling middleware and custom error types defined in `src/models/errors/`.
 
+## Service Dependencies
+
+This service has dependencies on external services that must be running:
+
+### Account Service (Required)
+
+The Bank Sync Service depends on an external **Account Service** that manages user accounts and transactions. This service must be running and accessible for sync operations to work.
+
+**Configuration:**
+- Default location: `127.0.0.1:9000` (configured in `app.config.ts` via `ApiServiceConfig`)
+- Endpoints used:
+  - `GET /accounts` - Read accounts
+  - `POST /accounts` - Create accounts
+  - `POST /accounts` (action: assign-user) - Assign users to accounts
+
+**When the account service is not available:**
+- Operations that require account data (sync, add-bank-connection) will fail with `ECONNREFUSED` errors
+- Bank connection read/update/delete operations will still work (they only use the local database)
+
+**To use without the account service:**
+- You can only perform operations that don't require account data:
+  - `get-bank-connections` - Read bank connections
+  - `remove-bank-connection` - Delete a bank connection
+  - `update-bank-connection` - Update connection credentials (if not validating)
+- Sync operations and account creation require the account service
+
+### Transaction Service (Optional)
+
+Transaction import operations also require an external service at `/transactions` endpoint, but this is typically part of the same account service.
+
 ## Security Considerations
 
 - Database credentials are stored in `app.config.ts` - ensure this file is not committed to version control in production
 - Consider using environment variables for sensitive configuration
 - Passwords are stored but should be encrypted in production
 - The service uses CORS - configure appropriately for your environment
+- External service credentials and endpoints should be secured appropriately
 
 ## Contributing
 

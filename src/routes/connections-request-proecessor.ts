@@ -17,6 +17,7 @@ import logger from '../logger';
 import { toResponseBankConnection } from './connection-route-utils';
 import { SyncController } from '../controllers/sync-controller/sync-controller';
 import { inspect } from 'util';
+import { ErrorCode, getErrorCode } from '../models/error-codes';
 
 export class ConnectionsRequestProcessor {
   bankConnectionsControlelr: BankController;
@@ -54,7 +55,7 @@ export class ConnectionsRequestProcessor {
       )
     ) {
       response.error = `Bank connection ${args.bankName}:${args.login} already exists for user ${args.userId}`;
-      response.errorCode = 2026;
+      response.errorCode = ErrorCode.CONNECTION_ALREADY_EXISTS;
       return response;
     }
 
@@ -129,6 +130,10 @@ export class ConnectionsRequestProcessor {
     } catch (error) {
       console.error(inspect(error));
       response.error = inspect(error);
+      response.errorCode = getErrorCode(error);
+      if (!response.errorCode) {
+        response.errorCode = ErrorCode.ADD_CONNECTION_FAILED;
+      }
     }
     return response;
   }
@@ -146,18 +151,33 @@ export class ConnectionsRequestProcessor {
     try {
       let connections = await this.bankConnectionsControlelr.read({
         userId: args.userId,
+        connectionId: args.connectionId,
+        login: args.login,
+        bankName: args.bankName,
       });
-      connections = connections.map((c: BankConnection) => {
-        return toResponseBankConnection(c);
-      });
+      
+      // Filter out any null/undefined entries and map to response format
+      connections = connections
+        .filter((c: BankConnection) => c != null && c.connectionId != null)
+        .map((c: BankConnection) => {
+          return toResponseBankConnection(c);
+        });
+      
+      const validConnections = connections || [];
       response.payload = {
         ...response.payload,
-        connections,
+        connections: validConnections,
+        users: validConnections,
+        count: validConnections.length,
       };
       return response;
     } catch (error) {
       console.error(inspect(error));
       response.error = inspect(error);
+      response.errorCode = getErrorCode(error);
+      if (!response.errorCode) {
+        response.errorCode = ErrorCode.READ_CONNECTION_FAILED;
+      }
     }
     return response;
   }
@@ -180,7 +200,7 @@ export class ConnectionsRequestProcessor {
         const error = `Can not remove connection ${args.connectionId}, connection was not found, please check connectionId.`;
         logger.error(error);
         response.error = error;
-        response.errorCode = 2022;
+        response.errorCode = ErrorCode.CONNECTION_NOT_FOUND;
         return response;
       }
       const connection = connections[0];
@@ -195,6 +215,10 @@ export class ConnectionsRequestProcessor {
     } catch (error) {
       console.error(inspect(error));
       response.error = inspect(error);
+      response.errorCode = getErrorCode(error);
+      if (!response.errorCode) {
+        response.errorCode = ErrorCode.REMOVE_CONNECTION_FAILED;
+      }
     }
     return response;
   }
@@ -217,7 +241,7 @@ export class ConnectionsRequestProcessor {
         const error = `Can not update connection ${args.connectionId}, connection was not found, please check connectionId.`;
         logger.error(error);
         response.error = error;
-        response.errorCode = 2023;
+        response.errorCode = ErrorCode.CONNECTION_UPDATE_NOT_FOUND;
         return response;
       }
       const connection = connections[0];
@@ -268,6 +292,10 @@ export class ConnectionsRequestProcessor {
     } catch (error) {
       console.error(inspect(error));
       response.error = inspect(error);
+      response.errorCode = getErrorCode(error);
+      if (!response.errorCode) {
+        response.errorCode = ErrorCode.UPDATE_CONNECTION_FAILED;
+      }
     }
     return response;
   }
@@ -314,6 +342,10 @@ export class ConnectionsRequestProcessor {
     } catch (error) {
       console.error(inspect(error));
       response.error = inspect(error);
+      response.errorCode = getErrorCode(error);
+      if (!response.errorCode) {
+        response.errorCode = ErrorCode.SYNC_FAILED;
+      }
     }
     return response;
   }
